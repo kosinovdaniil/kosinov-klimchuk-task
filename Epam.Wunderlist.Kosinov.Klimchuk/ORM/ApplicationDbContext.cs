@@ -10,18 +10,24 @@ namespace ORM
         }
         
         public virtual DbSet<User> Users { get; set; }
-        public virtual DbSet<Goal> Goals { get; set; }
-        public virtual DbSet<GoalList> GoalLists { get; set; }
-        public virtual DbSet<GoalFolder> GoalFolders { get; set; }
+        public virtual DbSet<ToDoItem> Items { get; set; }
+        public virtual DbSet<ToDoList> Lists { get; set; }
+        public virtual DbSet<SubItem> SubItems { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<GoalFolder>()
-                .HasMany(e => e.GoalLists);
-            modelBuilder.Entity<GoalList>()
-                .HasMany(e => e.Goals);
             modelBuilder.Entity<User>()
-                .HasMany(e => e.GoalLists);
+                .HasMany(e => e.Lists)
+                .WithMany(e => e.Users);
+            modelBuilder.Entity<ToDoList>()
+                .HasMany(e => e.Items)
+                .WithRequired(e => e.List);
+            modelBuilder.Entity<ToDoItem>()
+                .HasMany(e => e.SubItems)
+                .WithRequired(e => e.BaseItem);
+            modelBuilder.Entity<ToDoItem>()
+                .HasMany(e => e.Files)
+                .WithRequired(e => e.BaseItem);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace BLL.Interface.Services
 {
     public interface ISignInService
     {
-        void IdentitySignin(UserEntity user, bool isPersistent = false);       
+        void IdentitySignin(BllUser user, bool isPersistent = false);       
 
         void IdentitySignout();
     }

@@ -15,7 +15,7 @@ namespace BLL.Services
 {
     public class SignInService : ISignInService
     {
-        public void IdentitySignin(UserEntity user, bool isPersistent = false)
+        public void IdentitySignin(BllUser user, bool isPersistent = false)
         {
             var claims = new List<Claim>();
 

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ORM
+namespace BLL.Interface.Entities
 {
-    public class Goal
+    public class BllToDoItem : IEntity
     {
         public int Id { get; set; }
 
@@ -22,6 +22,10 @@ namespace ORM
 
         public string Note { get; set; }
 
-        public string FileLink { get; set; }
+        public IList<BllSubItem> SubItems { get; set; }
+
+        public IList<BllFile> Files { get; set; }
+
+        public virtual int ListId { get; set; }
     }
 }

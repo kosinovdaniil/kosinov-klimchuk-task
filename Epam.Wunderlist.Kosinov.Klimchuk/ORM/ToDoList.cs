@@ -6,12 +6,16 @@ using System.Threading.Tasks;
 
 namespace ORM
 {
-    public class GoalFolder
+    public class ToDoList
     {
         public int Id { get; set; }
 
-        public virtual IList<GoalList> GoalLists { get; set; }
+        public virtual IList<ToDoItem> Items { get; set; }
+
+        public bool IsNotified { get; set; }
 
         public string Name { get; set; }
+
+        public virtual IList<int> UsersId { get; set; }
     }
 }

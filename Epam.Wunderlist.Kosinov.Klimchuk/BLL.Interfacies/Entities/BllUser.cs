@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 
-namespace DAL.Interface.DTO
+namespace BLL.Interface.Entities
 {
-    public class DalUser : IEntity
+    public class BllUser : IEntity
     {
         public int Id { get; set; }
 
@@ -14,6 +14,6 @@ namespace DAL.Interface.DTO
 
         public string Name { get; set; }
 
-        public virtual IList<DalToDoList> Lists { get; set; }
+        public virtual IList<BllToDoList> Lists { get; set; }
     }
 }

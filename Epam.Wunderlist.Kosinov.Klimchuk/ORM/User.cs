@@ -26,6 +26,6 @@ namespace ORM
 
         public string Name { get; set; }
 
-        public virtual IList<GoalList> GoalLists { get; set; }
+        public virtual IList<ToDoList> Lists { get; set; }
     }
 }

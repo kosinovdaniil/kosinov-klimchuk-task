@@ -83,5 +83,11 @@ namespace DAL.Concrete
                     original.Password = updatedUser.Password;
             }
         }
+
+        public DalUser GetByMail(string mail)
+        {
+            var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);
+            return ormuser?.ToDalUser();
+        }
     }
 }
