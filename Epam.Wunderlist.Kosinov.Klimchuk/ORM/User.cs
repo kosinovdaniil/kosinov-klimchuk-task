@@ -25,5 +25,7 @@ namespace ORM
         public string PhotoPath { get; set; }
 
         public string Name { get; set; }
+
+        public virtual IList<ToDoList> Lists { get; set; }
     }
 }

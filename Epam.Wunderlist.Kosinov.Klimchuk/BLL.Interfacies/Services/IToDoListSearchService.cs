@@ -2,7 +2,7 @@
 
 namespace BLL.Interface.Services
 {
-    public interface ITaskSearchService
+    public interface IToDoListSearchService
     {
         IEnumerable<int> Search(string input);
     }
