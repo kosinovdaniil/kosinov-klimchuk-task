@@ -1,15 +1,10 @@
-﻿using System;
+﻿using DAL.Interfacies.DTO;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Interface.DTO
 {
-    public class DalToDoList : IEntity
+    public class DalToDoList : DalEntity
     {
-        public int Id { get; set; }
-
         public virtual IList<int> ItemsId { get; set; }
 
         public bool IsNotified { get; set; }

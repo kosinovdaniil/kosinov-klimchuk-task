@@ -1,83 +1,61 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 using DAL.Interface.DTO;
-using DAL.Interface.Repository;
 using ORM;
-using System.Collections;
-using System.Threading.Tasks;
+using DAL.Mappers;
+using DAL.Interfacies.Repository;
 
 namespace DAL.Concrete
 {
-    public class ToDoListRepository : IRepository<DalToDoList>
+    public class ToDoListRepository : Repository<DalToDoList, ToDoList>, IToDoListRepository
     {
-        private readonly DbContext _context;
+        #region Constructor
+        public ToDoListRepository(DbContext context)
+            : base(context) { }
+        #endregion
 
-        public ToDoListRepository(DbContext uow)
-        {
-            this._context = uow;
-        }
-
-        public DalToDoList Create(DalToDoList e)
-        {
-            var item = e.ToOrmList();
-
-            item = _context.Set<ToDoList>().Add(item);
-            return item.ToDalList();
-        }
-
-        public void Delete(DalToDoList e)
+        #region Override methods
+        public override void Delete(DalToDoList e)
         {
             //TODO probably not necessary db access
             var list = e.ToOrmList();
-            list = _context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
+            list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
             foreach (var item in list.Items) // TODO DRY
             {
                 foreach (var file in item.Files) // TODO maybe cascade delete will do, dont know
                 {
-                    _context.Set<File>().Remove(file);
+                    context.Set<File>().Remove(file);
                 }
                 foreach (var subitems in item.SubItems)// try cascade delete
                 {
-                    _context.Set<SubItem>().Remove(subitems);
+                    context.Set<SubItem>().Remove(subitems);
                 }
-                _context.Set<ToDoItem>().Remove(item);
+                context.Set<ToDoItem>().Remove(item);
             }
 
             if (list != null)
             {
-                _context.Set<ToDoList>().Remove(list);
+                context.Set<ToDoList>().Remove(list);
             }
         }
+        #endregion
 
-        public IEnumerable<DalToDoList> GetAll()
+        #region Protected methods
+        protected override DalToDoList MapToDalEntity(ToDoList entity)
         {
-            return _context.Set<ToDoList>().ToList().Select(x => x.ToDalList());
+            return entity.ToDalList();
         }
 
-        public DalToDoList GetById(int key)
+        protected override ToDoList MapToEntity(DalToDoList dalEntity)
         {
-            var ormList = _context.Set<ToDoList>().First(x => x.Id == key);
-            return ormList.ToDalList();
-
+            return dalEntity.ToOrmList();
         }
 
-        public IEnumerable<DalToDoItem> GetByPredicate(Expression<Func<DalToDoItem, bool>> f)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Update(DalToDoList entity)
+        protected override void CopyEntityFields(DalToDoList source, ToDoList target)
         {
             throw new NotImplementedException();
         }
-
-        public IEnumerable<DalToDoList> GetByPredicate(Expression<Func<DalToDoList, bool>> f)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

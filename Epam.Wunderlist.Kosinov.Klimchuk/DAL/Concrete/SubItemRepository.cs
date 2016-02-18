@@ -9,58 +9,51 @@ using DAL.Interface.Repository;
 using ORM;
 using System.Collections;
 using System.Threading.Tasks;
+using DAL.Interfacies.Repository;
+using DAL.Mappers;
 
 namespace DAL.Concrete
 {
-    public class SubItemRepository : IRepository<DalSubItem>
+    public class SubItemRepository : Repository<DalSubItem, SubItem>, ISubItemRepository
     {
-        private readonly DbContext _context;
+        #region Constructor
+        public SubItemRepository(DbContext context)
+            : base(context) { }
+        #endregion
 
-        public SubItemRepository(DbContext uow)
-        {
-            this._context = uow;
-        }
+        #region Methods
 
-        public DalSubItem Create(DalSubItem e)
-        {
-            var item = e.ToOrmSubItem();
+        #endregion
 
-            item = _context.Set<SubItem>().Add(item);
-            return item.ToDalSubItem();
-        }
-
-        public void Delete(DalSubItem e)
+        #region Override methods
+        public override void Delete(DalSubItem e)
         {
             //TODO probably not necessary db access
             var item = e.ToOrmSubItem();
-            item = _context.Set<SubItem>().FirstOrDefault(x => x.Id == item.Id);
+            item = context.Set<SubItem>().FirstOrDefault(x => x.Id == item.Id);
 
             if (item != null)
             {
-                _context.Set<SubItem>().Remove(item);
+                context.Set<SubItem>().Remove(item);
             }
         }
+        #endregion
 
-        public IEnumerable<DalSubItem> GetAll()
+        #region Protected methods
+        protected override DalSubItem MapToDalEntity(SubItem entity)
         {
-            return _context.Set<SubItem>().ToList().Select(x => x.ToDalSubItem());
+            return entity.ToDalSubItem();
         }
 
-        public DalSubItem GetById(int key)
+        protected override SubItem MapToEntity(DalSubItem dalEntity)
         {
-            var ormItem = _context.Set<SubItem>().First(x => x.Id == key);
-            return ormItem.ToDalSubItem();
-
+            return dalEntity.ToOrmSubItem();
         }
 
-        public void Update(DalSubItem entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<DalSubItem> GetByPredicate(Expression<Func<DalSubItem, bool>> f)
+        protected override void CopyEntityFields(DalSubItem source, SubItem target)
         {
             throw new NotImplementedException();
         }
+        #endregion
     }
 }

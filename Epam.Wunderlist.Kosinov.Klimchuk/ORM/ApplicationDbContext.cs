@@ -1,7 +1,7 @@
+using System.Data.Entity;
+
 namespace ORM
 {
-    using System.Data.Entity;
-
     public partial class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext()
@@ -19,15 +19,23 @@ namespace ORM
             modelBuilder.Entity<User>()
                 .HasMany(e => e.Lists)
                 .WithMany(e => e.Users);
+
             modelBuilder.Entity<ToDoList>()
                 .HasMany(e => e.Items)
                 .WithRequired(e => e.List);
+
             modelBuilder.Entity<ToDoItem>()
                 .HasMany(e => e.SubItems)
                 .WithRequired(e => e.BaseItem);
+
             modelBuilder.Entity<ToDoItem>()
                 .HasMany(e => e.Files)
                 .WithRequired(e => e.BaseItem);
+        }
+
+        public void Dispose()
+        {
+            base.Dispose();
         }
     }
 }
