@@ -11,6 +11,6 @@ namespace BLL.Interface.Services
     {
         BllUser Get(string nameOrMail);
         IEnumerable<BllUser> GetAllUserEntities();
-        BllUser ValidateUser(string name, string password);
+        BllUser ValidateUser(string email, string password);
     }
 }

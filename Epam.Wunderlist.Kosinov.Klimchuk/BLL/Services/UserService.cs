@@ -61,9 +61,9 @@ namespace BLL.Services
             _uow.Commit();
         }
 
-        public BllUser ValidateUser(string name, string password)
+        public BllUser ValidateUser(string email, string password)
         {
-            var user = _userRepository.GetByName(name);
+            var user = _userRepository.GetByMail(email);
             if (user?.Password == password)
                 return user.ToBllUser();
             return null;
