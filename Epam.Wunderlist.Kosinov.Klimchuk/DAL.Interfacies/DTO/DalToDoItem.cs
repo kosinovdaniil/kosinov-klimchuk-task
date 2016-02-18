@@ -22,9 +22,9 @@ namespace DAL.Interface.DTO
 
         public string Note { get; set; }
 
-        public IList<DalSubItem> SubItems { get; set; }
+        public IList<int> SubItemsId { get; set; }
 
-        public IList<DalFile> Files { get; set; }
+        public IList<int> FilesId { get; set; }
 
         public virtual int ListId { get; set; }
     }

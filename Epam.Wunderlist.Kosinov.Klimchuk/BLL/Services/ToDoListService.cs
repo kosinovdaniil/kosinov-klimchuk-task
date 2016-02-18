@@ -15,43 +15,43 @@ namespace BLL.Services
 {
     public class ToDoListSerivce : ICrudService<BllToDoList>
     {
-        private readonly IUnitOfWork uow;
-        private readonly IRepository<DalToDoList> listRepository;
+        private readonly IUnitOfWork _uow;
+        private readonly IRepository<DalToDoList> _listRepository;
 
         public ToDoListSerivce(IUnitOfWork uow, IRepository<DalToDoList> repository)
         {
-            this.uow = uow;
-            this.listRepository = repository;
+            this._uow = uow;
+            this._listRepository = repository;
         }
 
         public IEnumerable<BllToDoList> GetAllItems()
         {
-            return listRepository.GetAll().Select(x => x.ToBllList());
+            return _listRepository.GetAll().Select(x => x.ToBllList());
         }
 
         public BllToDoList Get(int id)
         {
-            return listRepository.GetById(id).ToBllList();
+            return _listRepository.GetById(id).ToBllList();
         }
 
         public BllToDoList Create(BllToDoList entity)
         {
-            var temp = listRepository.Create(entity.ToDalList());
+            var temp = _listRepository.Create(entity.ToDalList());
             if (temp != null)
-                uow.Commit();
+                _uow.Commit();
             return temp?.ToBllList();
         }
 
         public void Update(BllToDoList entity)
         {
-            listRepository.Update(entity.ToDalList());
-            uow.Commit();
+            _listRepository.Update(entity.ToDalList());
+            _uow.Commit();
         }
 
         public void Delete(BllToDoList entity)
         {
-            listRepository.Delete(entity.ToDalList());
-            uow.Commit();
+            _listRepository.Delete(entity.ToDalList());
+            _uow.Commit();
         }
     }
 }

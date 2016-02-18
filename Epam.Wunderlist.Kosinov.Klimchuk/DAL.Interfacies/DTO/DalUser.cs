@@ -14,6 +14,6 @@ namespace DAL.Interface.DTO
 
         public string Name { get; set; }
 
-        public virtual IList<DalToDoList> Lists { get; set; }
+        public virtual IList<int> ListsId { get; set; }
     }
 }

@@ -14,6 +14,6 @@ namespace BLL.Interface.Entities
 
         public string Name { get; set; }
 
-        public virtual IList<BllToDoList> Lists { get; set; }
+        public virtual IList<int> ListsId { get; set; }
     }
 }

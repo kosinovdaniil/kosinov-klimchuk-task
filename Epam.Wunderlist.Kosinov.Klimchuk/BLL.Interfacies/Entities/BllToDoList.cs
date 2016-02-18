@@ -10,7 +10,7 @@ namespace BLL.Interface.Entities
     {
         public int Id { get; set; }
 
-        public virtual IList<BllToDoItem> Items { get; set; }
+        public virtual IList<int> ItemsId { get; set; }
 
         public bool IsNotified { get; set; }
 

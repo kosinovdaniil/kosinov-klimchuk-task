@@ -14,7 +14,7 @@ namespace BLL.Mappers
                 Name = e.Name,
                 Password = e.Password,
                 Email = e.Email,
-                Lists = e.Lists?.Select(x => x.ToBllList()).ToList(),
+                ListsId = e.ListsId,
                 PhotoPath = e.PhotoPath
             };
         }
@@ -26,7 +26,7 @@ namespace BLL.Mappers
                 Name = e.Name,
                 Password = e.Password,
                 Email = e.Email,
-                Lists = e.Lists?.Select(x => x.ToDalList()).ToList(),
+                ListsId = e.ListsId,
                 PhotoPath = e.PhotoPath
             };
         }
@@ -37,7 +37,7 @@ namespace BLL.Mappers
             {
                 Id = e.Id,
                 IsNotified = e.IsNotified,
-                Items = e.Items?.Select(x => x.ToDalItem()).ToList(),
+                ItemsId = e.ItemsId,
                 Name = e.Name,
                 UsersId = e.UsersId?.ToList()
             };
@@ -48,7 +48,7 @@ namespace BLL.Mappers
             {
                 Id = e.Id,
                 IsNotified = e.IsNotified,
-                Items = e.Items?.Select(x => x.ToBllUser()).ToList(),
+                ItemsId = e.ItemsId,
                 Name = e.Name,
                 UsersId = e.UsersId?.ToList()
             };
@@ -63,10 +63,10 @@ namespace BLL.Mappers
                 IsFavourited = e.IsFavourited,
                 AddingDate = e.AddingDate,
                 CompletionDate = e.CompletionDate,
-                Files = e.Files?.Select(x => x.ToDalFile()).ToList(),
+                FilesId = e.FilesId,
                 ListId = e.ListId,
                 Note = e.Note,
-                SubItems = e.SubItems?.Select(x => x.ToDalSubItem()).ToList(),
+                SubItemsId = e.SubItemsId,
                 Text = e.Text
             };
         }
@@ -79,10 +79,10 @@ namespace BLL.Mappers
                 IsFavourited = e.IsFavourited,
                 AddingDate = e.AddingDate,
                 CompletionDate = e.CompletionDate,
-                Files = e.Files?.Select(x => x.ToBllFile()).ToList(),
+                FilesId = e.FilesId,
                 ListId = e.ListId,
                 Note = e.Note,
-                SubItems = e.SubItems?.Select(x => x.ToBllSubItem()).ToList(),
+                SubItemsId = e.SubItemsId,
                 Text = e.Text
             };
         }

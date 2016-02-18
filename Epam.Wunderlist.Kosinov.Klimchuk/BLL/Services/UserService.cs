@@ -15,38 +15,38 @@ namespace BLL.Services
 {
     public class UserService : IUserService
     {
-        private readonly IUnitOfWork uow;
-        private readonly IUserRepository userRepository;
+        private readonly IUnitOfWork _uow;
+        private readonly IUserRepository _userRepository;
 
         public UserService(IUnitOfWork uow, IUserRepository repository)
         {
-            this.uow = uow;
-            this.userRepository = repository;
+            this._uow = uow;
+            this._userRepository = repository;
         }
 
         public BllUser Get(int id)
         {
-            return userRepository.GetById(id).ToBllUser();
+            return _userRepository.GetById(id).ToBllUser();
         }
         
         public IEnumerable<BllUser> GetAllUserEntities()
         {
-            return userRepository.GetAll().Select(user => user.ToBllUser());
+            return _userRepository.GetAll().Select(user => user.ToBllUser());
         }
 
         public BllUser Create(BllUser user)
         {
-            var temp = userRepository.Create(user.ToDalUser());
+            var temp = _userRepository.Create(user.ToDalUser());
             if (temp != null)
-                uow.Commit();
+                _uow.Commit();
             return temp?.ToBllUser();
         }
 
 
         public void Delete(BllUser user)
         {
-            userRepository.Delete(user.ToDalUser());
-            uow.Commit();
+            _userRepository.Delete(user.ToDalUser());
+            _uow.Commit();
         }
 
         public IEnumerable<BllUser> GetUsersByPredicate(Expression<Func<BllUser, bool>> f)
@@ -57,13 +57,13 @@ namespace BLL.Services
 
         public void Update(BllUser user)
         {
-            userRepository.Update(user.ToDalUser());
-            uow.Commit();
+            _userRepository.Update(user.ToDalUser());
+            _uow.Commit();
         }
 
         public BllUser ValidateUser(string name, string password)
         {
-            var user = userRepository.GetByName(name);
+            var user = _userRepository.GetByName(name);
             if (user?.Password == password)
                 return user.ToBllUser();
             return null;
@@ -71,7 +71,7 @@ namespace BLL.Services
 
         public BllUser Get(string name)
         {
-            return userRepository.GetByName(name).ToBllUser();
+            return _userRepository.GetByName(name).ToBllUser();
         }
 
     }

@@ -22,9 +22,9 @@ namespace BLL.Interface.Entities
 
         public string Note { get; set; }
 
-        public IList<BllSubItem> SubItems { get; set; }
+        public IList<int> SubItemsId { get; set; }
 
-        public IList<BllFile> Files { get; set; }
+        public IList<int> FilesId { get; set; }
 
         public virtual int ListId { get; set; }
     }

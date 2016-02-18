@@ -14,18 +14,18 @@ namespace DAL.Concrete
 {
     public class ToDoListRepository : IRepository<DalToDoList>
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         public ToDoListRepository(DbContext uow)
         {
-            this.context = uow;
+            this._context = uow;
         }
 
         public DalToDoList Create(DalToDoList e)
         {
             var item = e.ToOrmList();
 
-            item = context.Set<ToDoList>().Add(item);
+            item = _context.Set<ToDoList>().Add(item);
             return item.ToDalList();
         }
 
@@ -33,34 +33,34 @@ namespace DAL.Concrete
         {
             //TODO probably not necessary db access
             var list = e.ToOrmList();
-            list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
+            list = _context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
             foreach (var item in list.Items) // TODO DRY
             {
                 foreach (var file in item.Files) // TODO maybe cascade delete will do, dont know
                 {
-                    context.Set<File>().Remove(file);
+                    _context.Set<File>().Remove(file);
                 }
                 foreach (var subitems in item.SubItems)// try cascade delete
                 {
-                    context.Set<SubItem>().Remove(subitems);
+                    _context.Set<SubItem>().Remove(subitems);
                 }
-                context.Set<ToDoItem>().Remove(item);
+                _context.Set<ToDoItem>().Remove(item);
             }
 
             if (list != null)
             {
-                context.Set<ToDoList>().Remove(list);
+                _context.Set<ToDoList>().Remove(list);
             }
         }
 
         public IEnumerable<DalToDoList> GetAll()
         {
-            return context.Set<ToDoList>().ToList().Select(x => x.ToDalList());
+            return _context.Set<ToDoList>().ToList().Select(x => x.ToDalList());
         }
 
         public DalToDoList GetById(int key)
         {
-            var ormList = context.Set<ToDoList>().First(x => x.Id == key);
+            var ormList = _context.Set<ToDoList>().First(x => x.Id == key);
             return ormList.ToDalList();
 
         }

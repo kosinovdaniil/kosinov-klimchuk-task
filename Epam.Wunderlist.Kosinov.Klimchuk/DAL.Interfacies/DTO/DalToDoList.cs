@@ -10,7 +10,7 @@ namespace DAL.Interface.DTO
     {
         public int Id { get; set; }
 
-        public virtual IList<DalToDoItem> Items { get; set; }
+        public virtual IList<int> ItemsId { get; set; }
 
         public bool IsNotified { get; set; }
 

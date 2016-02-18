@@ -14,31 +14,31 @@ namespace DAL.Concrete
 {
     public class UserRepository : IUserRepository
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         private bool UserExists(string username)
         {
-            return context.Set<User>().Any(x => x.Name == username);
+            return _context.Set<User>().Any(x => x.Name == username);
         }
         public UserRepository(DbContext uow)
         {
-            this.context = uow;
+            _context = uow;
         }
 
         public IEnumerable<DalUser> GetAll()
         {
-            return context.Set<User>().ToList().Select(user => user.ToDalUser());
+            return _context.Set<User>().ToList().Select(user => user.ToDalUser());
         }
 
         public DalUser GetById(int key)
         {
-            var ormuser = context.Set<User>().First(user => user.Id == key);
+            var ormuser = _context.Set<User>().First(user => user.Id == key);
             return ormuser.ToDalUser();
         }
 
         public DalUser GetByName(string name)
         {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Name == name);
+            var ormuser = _context.Set<User>().FirstOrDefault(user => user.Name == name);
             return ormuser?.ToDalUser();
         }
 
@@ -54,25 +54,25 @@ namespace DAL.Concrete
                 return null;
             var user = e.ToOrmUser();
            
-            user = context.Set<User>().Add(user);
+            user = _context.Set<User>().Add(user);
             return user.ToDalUser();
         }
 
         public void Delete(DalUser e)
         {
             var user = e.ToOrmUser();
-            user = context.Set<User>().FirstOrDefault(u => u.Id == user.Id);
+            user = _context.Set<User>().FirstOrDefault(u => u.Id == user.Id);
             if (user != null)
             {
                 //TODO delete all plans for this user
-                context.Set<User>().Remove(user);
+                _context.Set<User>().Remove(user);
             }
 
         }
 
         public void Update(DalUser entity)
         {
-            var original = context.Set<User>().FirstOrDefault(u => u.Id == entity.Id);
+            var original = _context.Set<User>().FirstOrDefault(u => u.Id == entity.Id);
             if (original != null)
             {
                 var updatedUser = entity.ToOrmUser();
@@ -86,7 +86,7 @@ namespace DAL.Concrete
 
         public DalUser GetByMail(string mail)
         {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);
+            var ormuser = _context.Set<User>().FirstOrDefault(user => user.Email == mail);
             return ormuser?.ToDalUser();
         }
     }

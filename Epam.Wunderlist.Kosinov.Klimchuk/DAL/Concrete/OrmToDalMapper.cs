@@ -17,8 +17,7 @@ namespace DAL.Interface.DTO
                 Name = e.Name,
                 Password = e.Password,
                 Email = e.Email,
-                Lists = e.Lists?.Select(x => x.ToOrmList()).ToList(),
-                PhotoPath = e.PhotoPath
+                PhotoPath = e.PhotoPath //TODO add lists if needed
             };
         }
         public static DalUser ToDalUser(this User e)
@@ -29,7 +28,7 @@ namespace DAL.Interface.DTO
                 Name = e.Name,
                 Password = e.Password,
                 Email = e.Email,
-                Lists = e.Lists?.Select(x => x.ToDalList()).ToList(),
+                ListsId = e.Lists?.Select(x => x.Id).ToList(),
                 PhotoPath = e.PhotoPath
             };
         }
@@ -40,9 +39,8 @@ namespace DAL.Interface.DTO
             {
                 Id = e.Id,
                 IsNotified = e.IsNotified,
-                Items = e.Items?.Select(x => x.ToDalItem()).ToList(),
                 Name = e.Name,
-                UsersId = e.UsersId?.ToList()
+                UsersId = e.Users?.Select(x => x.Id).ToList()
             };
         }
         public static ToDoList ToOrmList(this DalToDoList e)
@@ -51,9 +49,7 @@ namespace DAL.Interface.DTO
             {
                 Id = e.Id,
                 IsNotified = e.IsNotified,
-                Items = e.Items?.Select(x => x.ToOrmItem()).ToList(),
                 Name = e.Name,
-                UsersId = e.UsersId?.ToList()
             };
         }
 
@@ -66,10 +62,10 @@ namespace DAL.Interface.DTO
                 IsFavourited = e.IsFavourited,
                 AddingDate = e.AddingDate,
                 CompletionDate = e.CompletionDate,
-                Files = e.Files?.Select(x => x.ToDalFile()).ToList(),
-                ListId = e.ListId,
+                FilesId = e.Files?.Select(x => x.Id).ToList(),
+                ListId = e.List.Id,
                 Note = e.Note,
-                SubItems = e.SubItems?.Select(x => x.ToDalSubItem()).ToList(),
+                SubItemsId = e.SubItems?.Select(x => x.Id).ToList(),
                 Text = e.Text
             };
         }
@@ -82,10 +78,7 @@ namespace DAL.Interface.DTO
                 IsFavourited = e.IsFavourited,
                 AddingDate = e.AddingDate,
                 CompletionDate = e.CompletionDate,
-                Files = e.Files?.Select(x => x.ToOrmFile()).ToList(),
-                ListId = e.ListId,
                 Note = e.Note,
-                SubItems = e.SubItems?.Select(x => x.ToOrmSubItem()).ToList(),
                 Text = e.Text
             };
         }
@@ -95,7 +88,7 @@ namespace DAL.Interface.DTO
             return new DalFile()
             {
                 AddingDate = e.AddingDate,
-                BaseItemId = e.BaseItemId,
+                BaseItemId = e.BaseItem.Id,
                 Id = e.Id,
                 Name = e.Name,
                 Path = e.Path,
@@ -107,7 +100,6 @@ namespace DAL.Interface.DTO
             return new File()
             {
                 AddingDate = e.AddingDate,
-                BaseItemId = e.BaseItemId,
                 Id = e.Id,
                 Name = e.Name,
                 Path = e.Path,
@@ -119,7 +111,7 @@ namespace DAL.Interface.DTO
         {
             return new DalSubItem()
             {
-                BaseItemId = e.BaseItemId,
+                BaseItemId = e.BaseItem.Id,
                 Id = e.Id,
                 IsCompleted = e.IsCompleted,
                 Text = e.Text
@@ -129,7 +121,6 @@ namespace DAL.Interface.DTO
         {
             return new SubItem()
             {
-                BaseItemId = e.BaseItemId,
                 Id = e.Id,
                 IsCompleted = e.IsCompleted,
                 Text = e.Text

@@ -15,43 +15,43 @@ namespace BLL.Services
 {
     public class SubItemService : ICrudService<BllSubItem>
     {
-        private readonly IUnitOfWork uow;
-        private readonly IRepository<DalSubItem> itemRepository;
+        private readonly IUnitOfWork _uow;
+        private readonly IRepository<DalSubItem> _itemRepository;
 
         public SubItemService(IUnitOfWork uow, IRepository<DalSubItem> repository)
         {
-            this.uow = uow;
-            this.itemRepository = repository;
+            this._uow = uow;
+            this._itemRepository = repository;
         }
 
         public IEnumerable<BllSubItem> GetAllItems()
         {
-            return itemRepository.GetAll().Select(x => x.ToBllSubItem());
+            return _itemRepository.GetAll().Select(x => x.ToBllSubItem());
         }
 
         public BllSubItem Get(int id)
         {
-            return itemRepository.GetById(id).ToBllSubItem();
+            return _itemRepository.GetById(id).ToBllSubItem();
         }
 
         public BllSubItem Create(BllSubItem entity)
         {
-            var temp = itemRepository.Create(entity.ToDalSubItem());
+            var temp = _itemRepository.Create(entity.ToDalSubItem());
             if (temp != null)
-                uow.Commit();
+                _uow.Commit();
             return temp?.ToBllSubItem();
         }
 
         public void Update(BllSubItem entity)
         {
-            itemRepository.Update(entity.ToDalSubItem());
-            uow.Commit();
+            _itemRepository.Update(entity.ToDalSubItem());
+            _uow.Commit();
         }
 
         public void Delete(BllSubItem entity)
         {
-            itemRepository.Delete(entity.ToDalSubItem());
-            uow.Commit();
+            _itemRepository.Delete(entity.ToDalSubItem());
+            _uow.Commit();
         }
     }
 }

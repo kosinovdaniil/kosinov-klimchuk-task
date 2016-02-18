@@ -14,6 +14,6 @@ namespace ORM
         
         public bool IsCompleted { get; set; }
 
-        public int BaseItemId { get; set; }
+        public ToDoItem BaseItem { get; set; }
     }
 }

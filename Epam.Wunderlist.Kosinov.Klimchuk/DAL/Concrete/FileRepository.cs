@@ -14,18 +14,18 @@ namespace DAL.Concrete
 {
     public class FileRepository : IRepository<DalFile>
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         public FileRepository(DbContext uow)
         {
-            this.context = uow;
+            this._context = uow;
         }
 
         public DalFile Create(DalFile e)
         {
             var file = e.ToOrmFile();
 
-            file = context.Set<File>().Add(file);
+            file = _context.Set<File>().Add(file);
             return file.ToDalFile();
         }
 
@@ -33,22 +33,22 @@ namespace DAL.Concrete
         {
             //TODO probably not necessary db access
             var file = e.ToOrmFile();
-            file = context.Set<File>().FirstOrDefault(x => x.Id == file.Id);
+            file = _context.Set<File>().FirstOrDefault(x => x.Id == file.Id);
 
             if (file != null)
             {
-                context.Set<File>().Remove(file);
+                _context.Set<File>().Remove(file);
             }
         }
 
         public IEnumerable<DalFile> GetAll()
         {
-            return context.Set<File>().ToList().Select(x => x.ToDalFile());
+            return _context.Set<File>().ToList().Select(x => x.ToDalFile());
         }
 
         public DalFile GetById(int key)
         {
-            var ormFile = context.Set<File>().First(x => x.Id == key);
+            var ormFile = _context.Set<File>().First(x => x.Id == key);
             return ormFile.ToDalFile();
 
         }

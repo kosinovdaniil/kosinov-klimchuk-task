@@ -16,6 +16,6 @@ namespace ORM
 
         public string Name { get; set; }
 
-        public virtual IList<int> UsersId { get; set; }
+        public virtual IList<User> Users { get; set; }
     }
 }

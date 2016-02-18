@@ -14,18 +14,18 @@ namespace DAL.Concrete
 {
     public class SubItemRepository : IRepository<DalSubItem>
     {
-        private readonly DbContext context;
+        private readonly DbContext _context;
 
         public SubItemRepository(DbContext uow)
         {
-            this.context = uow;
+            this._context = uow;
         }
 
         public DalSubItem Create(DalSubItem e)
         {
             var item = e.ToOrmSubItem();
 
-            item = context.Set<SubItem>().Add(item);
+            item = _context.Set<SubItem>().Add(item);
             return item.ToDalSubItem();
         }
 
@@ -33,22 +33,22 @@ namespace DAL.Concrete
         {
             //TODO probably not necessary db access
             var item = e.ToOrmSubItem();
-            item = context.Set<SubItem>().FirstOrDefault(x => x.Id == item.Id);
+            item = _context.Set<SubItem>().FirstOrDefault(x => x.Id == item.Id);
 
             if (item != null)
             {
-                context.Set<SubItem>().Remove(item);
+                _context.Set<SubItem>().Remove(item);
             }
         }
 
         public IEnumerable<DalSubItem> GetAll()
         {
-            return context.Set<SubItem>().ToList().Select(x => x.ToDalSubItem());
+            return _context.Set<SubItem>().ToList().Select(x => x.ToDalSubItem());
         }
 
         public DalSubItem GetById(int key)
         {
-            var ormItem = context.Set<SubItem>().First(x => x.Id == key);
+            var ormItem = _context.Set<SubItem>().First(x => x.Id == key);
             return ormItem.ToDalSubItem();
 
         }

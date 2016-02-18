@@ -26,6 +26,6 @@ namespace ORM
 
         public IList<File> Files { get; set; }
 
-        public virtual int ListId { get; set; }
+        public virtual ToDoList List { get; set; }
     }
 }

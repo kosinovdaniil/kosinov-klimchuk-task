@@ -15,43 +15,43 @@ namespace BLL.Services
 {
     public class FileService : ICrudService<BllFile>
     {
-        private readonly IUnitOfWork uow;
-        private readonly IRepository<DalFile> fileRepository;
+        private readonly IUnitOfWork _uow;
+        private readonly IRepository<DalFile> _fileRepository;
 
         public FileService(IUnitOfWork uow, IRepository<DalFile> repository)
         {
-            this.uow = uow;
-            this.fileRepository = repository;
+            this._uow = uow;
+            this._fileRepository = repository;
         }
 
         public IEnumerable<BllFile> GetAllItems()
         {
-            return fileRepository.GetAll().Select(x => x.ToBllFile());
+            return _fileRepository.GetAll().Select(x => x.ToBllFile());
         }
 
         public BllFile Get(int id)
         {
-            return fileRepository.GetById(id).ToBllFile();
+            return _fileRepository.GetById(id).ToBllFile();
         }
 
         public BllFile Create(BllFile entity)
         {
-            var temp = fileRepository.Create(entity.ToDalFile());
+            var temp = _fileRepository.Create(entity.ToDalFile());
             if (temp != null)
-                uow.Commit();
+                _uow.Commit();
             return temp?.ToBllFile();
         }
 
         public void Update(BllFile entity)
         {
-            fileRepository.Update(entity.ToDalFile());
-            uow.Commit();
+            _fileRepository.Update(entity.ToDalFile());
+            _uow.Commit();
         }
 
         public void Delete(BllFile entity)
         {
-            fileRepository.Delete(entity.ToDalFile());
-            uow.Commit();
+            _fileRepository.Delete(entity.ToDalFile());
+            _uow.Commit();
         }
     }
 }

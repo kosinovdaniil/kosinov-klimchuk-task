@@ -14,7 +14,7 @@ namespace ORM
 
         public string Path { get; set; }
 
-        public virtual int BaseItemId { get; set; }
+        public virtual ToDoItem BaseItem { get; set; }
 
         public virtual int UserId { get; set; }
 
