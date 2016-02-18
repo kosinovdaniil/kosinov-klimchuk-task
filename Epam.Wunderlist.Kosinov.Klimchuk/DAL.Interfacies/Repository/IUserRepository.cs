@@ -1,5 +1,4 @@
 ﻿using DAL.Interface.DTO;
-using System.Collections.Generic;
 
 namespace DAL.Interface.Repository
 {

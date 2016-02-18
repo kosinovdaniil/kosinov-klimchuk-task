@@ -48,13 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DTO\DalEntity.cs" />
     <Compile Include="DTO\DalUser.cs" />
     <Compile Include="DTO\DalFile.cs" />
-    <Compile Include="DTO\IEntity.cs" />
     <Compile Include="DTO\DalSubItem.cs" />
     <Compile Include="DTO\DalToDoItem.cs" />
     <Compile Include="DTO\DalToDoList.cs" />
+    <Compile Include="Repository\IFileRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\ISubItemRepository.cs" />
+    <Compile Include="Repository\IToDoListRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
