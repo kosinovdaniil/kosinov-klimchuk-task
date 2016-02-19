@@ -1,57 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
-using BLL.Interface.Entities;
-using BLL.Interface.Services;
+﻿using BLL.Interface.Entities;
 using BLL.Mappers;
-using BLL;
 using DAL.Interface.Repository;
 using DAL.Interface.DTO;
-using System.Threading.Tasks;
+using BLL.Interfacies.Services;
 
 namespace BLL.Services
 {
-    public class FileService : ICrudService<BllFile>
+    public class FileService : Service<BllFile, DalFile>, IFileService
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IRepository<DalFile> _fileRepository;
-
+        #region Constructor
         public FileService(IUnitOfWork uow, IRepository<DalFile> repository)
+            : base(uow, repository) { }
+        #endregion
+
+        #region Protected methods
+        protected override DalFile MapToDalEntity(BllFile entity)
         {
-            this._uow = uow;
-            this._fileRepository = repository;
+            return entity.ToDalFile();
         }
 
-        public IEnumerable<BllFile> GetAllItems()
+        protected override BllFile MapToBllEntity(DalFile entity)
         {
-            return _fileRepository.GetAll().Select(x => x.ToBllFile());
+            return entity.ToBllFile();
         }
-
-        public BllFile Get(int id)
-        {
-            return _fileRepository.GetById(id).ToBllFile();
-        }
-
-        public BllFile Create(BllFile entity)
-        {
-            var temp = _fileRepository.Create(entity.ToDalFile());
-            if (temp != null)
-                _uow.Commit();
-            return temp?.ToBllFile();
-        }
-
-        public void Update(BllFile entity)
-        {
-            _fileRepository.Update(entity.ToDalFile());
-            _uow.Commit();
-        }
-
-        public void Delete(BllFile entity)
-        {
-            _fileRepository.Delete(entity.ToDalFile());
-            _uow.Commit();
-        }
+        #endregion
     }
 }

@@ -10,7 +10,7 @@ namespace BLL.Interface.Services
     public interface IUserService : ICrudService<BllUser>
     {
         BllUser Get(string nameOrMail);
-        IEnumerable<BllUser> GetAllUserEntities();
+
         BllUser ValidateUser(string email, string password);
     }
 }

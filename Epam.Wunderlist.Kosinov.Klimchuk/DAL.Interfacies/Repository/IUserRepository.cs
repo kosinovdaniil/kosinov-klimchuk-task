@@ -7,7 +7,5 @@ namespace DAL.Interface.Repository
         DalUser GetByName(string name);
 
         DalUser GetByMail(string mail);
-
-
     }
 }

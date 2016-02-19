@@ -10,48 +10,27 @@ using BLL;
 using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using System.Threading.Tasks;
+using BLL.Interfacies.Services;
 
 namespace BLL.Services
 {
-    public class ToDoItemService : ICrudService<BllToDoItem>
+    public class ToDoItemService : Service<BllToDoItem, DalToDoItem>, IToDoItemService
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IRepository<DalToDoItem> _itemRepository;
-
+        #region Constructor
         public ToDoItemService(IUnitOfWork uow, IRepository<DalToDoItem> repository)
+            : base(uow, repository) { }
+        #endregion
+
+        #region Protected methods
+        protected override DalToDoItem MapToDalEntity(BllToDoItem entity)
         {
-            this._uow = uow;
-            this._itemRepository = repository;
+            return entity.ToDalItem();
         }
 
-        public IEnumerable<BllToDoItem> GetAllItems()
+        protected override BllToDoItem MapToBllEntity(DalToDoItem entity)
         {
-            return _itemRepository.GetAll().Select(x => x.ToBllItem());
+            return entity.ToBllItem();
         }
-
-        public BllToDoItem Get(int id)
-        {
-            return _itemRepository.GetById(id).ToBllItem();
-        }
-
-        public BllToDoItem Create(BllToDoItem entity)
-        {
-            var temp = _itemRepository.Create(entity.ToDalItem());
-            if (temp != null)
-                _uow.Commit();
-            return temp?.ToBllItem();
-        }
-
-        public void Update(BllToDoItem entity)
-        {
-            _itemRepository.Update(entity.ToDalItem());
-            _uow.Commit();
-        }
-
-        public void Delete(BllToDoItem entity)
-        {
-            _itemRepository.Delete(entity.ToDalItem());
-            _uow.Commit();
-        }
+        #endregion
     }
 }
