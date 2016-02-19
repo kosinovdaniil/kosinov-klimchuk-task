@@ -11,7 +11,6 @@ namespace DAL.Mappers
             return new DalToDoList()
             {
                 Id = e.Id,
-                IsNotified = e.IsNotified,
                 Name = e.Name,
                 UsersId = e.Users?.Select(x => x.Id).ToList()
             };
@@ -22,7 +21,6 @@ namespace DAL.Mappers
             return new ToDoList()
             {
                 Id = e.Id,
-                IsNotified = e.IsNotified,
                 Name = e.Name,
             };
         }

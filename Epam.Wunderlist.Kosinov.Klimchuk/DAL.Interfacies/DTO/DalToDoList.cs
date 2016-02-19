@@ -7,8 +7,6 @@ namespace DAL.Interface.DTO
     {
         public virtual IList<int> ItemsId { get; set; }
 
-        public bool IsNotified { get; set; }
-
         public string Name { get; set; }
 
         public virtual IList<int> UsersId { get; set; }
