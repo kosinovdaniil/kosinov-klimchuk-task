@@ -94,10 +94,14 @@
     <Compile Include="Entities\BllToDoItem.cs" />
     <Compile Include="Entities\BllToDoList.cs" />
     <Compile Include="Entities\BllUser.cs" />
-    <Compile Include="Entities\IEntity.cs" />
+    <Compile Include="Entities\BllEntity.cs" />
     <Compile Include="Services\ICrudService.cs" />
+    <Compile Include="Services\IFileService.cs" />
+    <Compile Include="Services\ISubItemService.cs" />
+    <Compile Include="Services\IToDoItemService.cs" />
     <Compile Include="Services\IToDoListSearchService.cs" />
     <Compile Include="Services\ISignInService.cs" />
+    <Compile Include="Services\IToDoListService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

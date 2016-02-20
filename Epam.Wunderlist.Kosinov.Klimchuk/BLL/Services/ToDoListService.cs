@@ -1,57 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Linq.Expressions;
-using BLL.Interface.Entities;
-using BLL.Interface.Services;
+﻿using BLL.Interface.Entities;
 using BLL.Mappers;
-using BLL;
 using DAL.Interface.Repository;
 using DAL.Interface.DTO;
-using System.Threading.Tasks;
+using BLL.Interfacies.Services;
 
 namespace BLL.Services
 {
-    public class ToDoListSerivce : ICrudService<BllToDoList>
+    public class ToDoListService : Service<BllToDoList, DalToDoList>, IToDoListService
     {
-        private readonly IUnitOfWork _uow;
-        private readonly IRepository<DalToDoList> _listRepository;
+        #region Constructor
+        public ToDoListService(IUnitOfWork uow, IRepository<DalToDoList> repository)
+            : base(uow, repository) { }
+        #endregion
 
-        public ToDoListSerivce(IUnitOfWork uow, IRepository<DalToDoList> repository)
+        #region Protected methods
+        protected override DalToDoList MapToDalEntity(BllToDoList entity)
         {
-            this._uow = uow;
-            this._listRepository = repository;
+            return entity.ToDalList();
         }
 
-        public IEnumerable<BllToDoList> GetAllItems()
+        protected override BllToDoList MapToBllEntity(DalToDoList entity)
         {
-            return _listRepository.GetAll().Select(x => x.ToBllList());
+            return entity.ToBllList();
         }
-
-        public BllToDoList Get(int id)
-        {
-            return _listRepository.GetById(id).ToBllList();
-        }
-
-        public BllToDoList Create(BllToDoList entity)
-        {
-            var temp = _listRepository.Create(entity.ToDalList());
-            if (temp != null)
-                _uow.Commit();
-            return temp?.ToBllList();
-        }
-
-        public void Update(BllToDoList entity)
-        {
-            _listRepository.Update(entity.ToDalList());
-            _uow.Commit();
-        }
-
-        public void Delete(BllToDoList entity)
-        {
-            _listRepository.Delete(entity.ToDalList());
-            _uow.Commit();
-        }
+        #endregion
     }
 }

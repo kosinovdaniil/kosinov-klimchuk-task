@@ -1,5 +1,4 @@
 ﻿using DAL.Interface.DTO;
-using System.Collections.Generic;
 
 namespace DAL.Interface.Repository
 {
@@ -8,7 +7,5 @@ namespace DAL.Interface.Repository
         DalUser GetByName(string name);
 
         DalUser GetByMail(string mail);
-
-
     }
 }

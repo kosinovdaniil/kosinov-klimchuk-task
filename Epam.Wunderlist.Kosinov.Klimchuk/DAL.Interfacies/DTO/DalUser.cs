@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using DAL.Interfacies.DTO;
+using System.Collections.Generic;
 
 namespace DAL.Interface.DTO
 {
-    public class DalUser : IEntity
+    public class DalUser : DalEntity
     {
-        public int Id { get; set; }
-
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -14,6 +13,6 @@ namespace DAL.Interface.DTO
 
         public string Name { get; set; }
 
-        public virtual IList<int> ListsId { get; set; }
+        public IList<int> ListsId { get; set; }
     }
 }

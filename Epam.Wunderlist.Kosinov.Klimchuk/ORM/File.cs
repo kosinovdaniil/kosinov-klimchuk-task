@@ -1,15 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ORM
 {
-    public class File
+    public class File : Entity
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string Path { get; set; }

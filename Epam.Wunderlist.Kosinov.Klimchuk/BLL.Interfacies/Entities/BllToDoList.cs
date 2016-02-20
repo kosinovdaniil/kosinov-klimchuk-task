@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace BLL.Interface.Entities
 {
-    public class BllToDoList : IEntity
+    public class BllToDoList : BllEntity
     {
-        public int Id { get; set; }
-
-        public virtual IList<int> ItemsId { get; set; }
-
-        public bool IsNotified { get; set; }
+        public IList<int> ItemsId { get; set; }
 
         public string Name { get; set; }
 
-        public virtual IList<int> UsersId { get; set; }
+        public IList<int> UsersId { get; set; }
     }
 }

@@ -2,10 +2,8 @@
 
 namespace BLL.Interface.Entities
 {
-    public class BllUser : IEntity
+    public class BllUser : BllEntity
     {
-        public int Id { get; set; }
-
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -14,6 +12,6 @@ namespace BLL.Interface.Entities
 
         public string Name { get; set; }
 
-        public virtual IList<int> ListsId { get; set; }
+        public IList<int> ListsId { get; set; }
     }
 }

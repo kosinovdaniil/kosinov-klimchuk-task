@@ -22,7 +22,7 @@ namespace MvcPL.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            return View(_userService.GetAllUserEntities().Select(x=>x.ToUserViewModel()));
+            return View(_userService.GetAll().Select(x=>x.ToUserViewModel()));
         }
     }
 }

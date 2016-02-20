@@ -210,12 +210,19 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\ListController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Infrastructure\Mappers\MvcPLMappers.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\FileViewModel.cs" />
+    <Compile Include="ViewModels\SubItemViewModel.cs" />
+    <Compile Include="ViewModels\ToDoItemViewModel.cs" />
+    <Compile Include="ViewModels\ToDoListViewModel.cs" />
     <Compile Include="ViewModels\UserLoginModel.cs" />
     <Compile Include="ViewModels\UserRegisterModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
