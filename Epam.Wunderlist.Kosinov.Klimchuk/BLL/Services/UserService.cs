@@ -23,7 +23,7 @@ namespace BLL.Services
         #region Methods
         public BllUser ValidateUser(string email, string password)
         {
-            var user = ((IUserRepository)repository).GetByMail(email);
+            var user = ((IUserRepository)_repository).GetByMail(email);
             if (user?.Password == password)
                 return user.ToBllUser();
             return null;
@@ -31,7 +31,7 @@ namespace BLL.Services
 
         public BllUser Get(string name)
         {
-            return ((IUserRepository)repository).GetByName(name).ToBllUser();
+            return ((IUserRepository)_repository).GetByName(name).ToBllUser();
         }
         #endregion
 

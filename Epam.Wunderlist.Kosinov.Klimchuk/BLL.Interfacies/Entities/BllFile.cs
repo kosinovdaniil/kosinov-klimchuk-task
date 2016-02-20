@@ -8,10 +8,10 @@ namespace BLL.Interface.Entities
 
         public string Path { get; set; }
 
-        public virtual int BaseItemId { get; set; }
+        public int BaseItemId { get; set; }
 
-        public virtual int UserId { get; set; }
+        public int UserId { get; set; }
 
-        public virtual DateTime AddingDate { get; set; }
+        public DateTime AddingDate { get; set; }
     }
 }

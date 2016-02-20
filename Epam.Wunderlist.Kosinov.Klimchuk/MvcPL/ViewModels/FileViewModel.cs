@@ -11,6 +11,6 @@ namespace MvcPL.ViewModels
 
         public string Name { get; set; }
 
-        public virtual DateTime AddingDate { get; set; }
+        public DateTime AddingDate { get; set; }
     }
 }

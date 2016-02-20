@@ -13,15 +13,15 @@ namespace BLL.Services
         where TDalEntity : DalEntity
     {
         #region Fields
-        protected readonly IUnitOfWork uow;
-        protected readonly IRepository<TDalEntity> repository;
+        protected readonly IUnitOfWork _uow;
+        protected readonly IRepository<TDalEntity> _repository;
         #endregion
 
         #region Constructor
         protected Service(IUnitOfWork uow, IRepository<TDalEntity> repository)
         {
-            this.uow = uow;
-            this.repository = repository;
+            this._uow = uow;
+            this._repository = repository;
         }
         #endregion
 
@@ -32,11 +32,11 @@ namespace BLL.Services
             {
                 throw new ArgumentNullException("entity");
             }
-            var temp = repository.Create(MapToDalEntity(entity));
+            var temp = _repository.Create(MapToDalEntity(entity));
             if (temp != null)
-                uow.Commit();
+                _uow.Commit();
 
-            return MapToBllEntity(temp) ?? null;
+            return MapToBllEntity(temp);
         }
 
         public virtual void Delete(TBllEntity entity)
@@ -46,18 +46,18 @@ namespace BLL.Services
                 throw new ArgumentNullException("entity");
             }
 
-            repository.Delete(MapToDalEntity(entity));
-            uow.Commit();
+            _repository.Delete(MapToDalEntity(entity));
+            _uow.Commit();
         }
 
         public virtual TBllEntity Get(int id)
         {
-            return MapToBllEntity(repository.GetById(id));
+            return MapToBllEntity(_repository.GetById(id));
         }
 
         public virtual IEnumerable<TBllEntity> GetAll()
         {
-            return repository.GetAll().Select(MapToBllEntity);
+            return _repository.GetAll().Select(MapToBllEntity);
         }
 
         public virtual void Update(TBllEntity entity)
@@ -67,8 +67,8 @@ namespace BLL.Services
                 throw new ArgumentNullException("entity");
             }
 
-            repository.Update(MapToDalEntity(entity));
-            uow.Commit();
+            _repository.Update(MapToDalEntity(entity));
+            _uow.Commit();
         }
         #endregion
 

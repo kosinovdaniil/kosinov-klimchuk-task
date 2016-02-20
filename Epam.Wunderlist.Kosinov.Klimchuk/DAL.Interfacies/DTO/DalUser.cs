@@ -13,6 +13,6 @@ namespace DAL.Interface.DTO
 
         public string Name { get; set; }
 
-        public virtual IList<int> ListsId { get; set; }
+        public IList<int> ListsId { get; set; }
     }
 }

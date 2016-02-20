@@ -5,12 +5,12 @@ namespace DAL.Interface.DTO
 {
     public class DalToDoList : DalEntity
     {
-        public virtual IList<int> ItemsId { get; set; }
+        public IList<int> ItemsId { get; set; }
 
         public bool IsNotified { get; set; }
 
         public string Name { get; set; }
 
-        public virtual IList<int> UsersId { get; set; }
+        public IList<int> UsersId { get; set; }
     }
 }

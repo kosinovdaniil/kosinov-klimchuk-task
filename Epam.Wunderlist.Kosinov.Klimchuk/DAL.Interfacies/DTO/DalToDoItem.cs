@@ -22,6 +22,6 @@ namespace DAL.Interface.DTO
 
         public IList<int> FilesId { get; set; }
 
-        public virtual int ListId { get; set; }
+        public int ListId { get; set; }
     }
 }
