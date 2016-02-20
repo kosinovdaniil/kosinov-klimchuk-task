@@ -26,5 +26,87 @@ namespace MvcPL.Infrastructure.Mappers
                 Email=e.Email,
             };
         }
+
+        public static ToDoListViewModel ToDalList(this BllToDoList e)
+        {
+            return new ToDoListViewModel()
+            {
+                Id = e.Id,
+                Name = e.Name,
+            };
+        }
+        public static BllToDoList ToBllList(this ToDoListViewModel e)
+        {
+            return new BllToDoList()
+            {
+                Id = e.Id,
+                Name = e.Name,
+            };
+        }
+
+        public static ToDoItemViewModel ToDalItem(this BllToDoItem e)
+        {
+            return new ToDoItemViewModel()
+            {
+                Id = e.Id,
+                IsCompleted = e.IsCompleted,
+                IsFavourited = e.IsFavourited,
+                AddingDate = e.AddingDate,
+                CompletionDate = e.CompletionDate,
+                Note = e.Note,
+                Text = e.Text
+            };
+        }
+        public static BllToDoItem ToBllItem(this ToDoItemViewModel e)
+        {
+            return new BllToDoItem()
+            {
+                Id = e.Id,
+                IsCompleted = e.IsCompleted,
+                IsFavourited = e.IsFavourited,
+                AddingDate = e.AddingDate,
+                CompletionDate = e.CompletionDate,
+                Note = e.Note,
+                Text = e.Text
+            };
+        }
+
+        public static FileViewModel ToDalFile(this BllFile e)
+        {
+            return new FileViewModel()
+            {
+                AddingDate = e.AddingDate,
+                Id = e.Id,
+                Name = e.Name,
+            };
+        }
+        public static BllFile ToBllFile(this FileViewModel e)
+        {
+            return new BllFile()
+            {
+                AddingDate = e.AddingDate,
+                Id = e.Id,
+                Name = e.Name,
+            };
+        }
+
+        public static SubItemViewModel ToDalSubItem(this BllSubItem e)
+        {
+            return new SubItemViewModel()
+            {
+                Id = e.Id,
+                IsCompleted = e.IsCompleted,
+                Text = e.Text
+            };
+        }
+        public static BllSubItem ToBllSubItem(this SubItemViewModel e)
+        {
+            return new BllSubItem()
+            {
+                Id = e.Id,
+                IsCompleted = e.IsCompleted,
+                Text = e.Text
+            };
+        }
     }
 }

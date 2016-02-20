@@ -10,11 +10,11 @@ using BLL.Interface.Entities;
 
 namespace MvcPL.Controllers
 {
-    public class HomeController : Controller
+    public class UserController : Controller
     {
         private readonly IUserService _userService;
 
-        public HomeController(IUserService userService)
+        public UserController(IUserService userService)
         {
             _userService = userService;
         }

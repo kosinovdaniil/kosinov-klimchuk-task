@@ -20,7 +20,7 @@ namespace DAL.Concrete
         #endregion
 
         #region Override methods
-        public virtual void Delete(DalFile e)
+        public override void Delete(DalFile e)
         {
             //TODO probably not necessary db access
             var file = e.ToOrmFile();

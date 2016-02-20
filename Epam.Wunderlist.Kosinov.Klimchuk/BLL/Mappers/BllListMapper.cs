@@ -11,7 +11,6 @@ namespace BLL.Mappers
             return new DalToDoList()
             {
                 Id = e.Id,
-                IsNotified = e.IsNotified,
                 ItemsId = e.ItemsId,
                 Name = e.Name,
                 UsersId = e.UsersId?.ToList()
@@ -23,7 +22,6 @@ namespace BLL.Mappers
             return new BllToDoList()
             {
                 Id = e.Id,
-                IsNotified = e.IsNotified,
                 ItemsId = e.ItemsId,
                 Name = e.Name,
                 UsersId = e.UsersId?.ToList()
