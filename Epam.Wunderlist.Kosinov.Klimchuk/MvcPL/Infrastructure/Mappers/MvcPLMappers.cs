@@ -27,7 +27,7 @@ namespace MvcPL.Infrastructure.Mappers
             };
         }
 
-        public static ToDoListViewModel ToDalList(this BllToDoList e)
+        public static ToDoListViewModel ToListViewModel(this BllToDoList e)
         {
             return new ToDoListViewModel()
             {
@@ -44,7 +44,7 @@ namespace MvcPL.Infrastructure.Mappers
             };
         }
 
-        public static ToDoItemViewModel ToDalItem(this BllToDoItem e)
+        public static ToDoItemViewModel ToItemViewModel(this BllToDoItem e)
         {
             return new ToDoItemViewModel()
             {
@@ -71,7 +71,7 @@ namespace MvcPL.Infrastructure.Mappers
             };
         }
 
-        public static FileViewModel ToDalFile(this BllFile e)
+        public static FileViewModel ToFileViewModel(this BllFile e)
         {
             return new FileViewModel()
             {
@@ -90,7 +90,7 @@ namespace MvcPL.Infrastructure.Mappers
             };
         }
 
-        public static SubItemViewModel ToDalSubItem(this BllSubItem e)
+        public static SubItemViewModel ToSubItemViewModel(this BllSubItem e)
         {
             return new SubItemViewModel()
             {
