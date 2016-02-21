@@ -28,7 +28,7 @@ namespace BLL.Services
         #region Methods
         public virtual TBllEntity Create(TBllEntity entity)
         {
-            if (entity == null)
+            if (entity == null)                            //отследить в контроллерах
             {
                 throw new ArgumentNullException("entity");
             }
