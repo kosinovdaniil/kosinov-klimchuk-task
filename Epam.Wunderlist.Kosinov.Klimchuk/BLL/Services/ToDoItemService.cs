@@ -11,13 +11,14 @@ using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using System.Threading.Tasks;
 using BLL.Interfacies.Services;
+using DAL.Interfacies.Repository;
 
 namespace BLL.Services
 {
     public class ToDoItemService : Service<BllToDoItem, DalToDoItem>, IToDoItemService
     {
         #region Constructor
-        public ToDoItemService(IUnitOfWork uow, IRepository<DalToDoItem> repository)
+        public ToDoItemService(IUnitOfWork uow, IToDoItemRepository repository)
             : base(uow, repository) { }
         #endregion
 

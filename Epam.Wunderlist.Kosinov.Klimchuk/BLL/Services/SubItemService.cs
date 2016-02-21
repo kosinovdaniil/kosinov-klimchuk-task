@@ -3,13 +3,14 @@ using BLL.Mappers;
 using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using BLL.Interfacies.Services;
+using DAL.Interfacies.Repository;
 
 namespace BLL.Services
 {
     public class SubItemService : Service<BllSubItem, DalSubItem>, ISubItemService
     {
         #region Constructor
-        public SubItemService(IUnitOfWork uow, IRepository<DalSubItem> repository)
+        public SubItemService(IUnitOfWork uow, ISubItemRepository repository)
             : base(uow, repository) { }
         #endregion
 
