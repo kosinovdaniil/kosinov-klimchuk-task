@@ -57,6 +57,7 @@
     <Compile Include="Repository\IFileRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\ISubItemRepository.cs" />
+    <Compile Include="Repository\IToDoItemRepository.cs" />
     <Compile Include="Repository\IToDoListRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\IUserRepository.cs" />

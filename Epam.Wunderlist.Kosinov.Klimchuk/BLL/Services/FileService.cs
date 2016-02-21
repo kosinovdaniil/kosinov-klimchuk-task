@@ -3,13 +3,14 @@ using BLL.Mappers;
 using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using BLL.Interfacies.Services;
+using DAL.Interfacies.Repository;
 
 namespace BLL.Services
 {
     public class FileService : Service<BllFile, DalFile>, IFileService
     {
         #region Constructor
-        public FileService(IUnitOfWork uow, IRepository<DalFile> repository)
+        public FileService(IUnitOfWork uow, IFileRepository repository)
             : base(uow, repository) { }
         #endregion
 

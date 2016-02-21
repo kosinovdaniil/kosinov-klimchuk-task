@@ -16,7 +16,7 @@ namespace BLL.Services
     public class UserService : Service<BllUser, DalUser>, IUserService
     {
         #region Constructor
-        public UserService(IUnitOfWork uow, IRepository<DalUser> repository)
+        public UserService(IUnitOfWork uow, IUserRepository repository)
             : base(uow, repository) { }
         #endregion
 

@@ -10,72 +10,43 @@ using ORM;
 using System.Collections;
 using System.Threading.Tasks;
 using DAL.Mappers;
+using DAL.Interfacies.Repository;
 
 namespace DAL.Concrete
 {
-    public class ToDoItemRepository : IRepository<DalToDoItem>
+    public class ToDoItemRepository : Repository<DalToDoItem, ToDoItem>, IToDoItemRepository
     {
-        private readonly DbContext _context;
-
-        public ToDoItemRepository(DbContext uow)
-        {
-            this._context = uow;
-        }
-
-        public DalToDoItem Create(DalToDoItem e)
-        {
-            var item = e.ToOrmItem();
-
-            item = _context.Set<ToDoItem>().Add(item);
-            return item.ToDalItem();
-        }
-
-        public void Delete(DalToDoItem e)
+        #region Constructor
+        public ToDoItemRepository(DbContext context)
+            : base(context) { }
+        #endregion
+      
+        public override void Delete(DalToDoItem e)
         {
             //TODO probably not necessary db access
             var item = e.ToOrmItem();
-            item = _context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
+            item = context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
             if (item != null)
             {
-                _context.Set<ToDoItem>().Remove(item);
+                context.Set<ToDoItem>().Remove(item);
             }
         }
 
-        public IEnumerable<DalToDoItem> GetAll()
-        {
-            return _context.Set<ToDoItem>().ToList().Select(x => x.ToDalItem());
-        }
-
-        public DalToDoItem GetById(int key)
-        {
-            var ormItem = _context.Set<ToDoItem>().First(x => x.Id == key);
-            return ormItem.ToDalItem();
-
-        }
-
-
-        public IEnumerable<DalToDoItem> GetByPredicate(Expression<Func<DalToDoItem, bool>> f)
+        #region Protected methods
+        protected override void CopyEntityFields(DalToDoItem source, ToDoItem target)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(DalToDoItem entity)
+        protected override DalToDoItem MapToDalEntity(ToDoItem entity)
         {
-            //TODO this won't work!
-            var original = _context.Set<DalToDoItem>().FirstOrDefault(x => x.Id == entity.Id);
-            if (original != null)
-            {
-                var updatedItem = entity.ToOrmItem();
-
-                if (updatedItem.Text != null)
-                    original.Text = updatedItem.Text;
-                if (updatedItem.Note != null)
-                    original.Note = updatedItem.Note;
-                if (updatedItem.Note != null)
-                    original.Note = updatedItem.Note;
-                //if (updatedItem.CompletionDate != null)
-                //    original.CompletionDate = updatedItem.CompletionDate;
-            }
+            return entity.ToDalItem();
         }
+
+        protected override ToDoItem MapToEntity(DalToDoItem dalEntity)
+        {
+            return dalEntity.ToOrmItem();
+        }
+        #endregion
     }
 }
