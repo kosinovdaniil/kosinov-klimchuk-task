@@ -14,6 +14,14 @@ namespace BLL.Services
             : base(uow, repository) { }
         #endregion
 
+        #region Methods
+        public override BllFile Create(BllFile entity)
+        {
+            //entity.SaveAs(Server.MapPath("~/Files/" + fileName));
+            return base.Create(entity);
+        }
+        #endregion
+
         #region Protected methods
         protected override DalFile MapToDalEntity(BllFile entity)
         {

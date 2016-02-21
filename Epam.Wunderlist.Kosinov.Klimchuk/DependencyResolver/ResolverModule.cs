@@ -6,6 +6,8 @@ using DAL.Interface.Repository;
 using Ninject;
 using Ninject.Web.Common;
 using ORM;
+using DAL.Interfacies.Repository;
+using BLL.Interfacies.Services;
 
 namespace DependencyResolver
 {
@@ -34,9 +36,19 @@ namespace DependencyResolver
                 kernel.Bind<DbContext>().To<ApplicationDbContext>().InSingletonScope();
             }
             
-            kernel.Bind<IUserService>().To<UserService>();
+
             kernel.Bind<IUserRepository>().To<UserRepository>();
+            kernel.Bind<IFileRepository>().To<FileRepository>();
+            kernel.Bind<ISubItemRepository>().To<SubItemRepository>();
+            kernel.Bind<IToDoItemRepository>().To<ToDoItemRepository>();
+            kernel.Bind<IToDoListRepository>().To<ToDoListRepository>();
+            
+            kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ISignInService>().To<SignInService>();
+            kernel.Bind<ISubItemService>().To<SubItemService>();
+            kernel.Bind<IToDoItemService>().To<ToDoItemService>();
+            kernel.Bind<IToDoListService>().To<ToDoListService>();
+            //kernel.Bind<IToDoListSearchService>().To<ToDoListSearchService>();
             //kernel.Bind<ITaskSearchService>().To<TaskSearchService>(); TODO
             
         }
