@@ -22,7 +22,8 @@ namespace Wunderlist.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            return View(_userService.GetAll().Select(x=>x.ToUserViewModel()));
+            return View();
+            //return View(_userService.GetAll().Select(x=>x.ToUserViewModel()));
         }
     }
 }
