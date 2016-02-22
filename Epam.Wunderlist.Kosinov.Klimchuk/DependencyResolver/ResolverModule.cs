@@ -48,8 +48,7 @@ namespace DependencyResolver
             kernel.Bind<ISubItemService>().To<SubItemService>();
             kernel.Bind<IToDoItemService>().To<ToDoItemService>();
             kernel.Bind<IToDoListService>().To<ToDoListService>();
-            //kernel.Bind<IToDoListSearchService>().To<ToDoListSearchService>();
-            //kernel.Bind<ITaskSearchService>().To<TaskSearchService>(); TODO
+            kernel.Bind<IFileService>().To<FileService>();
             
         }
     }
