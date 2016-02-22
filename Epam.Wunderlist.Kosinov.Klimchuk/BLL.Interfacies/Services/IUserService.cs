@@ -12,5 +12,7 @@ namespace BLL.Interface.Services
         BllUser Get(string nameOrMail);
 
         BllUser ValidateUser(string email, string password);
+
+        IEnumerable<BllToDoList> GetByUser(int id);
     }
 }

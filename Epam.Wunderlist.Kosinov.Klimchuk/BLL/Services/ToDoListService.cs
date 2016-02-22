@@ -4,6 +4,8 @@ using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using BLL.Interfacies.Services;
 using DAL.Interfacies.Repository;
+using System;
+using System.Collections.Generic;
 
 namespace BLL.Services
 {
@@ -12,6 +14,14 @@ namespace BLL.Services
         #region Constructor
         public ToDoListService(IUnitOfWork uow, IToDoListRepository repository)
             : base(uow, repository) { }
+        #endregion
+
+        #region Methods
+        public IEnumerable<BllToDoItem> GetByList(int id)
+        {
+            throw new NotImplementedException();
+            //return ((IToDoListRepository)_repository).GetByList(id).Select(item => item.ToBllItem());
+        }
         #endregion
 
         #region Protected methods

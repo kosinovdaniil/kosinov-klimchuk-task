@@ -33,6 +33,11 @@ namespace BLL.Services
         {
             return ((IUserRepository)_repository).GetByName(name).ToBllUser();
         }
+
+        public IEnumerable<BllToDoList> GetByUser(int id)
+        {
+            return ((IUserRepository)_repository).GetByUser(id).Select(item => item.ToBllList());
+        }
         #endregion
 
         #region Protected methods
