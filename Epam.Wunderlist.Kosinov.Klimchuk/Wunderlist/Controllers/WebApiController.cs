@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
+using System.Text;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Script.Serialization;
@@ -12,7 +14,6 @@ using Wunderlist.ViewModels;
 
 namespace Wunderlist.Controllers
 {
-    //TODO add authorization and http response
     [RoutePrefix("api")]
     public class WebApiController : ApiController
     {
@@ -32,48 +33,153 @@ namespace Wunderlist.Controllers
         }
 
         [Route("users")]
-        public string Get()
+        public HttpResponseMessage Get()
         {
-            return Serialize(_userService.GetAll());
+            HttpResponseMessage response;
+            if (User.Identity.IsAuthenticated)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "Unauthorized");
+            response.Content = new StringContent(Serialize(_userService.GetAll()), Encoding.Unicode);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "");
+            }
+            return response;
         }
 
         [Route("users/{id:int}")]
-        public string Get(int id)
+        public HttpResponseMessage Get(int id)
         {
-            return Serialize(_userService.Get(id));
+            HttpResponseMessage response;
+            if (User.Identity.IsAuthenticated)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "");
+                response.Content = new StringContent(Serialize(_userService.Get(id)), Encoding.Unicode);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
         }
 
         [Route("users")]
-        public string Get(string email)
+        public HttpResponseMessage Get(string email)
         {
-            return Serialize(_userService.Get(email));
+            HttpResponseMessage response;
+            if (User.Identity.IsAuthenticated)
+            {
+                response = Request.CreateResponse(HttpStatusCode.OK, "");
+                response.Content = new StringContent(Serialize(_userService.Get(email)), Encoding.Unicode);
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
         }
 
         [Route("{id:int}/lists")]
-        public string GetLists(int id)
+        public HttpResponseMessage GetLists(int id)
         {
+            HttpResponseMessage response;
+            
+            if (User.Identity.IsAuthenticated)
+            {
+                if (CurrentUserId == id)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    response.Content = new StringContent(Serialize(_userService.GetByUser(id)), Encoding.Unicode);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
             var lists = _userService.GetByUser(id);
-            return Serialize(lists);
+            return response;
         }
 
         [Route("lists/{id:int}")]
-        public string GetList(int id)
+        public HttpResponseMessage GetList(int id)
         {
-            return Serialize(_listService.Get(id));
+            HttpResponseMessage response;
+            var list = _listService.Get(id);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                if (list.UsersId.Contains(CurrentUserId))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    response.Content = new StringContent(Serialize(list), Encoding.Unicode);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
         }
 
         [Route("lists/{id:int}/items")]
-        public string GetItems(int id)
+        public HttpResponseMessage GetItems(int id)
         {
-            //var items = _listService.GetByList(id)
-            //return Serialize(items);
-            throw new NotImplementedException();
+            HttpResponseMessage response;
+            var list = _listService.Get(id);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                if (list.UsersId.Contains(CurrentUserId))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    //response.Content = new StringContent(Serialize(_itemService.GetByList(list.Id), Encoding.Unicode);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
         }
 
         [Route("items/{id:int}")]
-        public string GetItem(int id)
+        public HttpResponseMessage GetItem(int id)
         {
-            return Serialize(_listService.Get(id));
+            HttpResponseMessage response;
+            //this looks stupid
+            var item = _itemService.Get(id);
+            var list = _listService.Get(item.Id);
+
+            if (User.Identity.IsAuthenticated)
+            {
+                if (list.UsersId.Contains(CurrentUserId))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    response.Content = new StringContent(Serialize(item), Encoding.Unicode);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
         }
 
         [Route("items/{id:int}/subitems")]
@@ -103,6 +209,15 @@ namespace Wunderlist.Controllers
         private string Serialize(object obj)
         {
             return new JavaScriptSerializer().Serialize(obj);
+        }
+
+        private int CurrentUserId
+        {
+            get
+            {
+                return Int32.Parse(((ClaimsIdentity)User.Identity).Claims
+                            .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            }
         }
     }
 }
