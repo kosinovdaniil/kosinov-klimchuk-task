@@ -4,6 +4,7 @@ using DAL.Interface.DTO;
 using DAL.Interface.Repository;
 using ORM;
 using DAL.Mappers;
+using System.Collections.Generic;
 
 namespace DAL.Concrete
 {
@@ -25,6 +26,12 @@ namespace DAL.Concrete
         {
             var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);
             return ormuser?.ToDalUser();
+        }
+
+        public IEnumerable<DalToDoList> GetByUser(int id)
+        {
+            var ormuser = context.Set<User>().FirstOrDefault(item => item.Id == id);
+            return ormuser?.Lists.Select(item => item.ToDalList());
         }
         #endregion
 

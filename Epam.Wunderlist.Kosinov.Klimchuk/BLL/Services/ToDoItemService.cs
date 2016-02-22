@@ -21,6 +21,17 @@ namespace BLL.Services
         public ToDoItemService(IUnitOfWork uow, IToDoItemRepository repository)
             : base(uow, repository) { }
         #endregion
+        #region Methods
+        public IEnumerable<BllFile> GetByItem(int id)
+        {
+            return ((IToDoItemRepository)_repository).GetByItem(id).Select(item => item.ToBllFile());
+        }
+
+        public IEnumerable<BllSubItem> GetSubItems(int id)
+        {
+            return ((IToDoItemRepository)_repository).GetSubItems(id).Select(item => item.ToBllSubItem());
+        }
+        #endregion
 
         #region Protected methods
         protected override DalToDoItem MapToDalEntity(BllToDoItem entity)

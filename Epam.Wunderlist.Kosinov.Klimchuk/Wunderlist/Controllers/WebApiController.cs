@@ -31,15 +31,12 @@ namespace Wunderlist.Controllers
             _listService = listService;
         }
 
-        private string Serialize(object obj)
-        {
-            return new JavaScriptSerializer().Serialize(obj);
-        }
         [Route("users")]
         public string Get()
         {
             return Serialize(_userService.GetAll());
         }
+
         [Route("users/{id:int}")]
         public string Get(int id)
         {
@@ -55,15 +52,16 @@ namespace Wunderlist.Controllers
         [Route("{id:int}/lists")]
         public string GetLists(int id)
         {
-            //var lists = _listService.GetByUser(id)
-            //return Serialize(lists);
-            throw new NotImplementedException();
+            var lists = _userService.GetByUser(id);
+            return Serialize(lists);
         }
+
         [Route("lists/{id:int}")]
         public string GetList(int id)
         {
             return Serialize(_listService.Get(id));
         }
+
         [Route("lists/{id:int}/items")]
         public string GetItems(int id)
         {
@@ -71,34 +69,40 @@ namespace Wunderlist.Controllers
             //return Serialize(items);
             throw new NotImplementedException();
         }
+
         [Route("items/{id:int}")]
         public string GetItem(int id)
         {
             return Serialize(_listService.Get(id));
         }
+
         [Route("items/{id:int}/subitems")]
         public string GetSubItems(int id)
         {
-
-            //return Serialize(_subItemService.GetByItem(id));
-            throw new NotImplementedException();
+            return Serialize(_itemService.GetSubItems(id));
         }
+
         [Route("subitems/{id:int}")]
         public string GetSubItem(int id)
         {
             return Serialize(_subItemService.Get(id));
         }
+
         [Route("items/{id:int}/files")]
         public string GetFiles(int id)
         {
-            //return Serialize(_subItemService.GetByItem(id));
-            throw new NotImplementedException();
+            return Serialize(_itemService.GetByItem(id));
         }
+
         [Route("files/{id:int}")]
         public string GetFile(int id)
         {
             return Serialize(_fileService.Get(id));
         }
 
+        private string Serialize(object obj)
+        {
+            return new JavaScriptSerializer().Serialize(obj);
+        }
     }
 }

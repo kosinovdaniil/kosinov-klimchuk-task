@@ -5,6 +5,7 @@ using DAL.Interface.DTO;
 using ORM;
 using DAL.Mappers;
 using DAL.Interfacies.Repository;
+using System.Collections.Generic;
 
 namespace DAL.Concrete
 {
@@ -15,7 +16,13 @@ namespace DAL.Concrete
             : base(context) { }
         #endregion
 
-        #region Override methods
+        #region Methods
+        public IEnumerable<DalToDoItem> GetByList(int id)
+        {
+            var ormlist = context.Set<ToDoList>().FirstOrDefault(item => item.Id == id);
+            return ormlist?.Items.Select(item => item.ToDalItem());
+        }
+
         public override void Delete(DalToDoList e)
         {
             //TODO probably not necessary db access
