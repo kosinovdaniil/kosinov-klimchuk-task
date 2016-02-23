@@ -90,7 +90,7 @@ namespace Wunderlist.Controllers
                 if (CurrentUserId == id)
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
-                    response.Content = new StringContent(Serialize(_userService.GetByUser(id)), Encoding.Unicode);
+                    response.Content = new StringContent(Serialize(_listService.GetByUser(id)), Encoding.Unicode);
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace Wunderlist.Controllers
             {
                 response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
             }
-            var lists = _userService.GetByUser(id);
+            var lists = _listService.GetByUser(id);
             return response;
         }
 
@@ -185,7 +185,7 @@ namespace Wunderlist.Controllers
         [Route("items/{id:int}/subitems")]
         public string GetSubItems(int id)
         {
-            return Serialize(_itemService.GetSubItems(id));
+            return Serialize(_subItemService.GetSubItems(id));
         }
 
         [Route("subitems/{id:int}")]
@@ -197,7 +197,7 @@ namespace Wunderlist.Controllers
         [Route("items/{id:int}/files")]
         public string GetFiles(int id)
         {
-            return Serialize(_itemService.GetByItem(id));
+            return Serialize(_fileService.GetByItem(id));
         }
 
         [Route("files/{id:int}")]

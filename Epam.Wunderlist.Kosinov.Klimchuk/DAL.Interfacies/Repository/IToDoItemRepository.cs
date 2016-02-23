@@ -6,8 +6,6 @@ namespace DAL.Interfacies.Repository
 {
     public interface IToDoItemRepository : IRepository<DalToDoItem>
     {
-        IEnumerable<DalFile> GetByItem(int id);
-
-        IEnumerable<DalSubItem> GetSubItems(int id);
+        IEnumerable<DalToDoItem> GetByList(int id);
     }
 }

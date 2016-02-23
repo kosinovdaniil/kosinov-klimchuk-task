@@ -9,10 +9,8 @@ namespace BLL.Interface.Services
 {
     public interface IUserService : ICrudService<BllUser>
     {
-        BllUser Get(string nameOrMail);
+        BllUser Get(string mail);
 
         BllUser ValidateUser(string email, string password);
-
-        IEnumerable<BllToDoList> GetByUser(int id);
     }
 }

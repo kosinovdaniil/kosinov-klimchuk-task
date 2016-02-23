@@ -6,8 +6,6 @@ namespace BLL.Interfacies.Services
 {
     public interface IToDoItemService : ICrudService<BllToDoItem>
     {
-        IEnumerable<BllFile> GetByItem(int id);
-
-        IEnumerable<BllSubItem> GetSubItems(int id);
-     }
+        IEnumerable<BllToDoItem> GetByList(int id);
+    }
 }

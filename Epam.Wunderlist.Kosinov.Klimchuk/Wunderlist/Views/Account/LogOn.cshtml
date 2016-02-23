@@ -1,0 +1,55 @@
+﻿@model Wunderlist.ViewModels.UserLoginModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход</title>
+    @Styles.Render("~/Content/css")
+</head>
+<body>
+    <div>
+        <img alt="Logo" src="~/Content/favicon.png" id="icon" />
+    </div>
+
+    @using (Html.BeginForm("LogOn", "Account", FormMethod.Post, new { @class = "form-logon"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div></div>
+
+        <div class="field">
+            <br />
+            <img src="~/Content/email.png" alt="email" />
+            @Html.TextBoxFor(model => model.Email, new { type = "email", placeholder = "Электронная почта" })
+            @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
+        </div>
+
+        <hr />
+
+        <div class="field">
+            <img src="~/Content/lock.png" alt="Lock"/>
+            @Html.PasswordFor(model => model.Password, new { placeholder = "Пароль" })
+            @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
+        </div>
+
+        <hr />
+
+        <div class="">
+            <input type="submit" value="Вход" class="btn"/>
+            <div id="link">
+                @Html.ActionLink("Забыли пароль?", "Register", "Account")
+            </div>
+            @TempData["Error"]
+        </div>
+    }
+
+
+</body>
+</html>

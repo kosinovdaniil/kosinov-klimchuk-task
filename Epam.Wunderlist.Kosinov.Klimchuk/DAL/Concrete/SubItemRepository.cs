@@ -22,7 +22,11 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-
+        public IEnumerable<DalSubItem> GetSubItems(int id)
+        {
+            var ormitem = context.Set<ToDoItem>().FirstOrDefault(item => item.Id == id);
+            return ormitem?.SubItems.Select(MapToDalEntity);
+        }
         #endregion
 
         #region Override methods

@@ -29,14 +29,9 @@ namespace BLL.Services
             return null;
         }
 
-        public BllUser Get(string name)
+        public BllUser Get(string mail)
         {
-            return ((IUserRepository)_repository).GetByName(name).ToBllUser();
-        }
-
-        public IEnumerable<BllToDoList> GetByUser(int id)
-        {
-            return ((IUserRepository)_repository).GetByUser(id).Select(item => item.ToBllList());
+            return ((IUserRepository)_repository).GetByMail(mail).ToBllUser();
         }
         #endregion
 

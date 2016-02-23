@@ -5,6 +5,7 @@ using DAL.Interface.DTO;
 using ORM;
 using DAL.Interfacies.Repository;
 using DAL.Mappers;
+using System.Collections.Generic;
 
 namespace DAL.Concrete
 {
@@ -16,7 +17,11 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-
+        public IEnumerable<DalFile> GetByItem(int id)
+        {
+            var ormitem = context.Set<ToDoItem>().FirstOrDefault(item => item.Id == id);
+            return ormitem?.Files.Select(MapToDalEntity);
+        }
         #endregion
 
         #region Override methods

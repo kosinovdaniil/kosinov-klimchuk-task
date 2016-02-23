@@ -6,6 +6,7 @@ using BLL.Interfacies.Services;
 using DAL.Interfacies.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -17,10 +18,9 @@ namespace BLL.Services
         #endregion
 
         #region Methods
-        public IEnumerable<BllToDoItem> GetByList(int id)
+        public IEnumerable<BllToDoList> GetByUser(int id)
         {
-            throw new NotImplementedException();
-            //return ((IToDoListRepository)_repository).GetByList(id).Select(item => item.ToBllItem());
+            return ((IToDoListRepository)_repository).GetByUser(id).Select(item => item.ToBllList());
         }
         #endregion
 

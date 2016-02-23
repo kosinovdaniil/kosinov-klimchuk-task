@@ -4,6 +4,8 @@ using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using BLL.Interfacies.Services;
 using DAL.Interfacies.Repository;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -20,6 +22,12 @@ namespace BLL.Services
             //entity.SaveAs(Server.MapPath("~/Files/" + fileName));
             return base.Create(entity);
         }
+
+        public IEnumerable<BllFile> GetByItem(int id)
+        {
+            return ((IFileRepository)_repository).GetByItem(id).Select(item => item.ToBllFile());
+        }
+
         #endregion
 
         #region Protected methods

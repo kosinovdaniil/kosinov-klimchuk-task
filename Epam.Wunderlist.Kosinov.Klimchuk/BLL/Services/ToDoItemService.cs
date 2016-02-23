@@ -22,14 +22,9 @@ namespace BLL.Services
             : base(uow, repository) { }
         #endregion
         #region Methods
-        public IEnumerable<BllFile> GetByItem(int id)
+        public IEnumerable<BllToDoItem> GetByList(int id)
         {
-            return ((IToDoItemRepository)_repository).GetByItem(id).Select(item => item.ToBllFile());
-        }
-
-        public IEnumerable<BllSubItem> GetSubItems(int id)
-        {
-            return ((IToDoItemRepository)_repository).GetSubItems(id).Select(item => item.ToBllSubItem());
+            return ((IToDoItemRepository)_repository).GetByList(id).Select(item => item.ToBllItem());
         }
         #endregion
 

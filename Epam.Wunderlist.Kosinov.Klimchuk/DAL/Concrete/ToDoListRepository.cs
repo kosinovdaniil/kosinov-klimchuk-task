@@ -17,10 +17,10 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-        public IEnumerable<DalToDoItem> GetByList(int id)
+        public IEnumerable<DalToDoList> GetByUser(int id)
         {
-            var ormlist = context.Set<ToDoList>().FirstOrDefault(item => item.Id == id);
-            return ormlist?.Items.Select(item => item.ToDalItem());
+            var ormuser = context.Set<User>().FirstOrDefault(item => item.Id == id);
+            return ormuser?.Lists.Select(MapToDalEntity);
         }
 
         public override void Delete(DalToDoList e)

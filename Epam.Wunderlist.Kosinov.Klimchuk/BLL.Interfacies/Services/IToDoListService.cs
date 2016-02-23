@@ -6,6 +6,6 @@ namespace BLL.Interfacies.Services
 {
     public interface IToDoListService : ICrudService<BllToDoList>
     {
-        IEnumerable<BllToDoItem> GetByList(int id);
+        IEnumerable<BllToDoList> GetByUser(int id);
     }
 }

@@ -57,13 +57,19 @@ namespace Wunderlist.Controllers
 
         }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult LogOn()
+        {
+            return View();
+        }
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LogOn(UserLoginModel model)
         {
             BllUser user = _userService.ValidateUser(model.Email, model.Password);
             if (user != null)
             {
-                _signService.IdentitySignin(user, model.RememberMe);
+                //_signService.IdentitySignin(user, model.RememberMe);
                 return RedirectToAction("Index", "Home");
             }
             TempData.Add("Error", "Wrong username or password");
@@ -75,6 +81,7 @@ namespace Wunderlist.Controllers
             _signService.IdentitySignout();
             return RedirectToAction("Index", "Home",null);
         }
+
         [Authorize]
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Edit(int id)

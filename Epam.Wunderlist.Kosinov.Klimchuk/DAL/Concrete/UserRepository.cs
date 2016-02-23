@@ -16,22 +16,10 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-        public DalUser GetByName(string name)
-        {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Name == name);
-            return ormuser?.ToDalUser();
-        }
-
         public DalUser GetByMail(string mail)
         {
             var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);
             return ormuser?.ToDalUser();
-        }
-
-        public IEnumerable<DalToDoList> GetByUser(int id)
-        {
-            var ormuser = context.Set<User>().FirstOrDefault(item => item.Id == id);
-            return ormuser?.Lists.Select(item => item.ToDalList());
         }
         #endregion
 

@@ -1,6 +1,6 @@
-﻿@model Wunderlist.ViewModels.UserLoginModel
+﻿@*@model Wunderlist.ViewModels.UserLoginModel*@
 
-@if (User.Identity.IsAuthenticated)
+@*@if (User.Identity.IsAuthenticated)
 {
     <div class="col-md-6">
         <p>Hello, @User.Identity.Name</p>
@@ -34,14 +34,7 @@ else {
                 @Html.ValidationMessageFor(model => model.Password)
             </div>
         </div>
-            <div class="col-md-3">
-                <div class="editor-label">
-                    @Html.LabelFor(model => model.RememberMe)
-                </div>
-                <div class="editor-field">
-                    @Html.EditorFor(model => model.RememberMe)
-                </div>
-            </div>
+
             <div class="col-md-3">
                 <div class="btn">
                     <input type="submit" value="LogOn" />
@@ -55,5 +48,5 @@ else {
 
 
     }
-}
+}*@
 
