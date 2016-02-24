@@ -139,13 +139,13 @@ a span {
 }
 
 #icon {
-    width: 80px;
-    height: 80px;
+    width: 110px;
+    height: 110px;
     display:block; 
     margin: 30px auto;
 }
 
-.form-logon input {
+.form-logon input, .form-register input {
     height: 50px;
     width: 300px;
     border: none;
@@ -157,6 +157,14 @@ a span {
     width: 350px;
     display:block; 
     margin: 0 auto;
+}
+
+.form-register {
+    border: solid 1px #DCDCDC;
+    border-radius: 5px;
+    width: 350px;
+    display:block; 
+    margin: 30px auto;
 }
 
 legend {
@@ -177,11 +185,22 @@ legend {
     font-size: 16px;
     font-weight: bold;
     border: 0 none;
+    padding-left: 0;
+    margin-bottom: 10px;
 }
 
 #link {
     text-align: center;
     padding: 15px;
+    color: #666;
+}
+
+.signup {
+    margin: 18px auto 0 auto;
+    text-align: center;
+    font-size: 42px;
+    font-weight: 300;
+    color: #666;
 }
 
 textarea {
@@ -201,6 +220,7 @@ textarea {
 -----------------------------------------------------------*/
 .field-validation-error {
     color: #f00;
+    padding: 50px;
 }
 
 .field-validation-valid {
@@ -215,6 +235,7 @@ textarea {
 .validation-summary-errors {
     font-weight: bold;
     color: #f00;
+    list-style-type: none;
 }
 
 .validation-summary-valid {

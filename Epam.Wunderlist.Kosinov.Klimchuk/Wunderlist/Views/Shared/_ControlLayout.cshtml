@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body>
+    <div>
+        <img alt="Logo" src="~/Content/favicon1.png" id="icon" />
+    </div>
+
+    @RenderSection("Content", required: false)
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

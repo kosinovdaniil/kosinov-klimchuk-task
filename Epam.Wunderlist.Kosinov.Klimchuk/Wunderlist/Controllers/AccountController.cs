@@ -31,6 +31,14 @@ namespace Wunderlist.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(UserRegisterModel model)
         {
+            var anyUser = _userService.GetAll().Any(u => u.Email == model.Email);
+
+            if (anyUser)
+            {
+                ModelState.AddModelError("", "User with that email already exists!");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new BllUser()
@@ -44,17 +52,15 @@ namespace Wunderlist.Controllers
                 if (user != null)
                 {
                     _signService.IdentitySignin(user);
-                    return RedirectToAction("Index", "Home",null);
+                    return RedirectToAction("Index", "Home");
                 }
-
-                ViewBag.Error = "This user already exists";
-                return View("Register");
+                else
+                    ModelState.AddModelError("", "Registration error!");
             }
-            ViewBag.Error = string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage)); ;
+            //ViewBag.Error = string.Join("; ", ModelState.Values
+            //                            .SelectMany(x => x.Errors)
+            //                            .Select(x => x.ErrorMessage)); ;
             return View("Register");
-
         }
 
         [AcceptVerbs(HttpVerbs.Get)]
@@ -66,14 +72,18 @@ namespace Wunderlist.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LogOn(UserLoginModel model)
         {
-            BllUser user = _userService.ValidateUser(model.Email, model.Password);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                //_signService.IdentitySignin(user, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                BllUser user = _userService.ValidateUser(model.Email, model.Password);
+                if (user != null)
+                {
+                    _signService.IdentitySignin(user);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    ModelState.AddModelError("", "Wrong login or password!");
             }
-            TempData.Add("Error", "Wrong username or password");
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
         public ActionResult LogOut()

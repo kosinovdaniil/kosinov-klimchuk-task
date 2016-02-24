@@ -254,12 +254,14 @@
     <Content Include="Content\calendar.png" />
     <Content Include="Content\email.png" />
     <Content Include="Content\favicon.png" />
+    <Content Include="Content\favicon1.png" />
     <Content Include="Content\lock.png" />
     <Content Include="Content\magnify.png" />
     <Content Include="Content\main.jpg" />
     <Content Include="Content\menu.png" />
     <Content Include="Content\plus-white.png" />
     <Content Include="Content\plus.png" />
+    <Content Include="Content\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -299,8 +301,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\_Login.cshtml" />
     <Content Include="Views\File\Index.cshtml" />
+    <Content Include="Views\Shared\_ControlLayout.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
   </ItemGroup>
   <ItemGroup>

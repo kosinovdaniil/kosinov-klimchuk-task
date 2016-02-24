@@ -19,7 +19,7 @@ namespace ORM.Migrations
             {
                 var user = new User()
                 {
-                    Email = "mail" + i.ToString(),
+                    Email = "mail" + i.ToString() + "@gmail.com",
                     Name = "user" + i.ToString(),
                     Password = "password" + i.ToString()
                 };
