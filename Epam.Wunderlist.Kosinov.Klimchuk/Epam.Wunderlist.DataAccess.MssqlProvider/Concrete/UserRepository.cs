@@ -3,7 +3,7 @@ using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
 using System.Linq;
 
-namespace DAL.Concrete
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
     public class UserRepository : Repository<User>, IUserRepository
     {

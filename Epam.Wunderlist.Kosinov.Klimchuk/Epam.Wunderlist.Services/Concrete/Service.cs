@@ -3,7 +3,6 @@ using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Epam.Wunderlist.Services.Services
 {

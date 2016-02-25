@@ -1,11 +1,11 @@
 ﻿using System.Data.Entity;
-using DAL.Concrete;
 using Ninject;
 using Ninject.Web.Common;
-using Epam.Wunderlist.DataAccess.MssqlProvider;
-using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.Services.Services;
+using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+using Epam.Wunderlist.DataAccess.MssqlProvider.Concrete;
+using Epam.Wunderlist.DataAccess.MssqlProvider;
 
 namespace Epam.Wunderlist.Common
 {

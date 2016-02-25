@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 
-namespace DAL.Concrete
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
     public abstract class Repository<TEntity> : IRepository<TEntity>
         where TEntity : Entity

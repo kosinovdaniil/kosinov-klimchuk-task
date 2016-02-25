@@ -1,6 +1,7 @@
+using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
 
-namespace ORM
+namespace Epam.Wunderlist.DataAccess.MssqlProvider
 {
     public partial class ApplicationDbContext : DbContext
     {

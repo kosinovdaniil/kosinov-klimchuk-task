@@ -1,7 +1,7 @@
 ﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 using System.Data.Entity;
 
-namespace DAL.Concrete
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
     public class UnitOfWork : IUnitOfWork
     {

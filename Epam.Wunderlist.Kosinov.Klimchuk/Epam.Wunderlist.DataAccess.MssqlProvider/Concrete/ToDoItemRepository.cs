@@ -1,14 +1,11 @@
-﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Concrete;
 using Epam.Wunderlist.DomainModel;
-using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Diagnostics;
 using System.Linq;
-using System.Linq.Expressions;
 
 
-namespace DAL.Concrete
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
 {
     public class ToDoItemRepository : Repository<ToDoItem>, IToDoItemRepository
     {

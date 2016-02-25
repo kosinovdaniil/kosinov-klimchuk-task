@@ -100,7 +100,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DAL.Interfacies\Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.csproj">
+    <ProjectReference Include="..\Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces\Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.csproj">
       <Project>{06204c03-41a1-4567-8edd-88ae0fc4391b}</Project>
       <Name>Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces</Name>
     </ProjectReference>

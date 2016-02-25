@@ -1,19 +1,21 @@
-namespace ORM.Migrations
+namespace Epam.Wunderlist.DataAccess.MsssqlProvider.Migrations
 {
+    using DomainModel;
+    using MssqlProvider;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ORM.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ORM.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             for (var i = 0; i < 10; i++)
             {
@@ -38,8 +40,8 @@ namespace ORM.Migrations
                         {
                             Text = "sampleText" + t.ToString(),
                             Note = "note" + t.ToString(),
-                            AddingDate = DateTime.MinValue,
-                            CompletionDate = null,
+                            DateAdded = DateTime.MinValue,
+                            DateCompletion = null,
                             IsFavourited = false,
                             IsCompleted = false,
                             List = list
