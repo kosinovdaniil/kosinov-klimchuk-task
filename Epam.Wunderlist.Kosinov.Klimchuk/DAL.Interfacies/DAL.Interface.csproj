@@ -50,13 +50,9 @@
   <ItemGroup>
     <Compile Include="DTO\DalEntity.cs" />
     <Compile Include="DTO\DalUser.cs" />
-    <Compile Include="DTO\DalFile.cs" />
-    <Compile Include="DTO\DalSubItem.cs" />
     <Compile Include="DTO\DalToDoItem.cs" />
     <Compile Include="DTO\DalToDoList.cs" />
-    <Compile Include="Repository\IFileRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\ISubItemRepository.cs" />
     <Compile Include="Repository\IToDoItemRepository.cs" />
     <Compile Include="Repository\IToDoListRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />

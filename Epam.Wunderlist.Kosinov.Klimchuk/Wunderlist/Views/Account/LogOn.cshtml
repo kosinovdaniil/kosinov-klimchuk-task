@@ -11,7 +11,7 @@
         <div class="field">
             <br />
             <img src="~/Content/email.png" alt="email" />
-            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Электронная почта" } })
+            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { placeholder = "Email"} })
             @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
         </div>
 
@@ -19,7 +19,7 @@
 
         <div class="field">
             <img src="~/Content/lock.png" alt="Password" />
-            @Html.PasswordFor(model => model.Password, new { placeholder = "Пароль" })
+            @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
             @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
         </div>
 
@@ -29,7 +29,7 @@
             <input type="submit" value="Вход" class="btn" />
 
             <div id="link">
-                @Html.ActionLink("Забыли пароль?", "Register", "Account")
+                @Html.ActionLink("Forgot password?", "Register", "Account")
             </div>
         </div>
     }

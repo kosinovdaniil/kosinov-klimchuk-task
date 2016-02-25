@@ -48,17 +48,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Concrete\FileRepository.cs" />
     <Compile Include="Concrete\Repository.cs" />
-    <Compile Include="Concrete\SubItemRepository.cs" />
     <Compile Include="Concrete\ToDoListRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
     <Compile Include="Concrete\ToDoItemRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
-    <Compile Include="Mappers\DalFileMapper.cs" />
     <Compile Include="Mappers\DalItemMapper.cs" />
     <Compile Include="Mappers\DalListMapper.cs" />
-    <Compile Include="Mappers\DalSubItemMapper.cs" />
     <Compile Include="Mappers\DalUserMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

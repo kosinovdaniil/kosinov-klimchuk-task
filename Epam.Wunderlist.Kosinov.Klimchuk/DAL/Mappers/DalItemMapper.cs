@@ -16,10 +16,8 @@ namespace DAL.Mappers
                 IsFavourited = e.IsFavourited,
                 AddingDate = e.AddingDate,
                 CompletionDate = e.CompletionDate,
-                FilesId = e.Files?.Select(x => x.Id).ToList(),
                 ListId = e.List.Id,
                 Note = e.Note,
-                SubItemsId = e.SubItems?.Select(x => x.Id).ToList(),
                 Text = e.Text
             };
         }

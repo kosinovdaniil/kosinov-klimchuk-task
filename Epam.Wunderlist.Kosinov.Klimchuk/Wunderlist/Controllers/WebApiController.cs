@@ -18,17 +18,13 @@ namespace Wunderlist.Controllers
     public class WebApiController : ApiController
     {
         private readonly IUserService _userService;
-        private readonly IFileService _fileService;
         private readonly IToDoItemService _itemService;
-        private readonly ISubItemService _subItemService;
         private readonly IToDoListService _listService;
 
-        public WebApiController(IUserService userService, IFileService fileService, IToDoItemService itemService, ISubItemService subItemService, IToDoListService listService)
+        public WebApiController(IUserService userService, IToDoItemService itemService,IToDoListService listService)
         {
             _userService = userService;
-            _fileService = fileService;
             _itemService = itemService;
-            _subItemService = subItemService;
             _listService = listService;
         }
 
@@ -180,30 +176,6 @@ namespace Wunderlist.Controllers
                 response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
             }
             return response;
-        }
-
-        [Route("items/{id:int}/subitems")]
-        public string GetSubItems(int id)
-        {
-            return Serialize(_subItemService.GetSubItems(id));
-        }
-
-        [Route("subitems/{id:int}")]
-        public string GetSubItem(int id)
-        {
-            return Serialize(_subItemService.Get(id));
-        }
-
-        [Route("items/{id:int}/files")]
-        public string GetFiles(int id)
-        {
-            return Serialize(_fileService.GetByItem(id));
-        }
-
-        [Route("files/{id:int}")]
-        public string GetFile(int id)
-        {
-            return Serialize(_fileService.Get(id));
         }
 
         private string Serialize(object obj)

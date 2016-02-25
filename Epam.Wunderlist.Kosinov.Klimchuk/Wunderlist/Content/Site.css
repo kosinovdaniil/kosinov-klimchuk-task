@@ -71,11 +71,11 @@ a img, img {
 	margin-left: -5px;
 }
 
-a span {
+/*a span {
 	font-size: 1.1em;
 	color: #000;
 	text-decoration: none;
-}
+}*/
 
 /*#main {
 	background-image: url(main.jpg);
@@ -220,7 +220,7 @@ textarea {
 -----------------------------------------------------------*/
 .field-validation-error {
     color: #f00;
-    padding: 50px;
+    margin: 50px;
 }
 
 .field-validation-valid {

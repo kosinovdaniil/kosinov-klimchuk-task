@@ -30,14 +30,6 @@ namespace DAL.Concrete
             list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
             foreach (var item in list.Items) // TODO DRY
             {
-                foreach (var file in item.Files) // TODO maybe cascade delete will do, dont know
-                {
-                    context.Set<File>().Remove(file);
-                }
-                foreach (var subitems in item.SubItems)// try cascade delete
-                {
-                    context.Set<SubItem>().Remove(subitems);
-                }
                 context.Set<ToDoItem>().Remove(item);
             }
 

@@ -17,10 +17,6 @@ namespace ORM
 
         public string Note { get; set; }
 
-        public IList<SubItem> SubItems { get; set; }
-
-        public IList<File> Files { get; set; }
-
         public virtual ToDoList List { get; set; }
     }
 }

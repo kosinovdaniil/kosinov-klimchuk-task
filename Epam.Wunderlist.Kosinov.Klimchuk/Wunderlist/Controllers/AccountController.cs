@@ -92,46 +92,7 @@ namespace Wunderlist.Controllers
             return RedirectToAction("Index", "Home",null);
         }
 
-        [Authorize]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Edit(int id)
-        {
-            var user = _userService.Get(id);
-            return View(user.ToUserViewModel());
-        }
-        [Authorize]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(UserViewModel user)
-        {
-            _userService.Update(user.ToBllUser());
-            if (!((ClaimsIdentity)User.Identity).Claims
-                    .Any(x => x.Type == ClaimTypes.Role &&
-                    x.Value == "Admin"))
-            {
-                _signService.IdentitySignout();
-                _signService.IdentitySignin(user.ToBllUser());
-            }
-            return RedirectToAction("Index", "Home",null);
-        }
-
-        [HttpGet]
-        public ActionResult Delete(int id = 0)
-        {
-            BllUser user = _userService.Get(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user.ToUserViewModel());
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(BllUser user)
-        {
-            _userService.Delete(user);
-            return RedirectToAction("Index", "Home", null);
-        }
+      
 
     }
 }

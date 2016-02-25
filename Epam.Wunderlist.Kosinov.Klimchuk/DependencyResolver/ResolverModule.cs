@@ -38,18 +38,13 @@ namespace DependencyResolver
             
 
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<IFileRepository>().To<FileRepository>();
-            kernel.Bind<ISubItemRepository>().To<SubItemRepository>();
             kernel.Bind<IToDoItemRepository>().To<ToDoItemRepository>();
             kernel.Bind<IToDoListRepository>().To<ToDoListRepository>();
             
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ISignInService>().To<SignInService>();
-            kernel.Bind<ISubItemService>().To<SubItemService>();
             kernel.Bind<IToDoItemService>().To<ToDoItemService>();
-            kernel.Bind<IToDoListService>().To<ToDoListService>();
-            kernel.Bind<IFileService>().To<FileService>();
-            
+            kernel.Bind<IToDoListService>().To<ToDoListService>();           
         }
     }
 }
