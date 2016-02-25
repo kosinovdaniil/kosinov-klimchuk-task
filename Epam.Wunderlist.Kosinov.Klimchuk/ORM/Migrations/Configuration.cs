@@ -19,7 +19,7 @@ namespace ORM.Migrations
             {
                 var user = new User()
                 {
-                    Email = "mail" + i.ToString(),
+                    Email = "mail" + i.ToString() + "@gmail.com",
                     Name = "user" + i.ToString(),
                     Password = "password" + i.ToString()
                 };
@@ -44,22 +44,6 @@ namespace ORM.Migrations
                             IsCompleted = false,
                             List = list
                         };
-                        for (var z = 0; z < t; z++)
-                        {
-                            var subItem = new SubItem()
-                            {
-                                Text = "subText" + z.ToString(),
-                                IsCompleted = false,
-                                BaseItem = item
-                            };
-                            var file = new File()
-                            {
-                                Name = "file" + z.ToString(),
-                                AddingDate = DateTime.MinValue,
-                                Path = "path" + z.ToString(),
-                                BaseItem = item
-                            };
-                        }
                     }
                 }
             }

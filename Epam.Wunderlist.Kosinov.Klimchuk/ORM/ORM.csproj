@@ -53,8 +53,6 @@
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
     <Compile Include="Entity.cs" />
-    <Compile Include="SubItem.cs" />
-    <Compile Include="File.cs" />
     <Compile Include="ToDoItem.cs" />
     <Compile Include="ToDoList.cs" />
     <Compile Include="Migrations\Configuration.cs" />

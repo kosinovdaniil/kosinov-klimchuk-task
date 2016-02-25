@@ -70,43 +70,5 @@ namespace Wunderlist.Infrastructure.Mappers
                 Text = e.Text
             };
         }
-
-        public static FileViewModel ToFileViewModel(this BllFile e)
-        {
-            return new FileViewModel()
-            {
-                AddingDate = e.AddingDate,
-                Id = e.Id,
-                Name = e.Name,
-            };
-        }
-        public static BllFile ToBllFile(this FileViewModel e)
-        {
-            return new BllFile()
-            {
-                AddingDate = e.AddingDate,
-                Id = e.Id,
-                Name = e.Name,
-            };
-        }
-
-        public static SubItemViewModel ToSubItemViewModel(this BllSubItem e)
-        {
-            return new SubItemViewModel()
-            {
-                Id = e.Id,
-                IsCompleted = e.IsCompleted,
-                Text = e.Text
-            };
-        }
-        public static BllSubItem ToBllSubItem(this SubItemViewModel e)
-        {
-            return new BllSubItem()
-            {
-                Id = e.Id,
-                IsCompleted = e.IsCompleted,
-                Text = e.Text
-            };
-        }
     }
 }

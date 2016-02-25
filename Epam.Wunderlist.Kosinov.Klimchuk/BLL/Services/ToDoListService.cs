@@ -4,6 +4,9 @@ using DAL.Interface.Repository;
 using DAL.Interface.DTO;
 using BLL.Interfacies.Services;
 using DAL.Interfacies.Repository;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -12,6 +15,13 @@ namespace BLL.Services
         #region Constructor
         public ToDoListService(IUnitOfWork uow, IToDoListRepository repository)
             : base(uow, repository) { }
+        #endregion
+
+        #region Methods
+        public IEnumerable<BllToDoList> GetByUser(int id)
+        {
+            return ((IToDoListRepository)_repository).GetByUser(id).Select(item => item.ToBllList());
+        }
         #endregion
 
         #region Protected methods

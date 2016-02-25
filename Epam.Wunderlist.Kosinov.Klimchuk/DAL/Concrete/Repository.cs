@@ -50,10 +50,6 @@ namespace DAL.Concrete
 
         public virtual TDalEntity Create(TDalEntity entity)
         {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
             var e = context.Set<TEntity>().Add(MapToEntity(entity));
             return MapToDalEntity(e);
         }

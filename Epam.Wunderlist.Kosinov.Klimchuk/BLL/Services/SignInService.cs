@@ -21,6 +21,7 @@ namespace BLL.Services
 
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
             claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim(ClaimTypes.Email, user.Email));
 
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
 

@@ -20,7 +20,15 @@ namespace DAL.Concrete
         public ToDoItemRepository(DbContext context)
             : base(context) { }
         #endregion
-      
+
+        #region Methods
+        public IEnumerable<DalToDoItem> GetByList(int id)
+        {
+            var ormlist = context.Set<ToDoList>().FirstOrDefault(item => item.Id == id);
+            return ormlist?.Items.Select(MapToDalEntity);
+        }
+        #endregion
+
         public override void Delete(DalToDoItem e)
         {
             //TODO probably not necessary db access

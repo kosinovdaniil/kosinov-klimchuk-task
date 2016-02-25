@@ -4,6 +4,7 @@ using DAL.Interface.DTO;
 using DAL.Interface.Repository;
 using ORM;
 using DAL.Mappers;
+using System.Collections.Generic;
 
 namespace DAL.Concrete
 {
@@ -15,12 +16,6 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-        public DalUser GetByName(string name)
-        {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Name == name);
-            return ormuser?.ToDalUser();
-        }
-
         public DalUser GetByMail(string mail)
         {
             var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);

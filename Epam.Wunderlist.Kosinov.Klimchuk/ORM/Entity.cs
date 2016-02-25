@@ -7,6 +7,6 @@ namespace ORM
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; set; }
+        public virtual int Id { get; }
     }
 }

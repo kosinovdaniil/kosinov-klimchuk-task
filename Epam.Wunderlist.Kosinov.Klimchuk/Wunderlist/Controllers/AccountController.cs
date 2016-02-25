@@ -31,6 +31,14 @@ namespace Wunderlist.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Register(UserRegisterModel model)
         {
+            var anyUser = _userService.GetAll().Any(u => u.Email == model.Email);
+
+            if (anyUser)
+            {
+                ModelState.AddModelError("", "User with that email already exists!");
+                return View(model);
+            }
+
             if (ModelState.IsValid)
             {
                 var user = new BllUser()
@@ -44,30 +52,38 @@ namespace Wunderlist.Controllers
                 if (user != null)
                 {
                     _signService.IdentitySignin(user);
-                    return RedirectToAction("Index", "Home",null);
+                    return RedirectToAction("Index", "Home");
                 }
-
-                ViewBag.Error = "This user already exists";
-                return View("Register");
+                else
+                    ModelState.AddModelError("", "Registration error!");
             }
-            ViewBag.Error = string.Join("; ", ModelState.Values
-                                        .SelectMany(x => x.Errors)
-                                        .Select(x => x.ErrorMessage)); ;
+            //ViewBag.Error = string.Join("; ", ModelState.Values
+            //                            .SelectMany(x => x.Errors)
+            //                            .Select(x => x.ErrorMessage)); ;
             return View("Register");
+        }
 
+        [AcceptVerbs(HttpVerbs.Get)]
+        public ActionResult LogOn()
+        {
+            return View();
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LogOn(UserLoginModel model)
         {
-            BllUser user = _userService.ValidateUser(model.Email, model.Password);
-            if (user != null)
+            if (ModelState.IsValid)
             {
-                _signService.IdentitySignin(user, model.RememberMe);
-                return RedirectToAction("Index", "Home");
+                BllUser user = _userService.ValidateUser(model.Email, model.Password);
+                if (user != null)
+                {
+                    _signService.IdentitySignin(user);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                    ModelState.AddModelError("", "Wrong login or password!");
             }
-            TempData.Add("Error", "Wrong username or password");
-            return RedirectToAction("Index", "Home");
+            return View(model);
         }
 
         public ActionResult LogOut()
@@ -75,46 +91,8 @@ namespace Wunderlist.Controllers
             _signService.IdentitySignout();
             return RedirectToAction("Index", "Home",null);
         }
-        [Authorize]
-        [AcceptVerbs(HttpVerbs.Get)]
-        public ActionResult Edit(int id)
-        {
-            var user = _userService.Get(id);
-            return View(user.ToUserViewModel());
-        }
-        [Authorize]
-        [AcceptVerbs(HttpVerbs.Post)]
-        public ActionResult Edit(UserViewModel user)
-        {
-            _userService.Update(user.ToBllUser());
-            if (!((ClaimsIdentity)User.Identity).Claims
-                    .Any(x => x.Type == ClaimTypes.Role &&
-                    x.Value == "Admin"))
-            {
-                _signService.IdentitySignout();
-                _signService.IdentitySignin(user.ToBllUser());
-            }
-            return RedirectToAction("Index", "Home",null);
-        }
 
-        [HttpGet]
-        public ActionResult Delete(int id = 0)
-        {
-            BllUser user = _userService.Get(id);
-            if (user == null)
-            {
-                return HttpNotFound();
-            }
-            return View(user.ToUserViewModel());
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(BllUser user)
-        {
-            _userService.Delete(user);
-            return RedirectToAction("Index", "Home", null);
-        }
+      
 
     }
 }
