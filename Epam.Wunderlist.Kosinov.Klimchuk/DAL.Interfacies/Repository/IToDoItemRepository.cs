@@ -1,11 +1,10 @@
-﻿using DAL.Interface.DTO;
-using DAL.Interface.Repository;
+﻿using Epam.Wunderlist.DomainModel;
 using System.Collections.Generic;
 
-namespace DAL.Interfacies.Repository
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
 {
-    public interface IToDoItemRepository : IRepository<DalToDoItem>
+    public interface IToDoItemRepository : IRepository<ToDoItem>
     {
-        IEnumerable<DalToDoItem> GetByList(int id);
+        IEnumerable<ToDoItem> GetByList(int id);
     }
 }

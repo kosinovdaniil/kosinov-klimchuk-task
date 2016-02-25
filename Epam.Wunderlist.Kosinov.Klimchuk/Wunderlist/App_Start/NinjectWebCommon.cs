@@ -1,7 +1,7 @@
-﻿[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Wunderlist.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Wunderlist.App_Start.NinjectWebCommon), "Stop")]
+﻿[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Epam.Wunderlist.WebApp.App_Start.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Epam.Wunderlist.WebApp.App_Start.NinjectWebCommon), "Stop")]
 
-namespace Wunderlist.App_Start
+namespace Epam.Wunderlist.WebApp.App_Start
 {
     using System;
     using System.Web;

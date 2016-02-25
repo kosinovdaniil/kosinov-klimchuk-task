@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace Wunderlist
+namespace Epam.Wunderlist.WebApp
 {
     public class BundleConfig
     {

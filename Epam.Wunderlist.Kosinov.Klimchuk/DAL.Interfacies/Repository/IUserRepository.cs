@@ -1,10 +1,9 @@
-﻿using DAL.Interface.DTO;
-using System.Collections.Generic;
+﻿using Epam.Wunderlist.DomainModel;
 
-namespace DAL.Interface.Repository
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
 {
-    public interface IUserRepository : IRepository<DalUser>
+    public interface IUserRepository : IRepository<User>
     {
-        DalUser GetByMail(string mail);
+        User GetByMail(string mail);
     }
 }

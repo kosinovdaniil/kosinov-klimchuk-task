@@ -1,18 +1,14 @@
-﻿using BLL.Interface.Services;
-using BLL.Interfacies.Services;
+﻿using Epam.Wunderlist.Services.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 using System.Web.Http;
-using System.Web.Http.Results;
 using System.Web.Script.Serialization;
-using Wunderlist.ViewModels;
 
-namespace Wunderlist.Controllers
+namespace Epam.Wunderlist.WebApp.Controllers
 {
     [RoutePrefix("api")]
     public class WebApiController : ApiController
@@ -21,7 +17,7 @@ namespace Wunderlist.Controllers
         private readonly IToDoItemService _itemService;
         private readonly IToDoListService _listService;
 
-        public WebApiController(IUserService userService, IToDoItemService itemService,IToDoListService listService)
+        public WebApiController(IUserService userService, IToDoItemService itemService, IToDoListService listService)
         {
             _userService = userService;
             _itemService = itemService;
@@ -35,7 +31,7 @@ namespace Wunderlist.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 response = Request.CreateResponse(HttpStatusCode.OK, "Unauthorized");
-            response.Content = new StringContent(Serialize(_userService.GetAll()), Encoding.Unicode);
+                response.Content = new StringContent(Serialize(_userService.GetAll()), Encoding.Unicode);
             }
             else
             {
@@ -80,7 +76,7 @@ namespace Wunderlist.Controllers
         public HttpResponseMessage GetLists(int id)
         {
             HttpResponseMessage response;
-            
+
             if (User.Identity.IsAuthenticated)
             {
                 if (CurrentUserId == id)
@@ -109,7 +105,7 @@ namespace Wunderlist.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                if (list.UsersId.Contains(CurrentUserId))
+                if (list.Users.Select(user => user.Id).Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     response.Content = new StringContent(Serialize(list), Encoding.Unicode);
@@ -134,7 +130,7 @@ namespace Wunderlist.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                if (list.UsersId.Contains(CurrentUserId))
+                if (list.Users.Select(user => user.Id).Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     //response.Content = new StringContent(Serialize(_itemService.GetByList(list.Id), Encoding.Unicode);
@@ -161,7 +157,7 @@ namespace Wunderlist.Controllers
 
             if (User.Identity.IsAuthenticated)
             {
-                if (list.UsersId.Contains(CurrentUserId))
+                if (list.Users.Select(user => user.Id).Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     response.Content = new StringContent(Serialize(item), Encoding.Unicode);

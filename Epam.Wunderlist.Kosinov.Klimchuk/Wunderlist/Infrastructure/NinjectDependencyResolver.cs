@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Web.Mvc;
 using Ninject;
-using DependencyResolver;
 using System.Web.Http.Dependencies;
 using Ninject.Web.WebApi;
+using Epam.Wunderlist.Common;
 
-namespace Wunderlist.Infrastructure
+namespace Epam.Wunderlist.WebApp.Infrastructure
 {
     public class NinjectDependencyResolver : System.Web.Http.Dependencies.IDependencyResolver
     {

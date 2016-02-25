@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wunderlist.ViewModels
+namespace Epam.Wunderlist.WebApp.ViewModels
 {
     public class UserLoginModel
     {

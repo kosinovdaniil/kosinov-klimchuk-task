@@ -1,59 +1,42 @@
-﻿using System;
+﻿
 using System.Data.Entity;
 using System.Linq;
-using DAL.Interface.DTO;
-using ORM;
-using DAL.Mappers;
-using DAL.Interfacies.Repository;
 using System.Collections.Generic;
+using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 
 namespace DAL.Concrete
 {
-    public class ToDoListRepository : Repository<DalToDoList, ToDoList>, IToDoListRepository
+    public class ToDoListRepository : Repository<ToDoList>, IToDoListRepository
     {
         #region Constructor
         public ToDoListRepository(DbContext context)
-            : base(context) { }
+            : base(context)
+        { }
         #endregion
 
         #region Methods
-        public IEnumerable<DalToDoList> GetByUser(int id)
+        public IEnumerable<ToDoList> GetByUser(int id)
         {
-            var ormuser = context.Set<User>().FirstOrDefault(item => item.Id == id);
-            return ormuser?.Lists.Select(MapToDalEntity);
+            var lists = context.Set<ToDoList>()
+                .Where(list => list.Users.Select(user => user.Id).Contains(id));
+            return lists;
         }
 
-        public override void Delete(DalToDoList e)
+        public override void Delete(ToDoList list)
         {
             //TODO probably not necessary db access
-            var list = e.ToOrmList();
             list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
             foreach (var item in list.Items) // TODO DRY
             {
-                context.Set<ToDoItem>().Remove(item);
+                //context.Set<ToDoItem>().Remove(item);
+                //cascade
             }
 
             if (list != null)
             {
                 context.Set<ToDoList>().Remove(list);
             }
-        }
-        #endregion
-
-        #region Protected methods
-        protected override DalToDoList MapToDalEntity(ToDoList entity)
-        {
-            return entity.ToDalList();
-        }
-
-        protected override ToDoList MapToEntity(DalToDoList dalEntity)
-        {
-            return dalEntity.ToOrmList();
-        }
-
-        protected override void CopyEntityFields(DalToDoList source, ToDoList target)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

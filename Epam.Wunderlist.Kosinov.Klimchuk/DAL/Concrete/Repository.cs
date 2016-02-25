@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using DAL.Interface.Repository;
-using DAL.Interfacies.DTO;
-using ORM;
 using System.Data.Entity;
 using System.Linq.Expressions;
+using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 
 namespace DAL.Concrete
 {
-    public abstract class Repository<TDalEntity, TEntity> : IRepository<TDalEntity>
-        where TDalEntity : DalEntity
+    public abstract class Repository<TEntity> : IRepository<TEntity>
         where TEntity : Entity
     {
         #region Fields
@@ -28,70 +26,60 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-        public virtual IEnumerable<TDalEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
-            return context.Set<TEntity>().ToList().Select(MapToDalEntity);
+            return context.Set<TEntity>();
         }
 
-        public virtual TDalEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             var entity = context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
             if (entity == null)
             {
                 throw new ArgumentException("There is no item with such id", "id");
             }
-            return MapToDalEntity(entity);
+            return entity;
         }
 
-        public virtual IEnumerable<TDalEntity> GetByPredicate(Expression<Func<TDalEntity, bool>> f)
+        public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
         {
             throw new NotImplementedException();
         }
 
-        public virtual TDalEntity Create(TDalEntity entity)
+        public virtual TEntity Create(TEntity entity)
         {
-            var e = context.Set<TEntity>().Add(MapToEntity(entity));
-            return MapToDalEntity(e);
+            var elem = context.Set<TEntity>().Add(entity);
+            return elem;
         }
 
-        public virtual void Delete(TDalEntity dalEntity)
+        public virtual void Delete(TEntity entity)
         {
-            if (dalEntity == null)
+            if (entity == null)
             {
-                throw new ArgumentNullException("dalEntity");
+                throw new ArgumentNullException("entity");
             }
             var entities = context.Set<TEntity>();
-            var entity = entities.FirstOrDefault(item => item.Id == dalEntity.Id);
-            if (entity == null)
+            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            if (elem == null)
             {
                 return;
             }
-            entities.Remove(entity);
+            entities.Remove(elem);
         }
 
-        public virtual void Update(TDalEntity dalEntity)
+        public virtual void Update(TEntity entity)
         {
-            if (dalEntity == null)
-            {
-                throw new ArgumentNullException("dalEntity");
-            }
-            var entity = context.Set<TEntity>().FirstOrDefault(item => item.Id == dalEntity.Id);
             if (entity == null)
             {
-                throw new ArgumentException("There is no element with such id", "dalEntity");
+                throw new ArgumentNullException("entity");
             }
-            CopyEntityFields(dalEntity, entity);
+            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            if (elem == null)
+            {
+                throw new ArgumentException("There is no element with such id", "entity");
+            }
+            //CopyEntityFields(entity, elem);
         }
-
-        #region Protected methods
-
-        protected abstract TDalEntity MapToDalEntity(TEntity entity);
-
-        protected abstract TEntity MapToEntity(TDalEntity dalEntity);
-
-        protected abstract void CopyEntityFields(TDalEntity source, TEntity target);
-
-        #endregion
         #endregion
     }
 }

@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using DAL.Interface.DTO;
-using System.Linq;
-using System.Threading.Tasks;
-using DAL.Interfacies.DTO;
+using Epam.Wunderlist.DomainModel;
 
-namespace DAL.Interface.Repository
+namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
 {
-    public interface IRepository<TEntity> where TEntity : DalEntity
+    public interface IRepository<TEntity> where TEntity : Entity
     {
         IEnumerable<TEntity> GetAll();
 

@@ -1,9 +1,9 @@
 ﻿using Epam.Wunderlist.DomainModel;
 using System.Collections.Generic;
 
-namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
+namespace Epam.Wunderlist.Services.Interfaces
 {
-    public interface IToDoListRepository : IRepository<ToDoList>
+    public interface IToDoListService : ICrudService<ToDoList>
     {
         IEnumerable<ToDoList> GetByUser(int id);
     }

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Wunderlist.ViewModels
+namespace Epam.Wunderlist.WebApp.ViewModels
 {
     public class UserRegisterModel
     {
@@ -18,10 +14,6 @@ namespace Wunderlist.ViewModels
 
         [Required(ErrorMessage = "Put Password")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "Password should be 5-20 symbols.")]
-        //[Compare("PasswordConfirm", ErrorMessage = "Passwords don't match")]
         public string Password { get; set; }
-
-        //public string PasswordConfirm { get; set; }
-
     }
 }

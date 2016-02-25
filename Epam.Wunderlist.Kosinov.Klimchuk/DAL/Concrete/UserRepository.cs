@@ -1,14 +1,11 @@
-﻿using System.Data.Entity;
+﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+using Epam.Wunderlist.DomainModel;
+using System.Data.Entity;
 using System.Linq;
-using DAL.Interface.DTO;
-using DAL.Interface.Repository;
-using ORM;
-using DAL.Mappers;
-using System.Collections.Generic;
 
 namespace DAL.Concrete
 {
-    public class UserRepository : Repository<DalUser, User>, IUserRepository
+    public class UserRepository : Repository<User>, IUserRepository
     {
         #region Constructor
         public UserRepository(DbContext context)
@@ -16,35 +13,18 @@ namespace DAL.Concrete
         #endregion
 
         #region Methods
-        public DalUser GetByMail(string mail)
+        public User GetByMail(string mail)
         {
-            var ormuser = context.Set<User>().FirstOrDefault(user => user.Email == mail);
-            return ormuser?.ToDalUser();
+            var user = context.Set<User>().FirstOrDefault(item => item.Email == mail);
+            return user;
         }
         #endregion
 
         #region Override methods
-        public override void Delete(DalUser e)
+        public override void Delete(User e)
         {
             base.Delete(e);
             //TODO delete all plans for this user
-        }
-        #endregion
-
-        #region Protected methods
-        protected override DalUser MapToDalEntity(User entity)
-        {
-            return entity.ToDalUser();
-        }
-
-        protected override User MapToEntity(DalUser dalEntity)
-        {
-            return dalEntity.ToOrmUser();
-        }
-
-        protected override void CopyEntityFields(DalUser source, User target)
-        {
-            source.CopyFieldsTo(target);
         }
         #endregion
     }

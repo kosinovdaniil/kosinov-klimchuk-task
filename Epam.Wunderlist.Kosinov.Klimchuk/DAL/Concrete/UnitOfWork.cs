@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 using System.Data.Entity;
-using System.Diagnostics;
-using DAL.Interface.Repository;
-using System.Threading.Tasks;
 
 namespace DAL.Concrete
 {

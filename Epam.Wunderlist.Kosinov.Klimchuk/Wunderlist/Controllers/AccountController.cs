@@ -1,14 +1,10 @@
-﻿using System.Diagnostics;
-using System.Linq;
+﻿using System.Linq;
 using System.Web.Mvc;
-using BLL.Interface.Entities;
-using BLL.Interface.Services;
-using Wunderlist.Infrastructure.Mappers;
-using Wunderlist.ViewModels;
-using System.Collections.Generic;
-using System.Security.Claims;
+using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.WebApp.ViewModels;
+using Epam.Wunderlist.Services.Interfaces;
 
-namespace Wunderlist.Controllers
+namespace Epam.Wunderlist.WebApp.Controllers
 {
     public class AccountController : Controller
     {
@@ -41,7 +37,7 @@ namespace Wunderlist.Controllers
 
             if (ModelState.IsValid)
             {
-                var user = new BllUser()
+                var user = new User()
                 {
                     Name = model.Name,
                     Password = model.Password,
@@ -74,7 +70,7 @@ namespace Wunderlist.Controllers
         {
             if (ModelState.IsValid)
             {
-                BllUser user = _userService.ValidateUser(model.Email, model.Password);
+                User user = _userService.ValidateUser(model.Email, model.Password);
                 if (user != null)
                 {
                     _signService.IdentitySignin(user);

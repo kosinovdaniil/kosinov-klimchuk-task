@@ -1,14 +1,8 @@
-﻿using BLL.Interface.Services;
-using System;
-using System.Collections.Generic;
+﻿using Epam.Wunderlist.Services.Interfaces;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Wunderlist.Infrastructure.Mappers;
-using Wunderlist.ViewModels;
-using BLL.Interface.Entities;
 
-namespace Wunderlist.Controllers
+namespace Epam.Wunderlist.WebApp.Controllers
 {
     public class HomeController : Controller
     {
@@ -22,9 +16,9 @@ namespace Wunderlist.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            var users = _userService.GetAll().Select(x => x.ToUserViewModel()).ToList();
+            var users = _userService.GetAll();
             //return View();
-            return View(users);
+            return View();
         }
     }
 }
