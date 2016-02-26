@@ -7,6 +7,6 @@ namespace Epam.Wunderlist.DomainModel
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public virtual int Id { get; }
+        public virtual int Id { get; protected set; }
     }
 }
