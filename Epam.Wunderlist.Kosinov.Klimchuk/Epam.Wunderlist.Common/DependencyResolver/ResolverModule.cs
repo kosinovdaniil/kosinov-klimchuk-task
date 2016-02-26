@@ -6,6 +6,7 @@ using Epam.Wunderlist.Services.Services;
 using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 using Epam.Wunderlist.DataAccess.MssqlProvider.Concrete;
 using Epam.Wunderlist.DataAccess.MssqlProvider;
+using Epam.Wunderlist.Services.Concrete;
 
 namespace Epam.Wunderlist.Common
 {

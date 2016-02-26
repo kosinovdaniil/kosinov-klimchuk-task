@@ -19,29 +19,17 @@ namespace Epam.Wunderlist.Services.Concrete
         #endregion
 
         #region Methods
-        public BllUser ValidateUser(string email, string password)
+        public User ValidateUser(string email, string password)
         {
             var user = ((IUserRepository)_repository).GetByMail(email);
             if (user?.Password == password)
-                return user.ToBllUser();
+                return user;
             return null;
         }
 
-        public BllUser Get(string mail)
+        public User Get(string mail)
         {
-            return ((IUserRepository)_repository).GetByMail(mail).ToBllUser();
-        }
-        #endregion
-
-        #region Protected methods
-        protected override DalUser MapToDalEntity(BllUser entity)
-        {
-            return entity.ToDalUser();
-        }
-
-        protected override BllUser MapToBllEntity(DalUser entity)
-        {
-            return entity.ToBllUser();
+            return ((IUserRepository)_repository).GetByMail(mail);
         }
         #endregion
     }

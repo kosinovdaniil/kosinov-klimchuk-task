@@ -12,6 +12,7 @@ using System.Web.Http.Results;
 using System.Web.Script.Serialization;
 using Epam.Wunderlist.WebApp.ViewModels;
 using Epam.Wunderlist.Services.Interfaces;
+using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
@@ -63,15 +64,15 @@ namespace Epam.Wunderlist.WebApp.Controllers
         #region Post
 
         [Route("lists/")]
-        public HttpResponseMessage PostList(ToDoListViewModel list)
+        public HttpResponseMessage PostList(ToDoList list)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoListViewModel>();
+            var responseBuilder = CreatePostResponseBuilder<ToDoList>();
             return responseBuilder.WithEntity(list);
         }
         [Route("lists/{id:int}/items/")]
-        public HttpResponseMessage PostItem(int id, ToDoItemViewModel item)
+        public HttpResponseMessage PostItem(int id, ToDoItem item)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoItemViewModel>();
+            var responseBuilder = CreatePostResponseBuilder<ToDoItem>();
             return responseBuilder.WithEntity(item)
                 .WithCondition(() => _listService.Get(id).UsersId.Contains(CurrentUserId));
         }
@@ -94,7 +95,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         }
         private HttpPostResponseBuilder<TEntity> CreatePostResponseBuilder<TEntity>()
         {
-            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request); //TODO NINJECT SERVICE
+            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request,); //TODO NINJECT SERVICE
         }
 
     }

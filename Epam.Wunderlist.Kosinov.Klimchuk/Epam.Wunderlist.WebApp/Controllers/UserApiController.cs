@@ -1,6 +1,4 @@
-﻿using BLL.Interface.Services;
-using BLL.Interfacies.Services;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -11,9 +9,10 @@ using System.Text;
 using System.Web.Http;
 using System.Web.Http.Results;
 using System.Web.Script.Serialization;
-using Wunderlist.ViewModels;
+using Epam.Wunderlist.WebApp.ViewModels;
+using Epam.Wunderlist.Services.Interfaces;
 
-namespace Wunderlist.Controllers
+namespace Epam.Wunderlist.WebApp.Controllers
 {
     [RoutePrefix("api")]
     public class UserApiController : ApiController
