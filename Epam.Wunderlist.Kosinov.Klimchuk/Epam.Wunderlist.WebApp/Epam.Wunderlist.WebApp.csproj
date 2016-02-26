@@ -228,7 +228,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\UserApiController.cs" />
-    <Compile Include="Controllers\WebApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

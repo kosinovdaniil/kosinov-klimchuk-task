@@ -7,6 +7,7 @@ using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
 using Epam.Wunderlist.DataAccess.MssqlProvider.Concrete;
 using Epam.Wunderlist.DataAccess.MssqlProvider;
 using Epam.Wunderlist.Services.Concrete;
+using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.Common
 {
@@ -43,7 +44,11 @@ namespace Epam.Wunderlist.Common
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ISignInService>().To<SignInService>();
             kernel.Bind<IToDoItemService>().To<ToDoItemService>();
-            kernel.Bind<IToDoListService>().To<ToDoListService>();           
+            kernel.Bind<IToDoListService>().To<ToDoListService>();
+
+            kernel.Bind<ICrudService<ToDoItem>>().To<ToDoItemService>();
+            kernel.Bind<ICrudService<ToDoList>>().To<ToDoListService>();
+            kernel.Bind<ICrudService<User>>().To<UserService>();
         }
     }
 }

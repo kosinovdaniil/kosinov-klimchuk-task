@@ -1,16 +1,9 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Security.Principal;
-using System.Text;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Script.Serialization;
-using Epam.Wunderlist.WebApp.ViewModels;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
 
@@ -32,7 +25,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [Route("users/{id:int}/lists")]
         public HttpResponseMessage GetLists(int id)
         {
-            return GetResponseBuilder().WithMethod(() => _listService.GetByUser(id))
+            return CreateGetResponseBuilder().WithMethod(() => _listService.GetByUser(id))
                 .WithCondition(() => CurrentUserId == id);
         }
 
@@ -40,24 +33,24 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage GetList(int id)
         {
             var list = _listService.Get(id);
-            return GetResponseBuilder().WithMethod(() => list)
-               .WithCondition(() => list.UsersId.Contains(CurrentUserId));
+            return CreateGetResponseBuilder().WithMethod(() => list)
+               .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
         [Route("lists/{id:int}/items")]
         public HttpResponseMessage GetItems(int id)
         {
             var list = _listService.Get(id);
-            return GetResponseBuilder().WithMethod(() => _itemService.GetByList(id))
-                  .WithCondition(() => list.UsersId.Contains(CurrentUserId));
+            return CreateGetResponseBuilder().WithMethod(() => _itemService.GetByList(id))
+                  .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
         [Route("items/{id:int}")]
         public HttpResponseMessage GetItem(int id)
         {
             var item = _itemService.Get(id);
-            return GetResponseBuilder().WithMethod(() => item);
-            // .WithCondition(() => item.UsersId.Contains(CurrentUserId));
+            return CreateGetResponseBuilder().WithMethod(() => item)
+                .WithCondition(() => item.Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
         #endregion
@@ -66,15 +59,15 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [Route("lists/")]
         public HttpResponseMessage PostList(ToDoList list)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoList>();
+            var responseBuilder = CreatePostResponseBuilder<ToDoList>(_listService);
             return responseBuilder.WithEntity(list);
         }
         [Route("lists/{id:int}/items/")]
         public HttpResponseMessage PostItem(int id, ToDoItem item)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoItem>();
+            var responseBuilder = CreatePostResponseBuilder<ToDoItem>(_itemService);
             return responseBuilder.WithEntity(item)
-                .WithCondition(() => _listService.Get(id).UsersId.Contains(CurrentUserId));
+                .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
         #endregion
@@ -93,9 +86,10 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             return new HttpGetResponseBuilder(User.Identity, Request);
         }
-        private HttpPostResponseBuilder<TEntity> CreatePostResponseBuilder<TEntity>()
+        private HttpPostResponseBuilder<TEntity> CreatePostResponseBuilder<TEntity>(ICrudService<TEntity> service)
+            where TEntity : Entity
         {
-            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request,); //TODO NINJECT SERVICE
+            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request, service); //TODO correct this
         }
 
     }
