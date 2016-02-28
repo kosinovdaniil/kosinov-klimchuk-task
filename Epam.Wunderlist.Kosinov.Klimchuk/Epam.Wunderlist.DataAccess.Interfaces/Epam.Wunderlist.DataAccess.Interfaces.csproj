@@ -7,8 +7,8 @@
     <ProjectGuid>{06204C03-41A1-4567-8EDD-88AE0FC4391B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces</RootNamespace>
-    <AssemblyName>Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces</AssemblyName>
+    <RootNamespace>Epam.Wunderlist.DataAccess.Interfaces</RootNamespace>
+    <AssemblyName>Epam.Wunderlist.DataAccess.Interfaces</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

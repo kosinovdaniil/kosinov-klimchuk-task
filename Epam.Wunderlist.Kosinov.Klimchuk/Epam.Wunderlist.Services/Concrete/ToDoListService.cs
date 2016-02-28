@@ -2,8 +2,7 @@
 using System.Linq;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.Services.Services;
-using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 
 namespace Epam.Wunderlist.Services.Services
 {

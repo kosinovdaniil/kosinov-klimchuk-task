@@ -5,7 +5,7 @@ using Owin;
 using System.Security.Claims;
 using System.Web.Helpers;
 
-namespace Wunderlist
+namespace Epam.Wunderlist.WebApp
 {
     public partial class Startup
     {

@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 
 
-namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
+namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
     public class ToDoItemRepository : Repository<ToDoItem>, IToDoItemRepository
     {

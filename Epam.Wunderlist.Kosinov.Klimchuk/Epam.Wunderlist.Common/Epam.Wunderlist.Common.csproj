@@ -63,9 +63,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces\Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.csproj">
+    <ProjectReference Include="..\Epam.Wunderlist.DataAccess.Interfaces\Epam.Wunderlist.DataAccess.Interfaces.csproj">
       <Project>{06204c03-41a1-4567-8edd-88ae0fc4391b}</Project>
-      <Name>Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces</Name>
+      <Name>Epam.Wunderlist.DataAccess.Interfaces</Name>
     </ProjectReference>
     <ProjectReference Include="..\Epam.Wunderlist.DataAccess.MssqlProvider\Epam.Wunderlist.DataAccess.MssqlProvider.csproj">
       <Project>{bb36f59d-3f3c-4594-944c-a0d271591a97}</Project>

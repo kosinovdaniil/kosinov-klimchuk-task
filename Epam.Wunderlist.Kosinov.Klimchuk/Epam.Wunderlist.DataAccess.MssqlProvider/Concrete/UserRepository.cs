@@ -1,4 +1,4 @@
-﻿using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
 using System.Linq;

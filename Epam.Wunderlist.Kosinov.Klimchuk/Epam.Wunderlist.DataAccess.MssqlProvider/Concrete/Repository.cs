@@ -4,7 +4,7 @@ using System.Linq;
 using System.Data.Entity;
 using System.Linq.Expressions;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository;
+using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {

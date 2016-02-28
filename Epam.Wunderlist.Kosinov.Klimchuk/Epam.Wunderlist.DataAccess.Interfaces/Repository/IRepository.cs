@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using Epam.Wunderlist.DomainModel;
 
-namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
+namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
     public interface IRepository<TEntity> where TEntity : Entity
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
+namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
     public interface IUnitOfWork : IDisposable
     {

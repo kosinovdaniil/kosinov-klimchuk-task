@@ -1,6 +1,6 @@
 ﻿using Epam.Wunderlist.DomainModel;
 
-namespace Epam.Wunderlist.DataAccess.MssqlProvider.Interfaces.Repository
+namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
     public interface IUserRepository : IRepository<User>
     {
