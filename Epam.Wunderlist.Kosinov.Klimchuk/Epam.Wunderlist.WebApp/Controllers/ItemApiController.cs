@@ -59,13 +59,13 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [Route("lists/")]
         public HttpResponseMessage PostList(ToDoList list)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoList>(_listService);
+            var responseBuilder = CreatePostResponseBuilder(_listService);
             return responseBuilder.WithEntity(list);
         }
         [Route("lists/{id:int}/items/")]
         public HttpResponseMessage PostItem(int id, ToDoItem item)
         {
-            var responseBuilder = CreatePostResponseBuilder<ToDoItem>(_itemService);
+            var responseBuilder = CreatePostResponseBuilder(_itemService);
             return responseBuilder.WithEntity(item)
                 .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
         }
@@ -86,10 +86,13 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             return new HttpGetResponseBuilder(User.Identity, Request);
         }
+
         private HttpPostResponseBuilder<TEntity> CreatePostResponseBuilder<TEntity>(ICrudService<TEntity> service)
             where TEntity : Entity
         {
-            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request, service); //TODO correct this
+
+            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request, service);
+
         }
 
     }

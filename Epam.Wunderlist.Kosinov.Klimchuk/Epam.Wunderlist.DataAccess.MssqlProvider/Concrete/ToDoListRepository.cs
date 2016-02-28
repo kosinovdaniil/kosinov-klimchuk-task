@@ -18,7 +18,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         public IEnumerable<ToDoList> GetByUser(int id)
         {
             var lists = context.Set<ToDoList>()
-                .Where(list => list.Users.Select(user => user.Id).Contains(id));
+                .Where(list => list.Users.Select(x => x.Id).Contains(id));
             return lists;
         }
 
@@ -26,7 +26,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         {
             //TODO probably not necessary db access
             list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
-            foreach (var item in list.Items) // TODO DRY
+            foreach (var item in list.Items.Select(x => x.Id))
             {
                 //context.Set<ToDoItem>().Remove(item);
                 //cascade

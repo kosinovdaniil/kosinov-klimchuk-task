@@ -25,7 +25,7 @@ namespace Epam.Wunderlist.Services.Services
         #region Methods
         public virtual TEntity Create(TEntity entity)
         {
-            if (entity == null)                            //отследить в контроллерах
+            if (entity == null)                            
             {
                 throw new ArgumentNullException("entity");
             }

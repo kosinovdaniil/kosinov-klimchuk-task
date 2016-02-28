@@ -1,9 +1,9 @@
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
 {
+    using DomainModel;
     using System;
-    using System.Data.Entity;
+    using System.Collections.Generic;
     using System.Data.Entity.Migrations;
-    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Epam.Wunderlist.DataAccess.MssqlProvider.ApplicationDbContext>
     {
@@ -14,18 +14,38 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
 
         protected override void Seed(Epam.Wunderlist.DataAccess.MssqlProvider.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            for (var i = 0; i < 10; i++)
+            {
+                var user = new User()
+                {
+                    Email = "mail" + i.ToString() + "@gmail.com",
+                    Name = "user" + i.ToString(),
+                    Password = "password" + i.ToString()
+                };
+                context.Users.Add(user);
+                for (var j = 0; j < i; j++)
+                {
+                    var list = new ToDoList()
+                    {
+                        Name = "list" + i.ToString(),
+                        Users = new List<User> { user }
+                    };
+                    context.Lists.Add(list);
+                    for (var t = 0; t < j; t++)
+                    {
+                        var item = new ToDoItem()
+                        {
+                            Text = "sampleText" + t.ToString(),
+                            Note = "note" + t.ToString(),
+                            DateAdded = DateTime.MinValue,
+                            DateCompletion = null,
+                            IsFavourited = false,
+                            IsCompleted = false,
+                            List = list
+                        };
+                    }
+                }
+            }
         }
     }
 }
