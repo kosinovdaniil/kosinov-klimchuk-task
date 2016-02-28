@@ -2,6 +2,7 @@
 using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.Services.Services;
+using System;
 
 namespace Epam.Wunderlist.Services.Concrete
 {
@@ -24,6 +25,10 @@ namespace Epam.Wunderlist.Services.Concrete
 
         public User Get(string mail)
         {
+            if (mail == null)
+            {
+                throw new ArgumentNullException("mail");
+            }
             return ((IUserRepository)_repository).GetByMail(mail);
         }
         #endregion

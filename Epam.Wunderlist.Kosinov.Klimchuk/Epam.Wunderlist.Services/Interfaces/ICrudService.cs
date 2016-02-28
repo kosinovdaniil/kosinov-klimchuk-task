@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.Services.Interfaces
 {
@@ -9,6 +11,8 @@ namespace Epam.Wunderlist.Services.Interfaces
         IEnumerable<IEntity> GetAll();
 
         IEntity Create(IEntity entity);
+
+        IEnumerable<IEntity> GetByPredicate(Expression<Func<IEntity, bool>> f);
 
         void Update(IEntity entity);
 

@@ -13,6 +13,10 @@ namespace Epam.Wunderlist.Services.Services
     {
         public void IdentitySignin(User user, bool isPersistent = false)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
             var claims = new List<Claim>();
 
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));

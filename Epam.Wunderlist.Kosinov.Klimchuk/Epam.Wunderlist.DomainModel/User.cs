@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Epam.Wunderlist.DomainModel
 {
-    public partial class User : Entity
+    public class User : Entity
     {
         public string Email { get; set; }
 

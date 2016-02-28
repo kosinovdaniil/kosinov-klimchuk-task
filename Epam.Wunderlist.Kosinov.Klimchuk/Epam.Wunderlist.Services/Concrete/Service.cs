@@ -3,6 +3,7 @@ using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.Services.Services
 {
@@ -23,7 +24,7 @@ namespace Epam.Wunderlist.Services.Services
         #endregion
 
         #region Methods
-        public virtual TEntity Create(TEntity entity)
+        public TEntity Create(TEntity entity)
         {
             if (entity == null)                            
             {
@@ -36,7 +37,7 @@ namespace Epam.Wunderlist.Services.Services
             return result;
         }
 
-        public virtual void Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             if (entity == null)
             {
@@ -47,17 +48,17 @@ namespace Epam.Wunderlist.Services.Services
             _uow.Commit();
         }
 
-        public virtual TEntity Get(int id)
+        public TEntity Get(int id)
         {
             return _repository.GetById(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public virtual void Update(TEntity entity)
+        public void Update(TEntity entity)
         {
             if (entity == null)
             {
@@ -66,6 +67,11 @@ namespace Epam.Wunderlist.Services.Services
 
             _repository.Update(entity);
             _uow.Commit();
+        }
+
+        public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
+        {
+            return _repository.GetByPredicate(f);
         }
         #endregion
     }

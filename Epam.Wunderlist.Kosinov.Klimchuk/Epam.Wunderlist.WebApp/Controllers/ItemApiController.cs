@@ -6,12 +6,14 @@ using System.Security.Claims;
 using System.Web.Http;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
+using System.Net;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
     [RoutePrefix("api")]
     public class ItemApiController : ApiController
     {
+         
         private readonly IToDoListService _listService;
         private readonly IToDoItemService _itemService;
 
@@ -70,6 +72,55 @@ namespace Epam.Wunderlist.WebApp.Controllers
                 .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
+        [Route("lists/{id:int}/delete")]
+        [HttpPost]
+        public HttpResponseMessage DeleteList(int id)
+        {
+            HttpResponseMessage response;
+            if (User.Identity.IsAuthenticated)
+            {
+                var list = _listService.Get(id);
+                if (list.Users.Select(x=>x.Id).Contains(CurrentUserId))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    _listService.Delete(list);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
+        }
+
+        [Route("items/{id:int}/delete")]
+        [HttpPost]
+        public HttpResponseMessage DeleteItem(int id)
+        {
+            HttpResponseMessage response;
+            if (User.Identity.IsAuthenticated)
+            {
+                var item = _itemService.Get(id);
+                if (item.Users.Select(x => x.Id).Contains(CurrentUserId))
+                {
+                    response = Request.CreateResponse(HttpStatusCode.OK, "");
+                    _itemService.Delete(item);
+                }
+                else
+                {
+                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
+                }
+            }
+            else
+            {
+                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
+            }
+            return response;
+        }
         #endregion
 
 

@@ -34,16 +34,12 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         public virtual TEntity GetById(int id)
         {
             var entity = context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
-            if (entity == null)
-            {
-                throw new ArgumentException("There is no item with such id", "id");
-            }
             return entity;
         }
 
         public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
         {
-            throw new NotImplementedException();
+            return context.Set<TEntity>().Where(f).AsEnumerable();
         }
 
         public virtual TEntity Create(TEntity entity)
@@ -74,10 +70,6 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
                 throw new ArgumentNullException("entity");
             }
             var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
-            if (elem == null)
-            {
-                throw new ArgumentException("There is no element with such id", "entity");
-            }
             //CopyEntityFields(entity, elem);
         }
         #endregion

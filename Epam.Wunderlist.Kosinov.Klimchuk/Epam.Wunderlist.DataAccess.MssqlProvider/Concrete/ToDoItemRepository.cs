@@ -11,13 +11,14 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
     {
         #region Constructor
         public ToDoItemRepository(DbContext context)
-            : base(context) { }
+            : base(context)
+        { }
         #endregion
 
         #region Methods
         public IEnumerable<ToDoItem> GetByList(int id)
         {
-            var items = context.Set<ToDoItem>().Where(item => item.List.Id == id);
+            var items = GetByPredicate(item => item.List.Id == id);
             return items;
         }
         #endregion
