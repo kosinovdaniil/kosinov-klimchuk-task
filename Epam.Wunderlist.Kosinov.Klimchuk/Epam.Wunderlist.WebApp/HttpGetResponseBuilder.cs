@@ -70,5 +70,6 @@ namespace Epam.Wunderlist.WebApp
         {
             return self.Execute();
         }
+
     }
 }
