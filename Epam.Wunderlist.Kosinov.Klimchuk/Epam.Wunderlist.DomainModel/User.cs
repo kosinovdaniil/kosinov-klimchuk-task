@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -22,7 +23,7 @@ namespace Epam.Wunderlist.DomainModel
                 return Lists.Select(x => x.Id).ToList();
             }
         }
-
+        [JsonIgnore]
         public virtual IList<ToDoList> Lists { get; set; }
     }
 }

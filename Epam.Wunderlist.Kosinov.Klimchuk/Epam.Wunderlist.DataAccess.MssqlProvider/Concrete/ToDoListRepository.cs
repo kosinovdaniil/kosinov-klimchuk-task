@@ -17,7 +17,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Methods
         public IEnumerable<ToDoList> GetByUser(int id)
         {
-            var lists = GetByPredicate(list => list.UsersId.Contains(id));
+            var lists = GetByPredicate(list => list.Users.Select(x => x.Id).Contains(id));
             return lists;
         }
 

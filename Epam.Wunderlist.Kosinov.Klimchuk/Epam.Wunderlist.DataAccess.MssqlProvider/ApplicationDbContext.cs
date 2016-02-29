@@ -9,7 +9,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider
         public ApplicationDbContext()
             : base("name=GoalsDatabase")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
+            //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
         
         public virtual DbSet<User> Users { get; set; }
