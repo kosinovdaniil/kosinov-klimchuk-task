@@ -11,6 +11,13 @@ namespace Epam.Wunderlist.WebApp
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                        "~/Scripts/angular.js",
+                        "~/Scripts/angular-ui/ui-bootstrap.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/webApp").Include(
+                        "~/Scripts/webApp.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
