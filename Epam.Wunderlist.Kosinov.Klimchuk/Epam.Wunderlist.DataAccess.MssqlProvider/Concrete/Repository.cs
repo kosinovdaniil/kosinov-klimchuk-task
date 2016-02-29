@@ -39,7 +39,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 
         public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
         {
-            return context.Set<TEntity>().Where(f).AsEnumerable();
+            return context.Set<TEntity>().Where(f);
         }
 
         public virtual TEntity Create(TEntity entity)
@@ -70,8 +70,12 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
                 throw new ArgumentNullException("entity");
             }
             var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
-            //CopyEntityFields(entity, elem);
+            CopyEntityFields(entity, elem);
         }
+        #endregion
+
+        #region Protected methods
+        protected abstract void CopyEntityFields(TEntity source, TEntity target);
         #endregion
     }
 }

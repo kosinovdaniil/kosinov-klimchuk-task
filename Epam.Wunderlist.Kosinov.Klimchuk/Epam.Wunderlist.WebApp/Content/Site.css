@@ -74,7 +74,7 @@ a img {
     border: none;
     color: #FFF;
     width: 75%;
-    margin-left: -5px;
+    height: 100%;
 }
 
 /*a span {
@@ -108,6 +108,10 @@ a img {
 
 .icon-container {
     position: relative;
+}
+
+.img-item {
+    padding: .5em;
 }
 
 #plus {
@@ -168,7 +172,7 @@ input[type="checkbox"] {
 }
 
 #item-info {
-    display: none;
+    display: block;
 }
 
 #icon {
@@ -205,9 +209,13 @@ legend {
     font-weight: bold;
 }
 
-/*placeholder {
-    font-size: 16px;
-}*/
+input[type="text"]::-webkit-input-placeholder {
+    color: #ccc;
+}
+
+input[type="text"]::-moz-placeholder {
+    color: #ccc;
+}
 
 .btn {
     display: block;
@@ -215,7 +223,7 @@ legend {
     border-radius: 5px;
     background: #2b88d9;
     color: #FFF;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
     border: 0 none;
     align-content: center;
@@ -262,11 +270,11 @@ nav {
     border: 1px solid #666;
     border-radius: 5px;
     background: #FFF;
-    font-size: .8em;
+    font-size: 14px;
     font-weight: bold;
-    height: 35px;
+    height: 33px;
     display: block;
-    padding: .5em;
+    padding: .4em .8em;
     color: #666;
 }
 
@@ -329,7 +337,7 @@ textarea {
 -----------------------------------------------------------*/
 .field-validation-error {
     color: #f00;
-    margin: 50px;
+    margin: 3em;
 }
 
 .field-validation-valid {
@@ -345,6 +353,7 @@ textarea {
     font-weight: bold;
     color: #f00;
     list-style-type: none;
+    margin-left: 2em;
 }
 
 .validation-summary-valid {

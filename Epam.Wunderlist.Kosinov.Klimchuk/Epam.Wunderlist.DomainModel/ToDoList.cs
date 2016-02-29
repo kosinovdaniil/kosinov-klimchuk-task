@@ -11,10 +11,7 @@ namespace Epam.Wunderlist.DomainModel
         public string Name { get; set; }
 
         [JsonIgnore]
-        public virtual IList<int> ItemsId
-        {
-            get; set;
-        }
+        public virtual IList<int> ItemsId { get; set; }
 
         [JsonIgnore]
         public virtual IList<User> Users { get; set; }

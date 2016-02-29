@@ -21,7 +21,6 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
             var items = GetByPredicate(item => item.List.Id == id);
             return items;
         }
-        #endregion
 
         public override void Delete(ToDoItem item)
         {
@@ -32,5 +31,15 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
                 context.Set<ToDoItem>().Remove(item);
             }
         }
+        #endregion
+
+        #region Protected methods
+        protected override void CopyEntityFields(ToDoItem source, ToDoItem target)
+        {
+            target.Text = source.Text;
+            target.DateCompletion = source.DateCompletion;
+            target.Note = source.Note;
+        }
+        #endregion
     }
 }

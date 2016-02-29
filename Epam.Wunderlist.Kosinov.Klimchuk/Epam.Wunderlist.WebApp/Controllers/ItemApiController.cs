@@ -10,7 +10,7 @@ using System.Net;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("WebApp/api")]
     public class ItemApiController : ApiController
     {
          

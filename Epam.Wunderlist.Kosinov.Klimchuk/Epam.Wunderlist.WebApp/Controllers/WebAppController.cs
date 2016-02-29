@@ -8,7 +8,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
 {
     public class WebAppController : Controller
     {
-        // GET: WebApp
+        [Authorize]
         public ActionResult Index()
         {
             return View();

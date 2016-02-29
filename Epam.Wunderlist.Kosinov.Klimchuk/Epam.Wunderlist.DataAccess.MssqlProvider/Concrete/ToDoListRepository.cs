@@ -36,5 +36,12 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             }
         }
         #endregion
+
+        #region Protected methods
+        protected override void CopyEntityFields(ToDoList source, ToDoList target)
+        {
+            target.Name = source.Name;
+        }
+        #endregion
     }
 }

@@ -23,6 +23,7 @@ namespace Epam.Wunderlist.DomainModel
                 return Lists.Select(x => x.Id).ToList();
             }
         }
+
         [JsonIgnore]
         public virtual IList<ToDoList> Lists { get; set; }
     }

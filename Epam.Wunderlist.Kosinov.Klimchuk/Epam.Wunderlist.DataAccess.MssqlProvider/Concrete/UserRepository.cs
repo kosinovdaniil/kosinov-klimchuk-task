@@ -20,11 +20,11 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         }
         #endregion
 
-        #region Override methods
-        public override void Delete(User e)
+        #region Protected methods
+        protected override void CopyEntityFields(User source, User target)
         {
-            base.Delete(e);
-            //TODO delete all plans for this user
+            target.Name = source.Name;
+            target.PhotoPath = source.PhotoPath;
         }
         #endregion
     }

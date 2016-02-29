@@ -13,7 +13,9 @@ namespace Epam.Wunderlist.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                         "~/Scripts/angular.js",
-                        "~/Scripts/angular-ui/ui-bootstrap.js"));
+                        "~/Scripts/angular-ui/ui-bootstrap.js",
+                        "~/Scripts/angular-pageslide-directive.js",
+                        "~/Scripts/angular-resource.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/webApp").Include(
                         "~/Scripts/webApp.js"));

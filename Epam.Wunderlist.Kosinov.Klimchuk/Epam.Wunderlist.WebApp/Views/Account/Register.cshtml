@@ -19,7 +19,7 @@
 
         <div class="field">
             <br />
-            <img src="~/Content/user.png" alt="user" />
+            <img src="~/Content/user.png" alt="user" class="img-item"/>
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { placeholder = "Name" } })
             @Html.ValidationMessageFor(model => model.Name, null, new { @class = "text-danger" })
         </div>
@@ -27,14 +27,14 @@
         <hr />
 
         <div class="field">
-            <img src="~/Content/email.png" alt="Lock" />
+            <img src="~/Content/email.png" alt="Lock" class="img-item"/>
             @Html.EditorFor(model => model.Email, new { htmlAttributes = new { type = "email", placeholder = "Email" } })
             @Html.ValidationMessageFor(model => model.Email, null, new { @class = "text-danger" })
         </div>
 
         <hr />
         <div class="field">
-            <img src="~/Content/lock.png" alt="Password" />
+            <img src="~/Content/lock.png" alt="Password" class="img-item"/>
             @Html.PasswordFor(model => model.Password, new { placeholder = "Password" })
             @Html.ValidationMessageFor(model => model.Password, null, new { @class = "text-danger" })
         </div>
