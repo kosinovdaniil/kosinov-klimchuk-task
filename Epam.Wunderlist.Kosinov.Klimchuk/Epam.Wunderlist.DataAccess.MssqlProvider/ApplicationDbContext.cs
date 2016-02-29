@@ -1,5 +1,6 @@
 using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
+using Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider
 {
@@ -16,13 +17,9 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Lists)
-                .WithMany(e => e.Users);
-
-            modelBuilder.Entity<ToDoList>()
-                .HasMany(e => e.Items)
-                .WithRequired(e => e.List);
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new ToDoListConfiguration());
+            modelBuilder.Configurations.Add(new ToDoItemConfiguration());
         }
 
         public void Dispose()
