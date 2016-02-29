@@ -55,6 +55,9 @@
     <Compile Include="Concrete\ToDoItemRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ModelsConfiguration\ToDoListConfiguration.cs" />
+    <Compile Include="ModelsConfiguration\ToDoItemConfiguration.cs" />
+    <Compile Include="ModelsConfiguration\UserConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

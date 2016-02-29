@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Epam.Wunderlist.DomainModel
 {
@@ -8,8 +10,13 @@ namespace Epam.Wunderlist.DomainModel
     {
         public string Name { get; set; }
 
-        public virtual IList<ToDoItem> Items { get; set; }
+        [JsonIgnore]
+        public virtual IList<int> ItemsId
+        {
+            get; set;
+        }
 
+        [JsonIgnore]
         public virtual IList<User> Users { get; set; }
     }
 }

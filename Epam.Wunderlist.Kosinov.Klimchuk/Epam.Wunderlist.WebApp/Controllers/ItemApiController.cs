@@ -52,7 +52,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             var item = _itemService.Get(id);
             return CreateGetResponseBuilder().WithMethod(() => item)
-                .WithCondition(() => item.Users.Select(x => x.Id).Contains(CurrentUserId));
+                .WithCondition(() => item.UsersId.Contains(CurrentUserId));
         }
 
         #endregion
@@ -80,7 +80,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var list = _listService.Get(id);
-                if (list.Users.Select(x=>x.Id).Contains(CurrentUserId))
+                if (list.Users.Select(x => x.Id).Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     _listService.Delete(list);
@@ -105,7 +105,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var item = _itemService.Get(id);
-                if (item.Users.Select(x => x.Id).Contains(CurrentUserId))
+                if (item.UsersId.Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     _itemService.Delete(item);
