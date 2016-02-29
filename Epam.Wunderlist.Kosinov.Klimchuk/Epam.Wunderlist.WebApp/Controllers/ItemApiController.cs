@@ -36,7 +36,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             var list = _listService.Get(id);
             return CreateGetResponseBuilder().WithMethod(() => list)
-               .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
+               .WithCondition(() => list.UsersId.Contains(CurrentUserId));
         }
 
         [Route("lists/{id:int}/items")]
@@ -44,7 +44,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             var list = _listService.Get(id);
             return CreateGetResponseBuilder().WithMethod(() => _itemService.GetByList(id))
-                  .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
+                  .WithCondition(() => list.UsersId.Contains(CurrentUserId));
         }
 
         [Route("items/{id:int}")]
@@ -52,7 +52,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             var item = _itemService.Get(id);
             return CreateGetResponseBuilder().WithMethod(() => item)
-                .WithCondition(() => item.Users.Select(x => x.Id).Contains(CurrentUserId));
+                .WithCondition(() => item.UsersId.Contains(CurrentUserId));
         }
 
         #endregion
@@ -69,7 +69,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             var responseBuilder = CreatePostResponseBuilder(_itemService);
             return responseBuilder.WithEntity(item)
-                .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
+                .WithCondition(() => _listService.Get(id).UsersId.Contains(CurrentUserId));
         }
 
         [Route("lists/{id:int}/delete")]
@@ -80,7 +80,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var list = _listService.Get(id);
-                if (list.Users.Select(x=>x.Id).Contains(CurrentUserId))
+                if (list.UsersId.Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     _listService.Delete(list);
@@ -105,7 +105,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
             if (User.Identity.IsAuthenticated)
             {
                 var item = _itemService.Get(id);
-                if (item.Users.Select(x => x.Id).Contains(CurrentUserId))
+                if (item.UsersId.Contains(CurrentUserId))
                 {
                     response = Request.CreateResponse(HttpStatusCode.OK, "");
                     _itemService.Delete(item);

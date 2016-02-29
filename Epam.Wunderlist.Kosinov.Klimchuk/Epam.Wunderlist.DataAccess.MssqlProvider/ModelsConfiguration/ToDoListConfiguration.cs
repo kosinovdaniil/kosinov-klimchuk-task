@@ -12,7 +12,6 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration
     {
         public ToDoListConfiguration()
         {
-            HasMany(e => e.Items).WithRequired(e => e.List);
         }
     }
 }

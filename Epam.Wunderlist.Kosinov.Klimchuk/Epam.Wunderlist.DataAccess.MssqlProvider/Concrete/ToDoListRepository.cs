@@ -17,8 +17,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Methods
         public IEnumerable<ToDoList> GetByUser(int id)
         {
-            var lists = GetByPredicate(list => list.Users
-                                    .Select(x => x.Id).Contains(id));
+            var lists = GetByPredicate(list => list.UsersId.Contains(id));
             return lists;
         }
 
@@ -30,7 +29,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             {
                 context.Set<ToDoList>().Remove(list);
             }
-            foreach (var item in list.Items.Select(x => x.Id))
+            foreach (var item in list.ItemsId)
             {
                 //context.Set<ToDoItem>().Remove(item);
                 //cascade

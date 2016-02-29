@@ -4,15 +4,16 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Epam.Wunderlist.DataAccess.MssqlProvider.ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(Epam.Wunderlist.DataAccess.MssqlProvider.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             for (var i = 0; i < 10; i++)
             {
@@ -35,14 +36,15 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
                     {
                         var item = new ToDoItem()
                         {
-                            Text = "sampleText" + t.ToString(),
-                            Note = "note" + t.ToString(),
-                            DateAdded = DateTime.MinValue,
+                            Text = "sampleText" + t,
+                            Note = "note" + t,
+                            DateAdded = new DateTime(2000, 1, 1, 1, 1, 1),
                             DateCompletion = null,
                             IsFavourited = false,
                             IsCompleted = false,
                             List = list
                         };
+                        context.Items.Add(item);
                     }
                 }
             }

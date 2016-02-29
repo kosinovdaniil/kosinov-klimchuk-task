@@ -9,12 +9,13 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider
         public ApplicationDbContext()
             : base("name=GoalsDatabase")
         {
+            Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
         
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ToDoItem> Items { get; set; }
         public virtual DbSet<ToDoList> Lists { get; set; }
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new UserConfiguration());

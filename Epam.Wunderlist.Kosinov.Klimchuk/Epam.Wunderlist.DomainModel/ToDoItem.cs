@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Epam.Wunderlist.DomainModel
 {
@@ -22,6 +23,12 @@ namespace Epam.Wunderlist.DomainModel
 
         public virtual ToDoList List { get; set; }
 
-        public virtual IList<User> Users { get; set; }
+        public virtual IList<int> UsersId
+        {
+            get
+            {
+                return List.Users.Select(x => x.Id).ToList();
+            }
+        }
     }
 }

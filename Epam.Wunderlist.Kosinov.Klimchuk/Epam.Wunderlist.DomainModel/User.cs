@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace Epam.Wunderlist.DomainModel
 {
@@ -13,6 +14,14 @@ namespace Epam.Wunderlist.DomainModel
         public string PhotoPath { get; set; }
 
         public string Name { get; set; }
+         
+        public IList<int> ListsId
+        {
+            get
+            {
+                return Lists.Select(x => x.Id).ToList();
+            }
+        }
 
         public virtual IList<ToDoList> Lists { get; set; }
     }

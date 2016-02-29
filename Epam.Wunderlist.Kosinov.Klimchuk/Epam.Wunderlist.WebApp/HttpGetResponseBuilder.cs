@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
@@ -25,7 +26,11 @@ namespace Epam.Wunderlist.WebApp
 
         private static string Serialize(object obj)
         {
-            return new JavaScriptSerializer().Serialize(obj);
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
+            //return new JavaScriptSerializer().Serialize(obj);
         }
 
         private HttpResponseMessage Execute()
