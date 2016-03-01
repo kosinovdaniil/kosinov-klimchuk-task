@@ -9,8 +9,8 @@ namespace Epam.Wunderlist.Services.Concrete
     public class UserService : Service<User>, IUserService
     {
         #region Constructor
-        public UserService(IUnitOfWork uow, IUserRepository repository)
-            : base(uow, repository)
+        public UserService(IDbSession dbSession, IUserRepository repository)
+            : base(dbSession, repository)
         { }
         #endregion
 

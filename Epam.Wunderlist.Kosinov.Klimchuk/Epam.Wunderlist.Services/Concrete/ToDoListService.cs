@@ -9,8 +9,8 @@ namespace Epam.Wunderlist.Services.Services
     public class ToDoListService : Service<ToDoList>, IToDoListService
     {
         #region Constructor
-        public ToDoListService(IUnitOfWork uow, IToDoListRepository repository)
-            : base(uow, repository) { }
+        public ToDoListService(IDbSession dbSession, IToDoListRepository repository)
+            : base(dbSession, repository) { }
         #endregion
 
         #region Methods

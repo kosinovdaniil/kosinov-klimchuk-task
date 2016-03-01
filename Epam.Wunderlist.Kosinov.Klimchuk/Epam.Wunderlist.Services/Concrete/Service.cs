@@ -11,14 +11,14 @@ namespace Epam.Wunderlist.Services.Services
         where TEntity : Entity
     {
         #region Fields
-        protected readonly IUnitOfWork _uow;
+        protected readonly IDbSession _dbSession;
         protected readonly IRepository<TEntity> _repository;
         #endregion
 
         #region Constructor
-        protected Service(IUnitOfWork uow, IRepository<TEntity> repository)
+        protected Service(IDbSession dbSession, IRepository<TEntity> repository)
         {
-            this._uow = uow;
+            this._dbSession = dbSession;
             this._repository = repository;
         }
         #endregion
@@ -32,7 +32,7 @@ namespace Epam.Wunderlist.Services.Services
             }
             var result = _repository.Create(entity);
             if (result != null)
-                _uow.Commit();
+                _dbSession.Commit();
 
             return result;
         }
@@ -45,7 +45,7 @@ namespace Epam.Wunderlist.Services.Services
             }
 
             _repository.Delete(entity);
-            _uow.Commit();
+            _dbSession.Commit();
         }
 
         public TEntity Get(int id)
@@ -58,15 +58,16 @@ namespace Epam.Wunderlist.Services.Services
             return _repository.GetAll();
         }
 
-        public void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            _repository.Update(entity);
-            _uow.Commit();
+            var temp = _repository.Update(entity);
+            _dbSession.Commit();
+            return temp;
         }
 
         public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)

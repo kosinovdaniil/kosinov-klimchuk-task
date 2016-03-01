@@ -14,7 +14,7 @@ namespace Epam.Wunderlist.Services.Interfaces
 
         IEnumerable<IEntity> GetByPredicate(Expression<Func<IEntity, bool>> f);
 
-        void Update(IEntity entity);
+        IEntity Update(IEntity entity);
 
         void Delete(IEntity entity);
     }

@@ -22,12 +22,13 @@ namespace Epam.Wunderlist.WebApp.Controllers
             _listService = listService;
             _itemService = itemService;
         }
+
         #region Get
 
         [Route("users/{id:int}/lists")]
         public HttpResponseMessage GetLists(int id)
         {
-            return CreateGetResponseBuilder().WithMethod(() => _listService.GetByUser(id))
+            return CreateResponseBuilder().WithMethod(() => _listService.GetByUser(id))
                 .WithCondition(() => CurrentUserId == id);
         }
 
@@ -35,7 +36,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage GetList(int id)
         {
             var list = _listService.Get(id);
-            return CreateGetResponseBuilder().WithMethod(() => list)
+            return CreateResponseBuilder().WithMethod(() => list)
                .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
@@ -43,7 +44,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage GetItems(int id)
         {
             var list = _listService.Get(id);
-            return CreateGetResponseBuilder().WithMethod(() => _itemService.GetByList(id))
+            return CreateResponseBuilder().WithMethod(() => _itemService.GetByList(id))
                   .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
@@ -51,102 +52,86 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage GetItem(int id)
         {
             var item = _itemService.Get(id);
-            return CreateGetResponseBuilder().WithMethod(() => item)
+            return CreateResponseBuilder().WithMethod(() => item)
                 .WithCondition(() => item.UsersId.Contains(CurrentUserId));
         }
 
         #endregion
+
         #region Post
 
         [Route("lists/")]
         public HttpResponseMessage PostList(ToDoList list)
         {
-            var responseBuilder = CreatePostResponseBuilder(_listService);
-            return responseBuilder.WithEntity(list);
+            return CreateResponseBuilder().WithMethod(() => _listService.Create(list));
         }
         [Route("lists/{id:int}/items/")]
         public HttpResponseMessage PostItem(int id, ToDoItem item)
         {
             item.List = _listService.Get(id);
-            var responseBuilder = CreatePostResponseBuilder(_itemService);
-
-            return responseBuilder.WithEntity(item)
-                .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
+            return CreateResponseBuilder().WithMethod(() => _itemService.Create(item))
+              .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
         }
 
-        [Route("lists/{id:int}/delete")]
-        [HttpPost]
-        public HttpResponseMessage DeleteList(int id)
-        {
-            HttpResponseMessage response;
-            if (User.Identity.IsAuthenticated)
-            {
-                var list = _listService.Get(id);
-                if (list.Users.Select(x => x.Id).Contains(CurrentUserId))
-                {
-                    response = Request.CreateResponse(HttpStatusCode.OK, "");
-                    _listService.Delete(list);
-                }
-                else
-                {
-                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
-                }
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
-            }
-            return response;
-        }
-
-        [Route("items/{id:int}/delete")]
-        [HttpPost]
-        public HttpResponseMessage DeleteItem(int id)
-        {
-            HttpResponseMessage response;
-            if (User.Identity.IsAuthenticated)
-            {
-                var item = _itemService.Get(id);
-                if (item.UsersId.Contains(CurrentUserId))
-                {
-                    response = Request.CreateResponse(HttpStatusCode.OK, "");
-                    _itemService.Delete(item);
-                }
-                else
-                {
-                    response = Request.CreateResponse(HttpStatusCode.Forbidden, "Forbidden");
-                }
-            }
-            else
-            {
-                response = Request.CreateResponse(HttpStatusCode.Unauthorized, "Unauthorized");
-            }
-            return response;
-        }
         #endregion
 
+        #region Put
+        [Route("items/")]
+        [HttpPut]
+        public HttpResponseMessage UpdateItem(ToDoItem item)
+        {
+            return CreateResponseBuilder().WithCondition(() => item.UsersId.Contains(CurrentUserId))
+                .WithMethod(() => _itemService.Update(item));
+        }
+
+        [Route("lists/")]
+        [HttpPut]
+        public HttpResponseMessage UpdateList(ToDoList list)
+        {
+            return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
+                .WithMethod(() => _listService.Update(list));
+        }
+
+        #endregion
+
+        #region Delete
+
+        [Route("lists/{id:int}")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteList(int id)
+        {
+            var list = _listService.Get(id);
+            return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
+                .WithMethod(() => _listService.Delete(list));
+        }
+
+        [Route("items/{id:int}")]
+        [HttpDelete]
+        public HttpResponseMessage DeleteItem(int id)
+        {
+            var item = _itemService.Get(id);
+            return CreateResponseBuilder().WithCondition(() => item.UsersId.Contains(CurrentUserId))
+                .WithMethod(() => _itemService.Delete(item));
+        }
+
+        #endregion
+
+        #region Private methods
 
         private int CurrentUserId
         {
             get
             {
-                return Int32.Parse(((ClaimsIdentity)User.Identity).Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                return this.GetCurrentUserId();
             }
         }
 
-        private HttpGetResponseBuilder CreateGetResponseBuilder()
+        private HttpResponseBuilder CreateResponseBuilder()
         {
-            return new HttpGetResponseBuilder(User.Identity, Request);
+            return this.CreateResponseBuilder();
         }
 
-        private HttpPostResponseBuilder<TEntity> CreatePostResponseBuilder<TEntity>(ICrudService<TEntity> service)
-            where TEntity : Entity
-        {
-
-            return new HttpPostResponseBuilder<TEntity>(User.Identity, Request, service);
-
-        }
+        #endregion
 
     }
 }

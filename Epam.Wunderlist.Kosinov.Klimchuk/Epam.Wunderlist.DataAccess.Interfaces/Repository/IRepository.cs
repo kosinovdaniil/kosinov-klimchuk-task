@@ -17,6 +17,6 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 
         void Delete(TEntity e);
 
-        void Update(TEntity entity);
+        TEntity Update(TEntity entity);
     }
 }
