@@ -18,7 +18,8 @@ namespace Epam.Wunderlist.WebApp
                         "~/Scripts/angular-resource.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/webApp").Include(
-                        "~/Scripts/webApp.js"));
+                        "~/Scripts/webApp.js",
+                        "~/Scripts/Controllers/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

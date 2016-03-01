@@ -24,8 +24,20 @@
         <div id="user-toolbar">Profile</div>
 
         <div id="lists-scroll" ng-controller="ToDoListController">
-            <ul ng-repeat="list in toDoLists">
-                <li>{{list.Name}}</li>
+            <ul>
+                <li ng-repeat="list in toDoLists" class="list-item">
+                    <div class="col-md-1 col-sm-2 col-xs-2 pull-left">
+                        <img src="~/Content/list.png" alt="List-icon">
+                    </div>
+
+                    <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
+                        <span>{{list.Name}}</span>
+                    </div>
+                
+                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                        @*<img src="~/Content/list.png" alt="List-icon">*@
+                    </div>
+                </li>
             </ul>
         </div>
 
@@ -79,7 +91,7 @@
                     </div>
                     <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
                         <div class="item-icons">
-                            <span class="done-{{todo.done}}">{{todo.text}}</span>
+                            <span class="done-{{todo.done}}">{{todo.Text}}</span>
                         </div>
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-3">
@@ -92,8 +104,28 @@
         </div>
     </main>
 
-    <aside class="col-md-3" id="item-info">
-        <div>trsssg</div>
+    <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
+        <form>
+            <div>
+                <div class="col-md-1 col-sm-2 col-xs-2">
+                    <input type="checkbox">
+                </div>
+                <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
+                    <div class="item-icons">
+                        <span>{{todo.text}}</span>
+                    </div>
+                </div>
+                <div class="col-md-1 col-sm-3 col-xs-3">
+                    <div class="pull-right">
+                        <img src="~/Content/border-star.png" alt="Star" class="item-icons">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <img src="~/Content/close.png" alt="Close" class="item-icons" ng-click="closeDescription()">
+            </div>
+        </form>
     </aside>
 
     @Scripts.Render("~/bundles/jquery")

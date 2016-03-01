@@ -10,8 +10,16 @@ namespace Epam.Wunderlist.DomainModel
     {
         public string Name { get; set; }
 
+        public IEnumerable<int> ItemsId
+        {
+            get
+            {
+                return Items?.Select(x => x.Id);
+            }
+        }
+
         [JsonIgnore]
-        public virtual IList<int> ItemsId { get; set; }
+        public virtual IList<ToDoItem> Items { get; set; }
 
         [JsonIgnore]
         public virtual IList<User> Users { get; set; }

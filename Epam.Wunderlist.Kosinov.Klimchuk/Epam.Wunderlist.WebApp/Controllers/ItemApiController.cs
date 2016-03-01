@@ -10,10 +10,10 @@ using System.Net;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
-    [RoutePrefix("WebApp/api")]
+    [RoutePrefix("api")]
     public class ItemApiController : ApiController
     {
-         
+
         private readonly IToDoListService _listService;
         private readonly IToDoItemService _itemService;
 
@@ -67,7 +67,9 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [Route("lists/{id:int}/items/")]
         public HttpResponseMessage PostItem(int id, ToDoItem item)
         {
+            item.List = _listService.Get(id);
             var responseBuilder = CreatePostResponseBuilder(_itemService);
+
             return responseBuilder.WithEntity(item)
                 .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
         }

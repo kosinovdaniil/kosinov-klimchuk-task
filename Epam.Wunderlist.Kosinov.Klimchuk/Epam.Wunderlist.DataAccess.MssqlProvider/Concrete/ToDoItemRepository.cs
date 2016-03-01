@@ -22,6 +22,13 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
             return items;
         }
 
+        public override ToDoItem Create(ToDoItem entity)
+        {
+            entity.List = context.Set<ToDoList>()
+                        .FirstOrDefault(x => x.Id == entity.List.Id);
+            return base.Create(entity);
+        }
+
         public override void Delete(ToDoItem item)
         {
             //TODO probably not necessary db access

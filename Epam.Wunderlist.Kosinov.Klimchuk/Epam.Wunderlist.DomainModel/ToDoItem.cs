@@ -22,15 +22,15 @@ namespace Epam.Wunderlist.DomainModel
 
         public string Note { get; set; }
 
-        [JsonIgnore]
         public virtual ToDoList List { get; set; }
 
         [JsonIgnore]
-        public virtual IList<int> UsersId
+        [NotMapped]
+        public virtual IEnumerable<int> UsersId
         {
             get
             {
-                return List.Users.Select(x => x.Id).ToList();
+                return List.Users?.Select(x => x.Id);
             }
         }
     }

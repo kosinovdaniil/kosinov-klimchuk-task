@@ -249,9 +249,11 @@
     <Content Include="Content\border-star.png" />
     <Content Include="Content\calendar.png" />
     <Content Include="Content\check.png" />
+    <Content Include="Content\close.png" />
     <Content Include="Content\email.png" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\favicon1.png" />
+    <Content Include="Content\list.png" />
     <Content Include="Content\lock.png" />
     <Content Include="Content\magnify.png" />
     <Content Include="Content\main.jpg" />
@@ -287,6 +289,9 @@
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Controllers\DescriptionController.js" />
+    <Content Include="Scripts\Controllers\ToDoItemController.js" />
+    <Content Include="Scripts\Controllers\ToDoListsController.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.map" />
