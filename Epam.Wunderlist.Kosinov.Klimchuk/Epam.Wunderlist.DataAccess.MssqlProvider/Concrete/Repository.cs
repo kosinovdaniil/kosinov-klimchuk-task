@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Linq.Expressions;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.Interfaces.Repository;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
@@ -63,7 +63,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             entities.Remove(elem);
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             if (entity == null)
             {
@@ -71,6 +71,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             }
             var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
             CopyEntityFields(entity, elem);
+            return elem;
         }
         #endregion
 

@@ -11,6 +11,7 @@ using System.Web.Http.Results;
 using System.Web.Script.Serialization;
 using Epam.Wunderlist.WebApp.ViewModels;
 using Epam.Wunderlist.Services.Interfaces;
+using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
@@ -24,37 +25,54 @@ namespace Epam.Wunderlist.WebApp.Controllers
             _userService = userService;
         }
 
+        #region Get
         [Route("users")]
         public HttpResponseMessage Get()
         {
-            return GetResponseBuilder().WithMethod(() => _userService.GetAll());
+            return CreateResponseBuilder().WithMethod(() => _userService.GetAll());
         }
 
         [Route("users/{id:int}")]
         public HttpResponseMessage Get(int id)
         {
-            return GetResponseBuilder().WithMethod(() => _userService.Get(id));
+            return CreateResponseBuilder().WithMethod(() => _userService.Get(id));
         }
 
         [Route("users/")]
         public HttpResponseMessage Get(string email)
         {
-            return GetResponseBuilder().WithMethod(() => _userService.Get(email));
+            return CreateResponseBuilder().WithMethod(() => _userService.Get(email));
         }
+
+        #endregion
+
+        #region Put
+
+        [Route("users/")]
+        [HttpPut]
+        public HttpResponseMessage UpdateUser(User user)
+        {
+            return CreateResponseBuilder().WithCondition(() => CurrentUserId == user.Id)
+                .WithMethod(() => _userService.Update(user));
+        }
+
+        #endregion
+
+        #region Private methods
 
         private int CurrentUserId
         {
             get
             {
-                return Int32.Parse(((ClaimsIdentity)User.Identity).Claims
-                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+                return this.GetCurrentUserId();
             }
-        }    
-
-        private HttpGetResponseBuilder GetResponseBuilder()
-        {
-            return new HttpGetResponseBuilder(User.Identity, Request);
         }
 
+        private HttpResponseBuilder CreateResponseBuilder()
+        {
+            return this.CreateResponseBuilder();
+        }
+
+        #endregion
     }
 }

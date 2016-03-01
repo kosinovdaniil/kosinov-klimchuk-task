@@ -3,11 +3,11 @@ using System.Data.Entity;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
-    public class UnitOfWork : IUnitOfWork
+    public class DbSession : IDbSession
     {
         public DbContext Context { get; private set; }
 
-        public UnitOfWork(DbContext context)
+        public DbSession(DbContext context)
         {
             Context = context;
         }

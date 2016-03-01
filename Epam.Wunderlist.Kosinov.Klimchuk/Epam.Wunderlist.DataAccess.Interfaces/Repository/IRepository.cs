@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Epam.Wunderlist.DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
@@ -17,6 +17,6 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 
         void Delete(TEntity e);
 
-        void Update(TEntity entity);
+        TEntity Update(TEntity entity);
     }
 }

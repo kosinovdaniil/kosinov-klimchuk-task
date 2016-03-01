@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.Services.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using Epam.Wunderlist.Services.Interfaces;
-using Epam.Wunderlist.DomainModel;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity;
 using System.Web;
 
 namespace Epam.Wunderlist.Services.Services
