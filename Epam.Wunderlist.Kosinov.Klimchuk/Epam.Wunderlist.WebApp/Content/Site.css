@@ -103,7 +103,7 @@ a img {
     color: #FFF;
     font-size: 1.1em;
     padding: .7em;
-    width: 100%;
+    width: calc(100% - 28px);
 }
 
 .icon-container {
