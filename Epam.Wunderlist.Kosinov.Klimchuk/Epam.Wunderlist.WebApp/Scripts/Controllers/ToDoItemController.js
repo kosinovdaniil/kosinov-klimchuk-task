@@ -2,19 +2,19 @@
 
     $scope.toDoItems = ItemsRest.query({ listId: '1' });
 
-    ItemsRest.save({ listId: '1' },
-        { Text: 'watch film', IsCompleted: false, IsFavourited: false, DateAdded: '2/29/2016', List: { Id: '1' } },
-        function (data) {
-            console.log(data);
-        });
+    //ItemsRest.save({ listId: '1' },
+    //    { Text: 'watch film', IsCompleted: false, IsFavourited: false, DateAdded: '2/29/2016', List: { Id: '1' } },
+    //    function (data) {
+    //        console.log(data);
+    //    });
 
-    ItemsRest.update({ listId: '1' },
-        { Id: '121', Text: 'watch NEW film', DateAdded: '3/1/2016' },
-        function (data) {
-            console.log(data);
-        });
+    //ItemsRest.update({ listId: '1' },
+    //    { Id: '121', Text: 'watch NEW film', DateAdded: '3/1/2016' },
+    //    function (data) {
+    //        console.log(data);
+    //    });
 
-    ItemsRest.delete({ listId: '1' }, { id: '121' });
+    ItemsRest.delete({ itemId: '121' });
 
     $scope.addToDoItem = function () {
         if ($scope.todoText) {

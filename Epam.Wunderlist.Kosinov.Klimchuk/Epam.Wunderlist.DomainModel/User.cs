@@ -14,11 +14,11 @@ namespace Epam.Wunderlist.DomainModel
 
         public string Name { get; set; }
          
-        public IList<int> ListsId
+        public IEnumerable<int> ListsId
         {
             get
             {
-                return Lists.Select(x => x.Id).ToList();
+                return Lists?.Select(x => x.Id);
             }
         }
 

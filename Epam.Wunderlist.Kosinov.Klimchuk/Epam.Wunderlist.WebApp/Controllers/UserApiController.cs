@@ -64,13 +64,13 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             get
             {
-                return this.GetCurrentUserId();
+                return ApiControllerExtensions.GetCurrentUserId(this);
             }
         }
 
         private HttpResponseBuilder CreateResponseBuilder()
         {
-            return this.CreateResponseBuilder();
+            return ApiControllerExtensions.CreateResponseBuilder(this);
         }
 
         #endregion

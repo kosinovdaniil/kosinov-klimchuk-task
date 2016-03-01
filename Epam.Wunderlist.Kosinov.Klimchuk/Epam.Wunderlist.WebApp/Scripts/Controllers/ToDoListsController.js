@@ -1,10 +1,10 @@
-﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', '$uibModal', function ($scope, ListsRest, $uibModal) {
+﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', function ($scope, ListsRest) {
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
         console.log(data);
     });
 
-    ListsRest.save();
+    //ListsRest.save();
 
     $scope.showItems =  function (listId){
         $scope.$broadcast('listClicked', listId);

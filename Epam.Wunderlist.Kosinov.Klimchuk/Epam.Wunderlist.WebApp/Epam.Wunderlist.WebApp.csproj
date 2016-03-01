@@ -292,6 +292,7 @@
     <Content Include="Scripts\Controllers\DescriptionController.js" />
     <Content Include="Scripts\Controllers\ToDoItemController.js" />
     <Content Include="Scripts\Controllers\ToDoListsController.js" />
+    <Content Include="Scripts\Controllers\UserController.js" />
     <Content Include="Scripts\jquery-2.0.0.js" />
     <Content Include="Scripts\jquery-2.0.0.min.js" />
     <Content Include="Scripts\jquery-2.0.0.min.map" />

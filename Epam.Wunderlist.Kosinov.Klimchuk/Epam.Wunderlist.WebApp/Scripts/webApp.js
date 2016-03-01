@@ -1,22 +1,22 @@
 ﻿var webApp = angular.module('webApp', ['ngResource']);
 
 webApp.factory('ListsRest', ['$resource', function ($resource) {
-    return $resource('api/users/', {}, {
+    return $resource('api/lists/', {}, {
         query: { method: 'GET', url: 'api/users/:userId/lists', isArray: true },
-        get: { method: 'GET', url: 'api/lists/:listId' },
-        save: { method: 'POST', params: {} }
-        //update: { method: 'PUT', url: 'service/products/modifyProduct' },
-        //delete: { method: 'DELETE', url: ''}
+        get: { method: 'GET', params: {} },
+        save: { method: 'POST', params: {} },
+        update: { method: 'PUT', params: {} },
+        delete: { method: 'DELETE', params: {}}
     });
 }]);
 
 webApp.factory('ItemsRest', ['$resource', function ($resource) {
-    return $resource('api/lists/:listId/items', {}, {
-        query: { method: 'GET', params: {}, isArray: true },
-        get: { method: 'GET', url: 'api/items/:itemId' },
+    return $resource('api/items/', {}, {
+        query: { method: 'GET', url: 'api/lists/:listId/items', isArray: true },
+        get: { method: 'GET', params: {} },
         save: { method: 'POST', params: {} },
         update: { method: 'PUT', params: {} },
-        delete: { method: 'DELETE', params: {}}
+        delete: { method: 'DELETE', url: 'api/items/:itemId'}
     });
 }]);
 
@@ -24,7 +24,7 @@ webApp.factory('UsersRest', ['$resource', function ($resource) {
     return $resource('api/users/', {}, {
         query: { method: 'GET', params: {}, isArray: true },
         get: { method: 'GET', url: 'api/users/:userId' },
-        update: { method: 'PUT', url: 'service/products/modifyProduct' },
+        update: { method: 'PUT', params: {} }
     });
 }]);
 
