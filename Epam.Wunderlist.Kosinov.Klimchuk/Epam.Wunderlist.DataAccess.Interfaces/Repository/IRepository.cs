@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Epam.Wunderlist.DomainModel;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {

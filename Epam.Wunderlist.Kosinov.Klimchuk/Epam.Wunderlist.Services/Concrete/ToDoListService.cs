@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Epam.Wunderlist.Services.Interfaces;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.Interfaces.Repository;
+using Epam.Wunderlist.Services.Interfaces;
+using System.Collections.Generic;
 
 namespace Epam.Wunderlist.Services.Services
 {

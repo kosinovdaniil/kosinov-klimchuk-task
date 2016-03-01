@@ -1,6 +1,4 @@
-﻿using Epam.Wunderlist.Services.Interfaces;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {

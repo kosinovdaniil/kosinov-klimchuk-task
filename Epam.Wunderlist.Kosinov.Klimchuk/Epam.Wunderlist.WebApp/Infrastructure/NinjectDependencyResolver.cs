@@ -15,7 +15,7 @@ namespace Epam.Wunderlist.WebApp.Infrastructure
         public NinjectDependencyResolver(IKernel kernel)
         {
             this.kernel = kernel;
-            kernel.Configurate();
+            kernel.ConfigurateResolverWeb();
         }
 
         public IDependencyScope BeginScope()

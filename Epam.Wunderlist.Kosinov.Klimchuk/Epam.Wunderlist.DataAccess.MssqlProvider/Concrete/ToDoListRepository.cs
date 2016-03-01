@@ -1,8 +1,8 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using System.Collections.Generic;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.Interfaces.Repository;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {

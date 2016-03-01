@@ -1,12 +1,8 @@
-﻿
-using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Net.Http;
-using System.Security.Claims;
 using System.Web.Http;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
-using System.Net;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {

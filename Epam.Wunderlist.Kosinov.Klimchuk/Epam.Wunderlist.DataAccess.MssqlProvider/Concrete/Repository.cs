@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Linq.Expressions;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.Interfaces.Repository;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {

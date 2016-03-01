@@ -1,6 +1,6 @@
+using Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration;
 using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
-using Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider
 {
