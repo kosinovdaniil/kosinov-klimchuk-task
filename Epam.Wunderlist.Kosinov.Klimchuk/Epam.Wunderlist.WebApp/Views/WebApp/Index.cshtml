@@ -1,18 +1,29 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wunderlist</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/angular")
+
+    <script>
+        userId = @(((ClaimsIdentity)User.Identity).Claims.FirstOrDefault(x=>x.Type==ClaimTypes.NameIdentifier).Value);
+    </script>
+
     @Scripts.Render("~/bundles/webApp")
+
+
 </head>
+
 <body ng-app="webApp">
+
     <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
         <div id="search-toolbar">
             <a href="#">
@@ -33,7 +44,7 @@
                     <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
                         <span>{{list.Name}}</span>
                     </div>
-                
+
                     <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
                         @*<img src="~/Content/list.png" alt="List-icon">*@
                     </div>
