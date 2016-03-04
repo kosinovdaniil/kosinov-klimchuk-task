@@ -243,12 +243,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\border-star.png" />
+    <Content Include="Content\calendar-black.png" />
     <Content Include="Content\calendar.png" />
     <Content Include="Content\check.png" />
+    <Content Include="Content\clear.png" />
     <Content Include="Content\close.png" />
     <Content Include="Content\email.png" />
     <Content Include="Content\favicon.png" />
@@ -259,8 +259,10 @@
     <Content Include="Content\main.jpg" />
     <Content Include="Content\menu.png" />
     <Content Include="Content\mobile.png" />
+    <Content Include="Content\pen-black.png" />
     <Content Include="Content\plus-white.png" />
     <Content Include="Content\plus.png" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\star-border-black.png" />
     <Content Include="Content\star-white.png" />
     <Content Include="Content\star.png" />
@@ -268,16 +270,12 @@
     <Content Include="Content\user.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Scripts\angular-pageslide-directive.js" />
     <Content Include="Scripts\angular-resource.min.js.map" />
     <Content Include="Scripts\angular.min.js.map" />
+    <Content Include="Content\bootstrap-theme.min.css.map" />
     <None Include="Scripts\jquery-2.0.0.intellisense.js" />
     <Content Include="Scripts\angular-mocks.js" />
     <Content Include="Scripts\angular-resource.js" />

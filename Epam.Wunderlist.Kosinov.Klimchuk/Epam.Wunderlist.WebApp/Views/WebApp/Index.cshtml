@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Wunderlist</title>
-
+    @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
@@ -18,7 +18,6 @@
     </script>
 
     @Scripts.Render("~/bundles/webApp")
-    @Styles.Render("~/Content/css")
 </head>
 
 <body ng-app="webApp">
@@ -31,7 +30,17 @@
                 <input type="text" placeholder="Search..." ng-model="search.text" id="search" />
                 <img src="~/Content/magnify.png" alt="Search">
             </div>
-            <div id="user-toolbar">Profile</div>
+
+            <div id="user-toolbar" ng-controller="UserController">
+                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <img src="~/Content/list.png" alt="List-icon">
+                    <span>{{user.Name}}</span>
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                    @*<img src="~/Content/list.png" alt="List-icon">*@
+                </div>
+            </div>
 
             <div id="lists-scroll">
                 <ul>
@@ -86,9 +95,10 @@
                 <br>
 
                 <ul>
-                    <li ng-repeat="todo in toDoItems | filter: !todo.IsCompleted" ng-dblClick="showDescription(todo)" class="item">
+                    @*<li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">*@
+                    <li ng-repeat="todo in toDoItems" ng-dblClick="showDescription(todo)" class="item">
                         <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                            <input type="checkbox" ng-model="todo.IsCompleted"">
+                            <input type="checkbox" ng-model="todo.IsCompleted" ng-click="setDoneToDoItem($index)">
                             <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
                         </div>
 
@@ -104,7 +114,7 @@
                 <uib-accordion close-others="true">
                     <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
                         <ul>
-                            <li ng-repeat="todo in toDoItems | filter: todo.IsCompleted" ng-dblClick="showDescription(todo)" class="item-done">
+                            <li ng-repeat="todo in toDoItems | filter: !todo.IsCompleted" ng-dblClick="showDescription(todo)" class="item-done">
                                 <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                                     <img src="~/Content/check.png" alt="Check" class="item-icons">
                                     <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
@@ -125,18 +135,38 @@
 
     <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
         <form>
-            <div>
-                <div class="col-md-1 col-sm-2 col-xs-2">
+            <div class="update-elem">
+                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                     <input type="checkbox">
+                    <input type="text" value="{{getTodo().Text}}" class="text-update"/>
                 </div>
-                <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
-                    <div class="item-icons">
-                        <span>{{getTodo()}}</span>
+                <div class="col-md-2 col-sm-3 col-xs-3">
+                    <div class="pull-right">
+                        <img src="~/Content/star-border-black.png" alt="Star" class="item-icons">
                     </div>
                 </div>
-                <div class="col-md-1 col-sm-3 col-xs-3">
+            </div>
+
+            <div class="update-elem">
+                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons">
+                    <input type="datetime" value="Set a due date" class="text-update" />
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-3">
                     <div class="pull-right">
-                        <img src="~/Content/border-star.png" alt="Star" class="item-icons">
+                        <img src="~/Content/clear.png" alt="Star" class="item-icons">
+                    </div>
+                </div>
+            </div>
+
+            <div class="update-elem">
+                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <img src="~/Content/pen-black.png" alt="Notice" class="item-icons">
+                    <input type="datetime" value="Add a notice" class="text-update" />
+                </div>
+                <div class="col-md-2 col-sm-3 col-xs-3">
+                    <div class="pull-right">
+                        <img src="~/Content/clear.png" alt="Star" class="item-icons">
                     </div>
                 </div>
             </div>

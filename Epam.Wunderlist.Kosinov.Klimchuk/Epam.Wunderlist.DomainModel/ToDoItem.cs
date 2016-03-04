@@ -29,7 +29,7 @@ namespace Epam.Wunderlist.DomainModel
         {
             get
             {
-                return List.Users?.Select(x => x.Id);
+                return List?.Users?.Select(x => x.Id);
             }
         }
     }

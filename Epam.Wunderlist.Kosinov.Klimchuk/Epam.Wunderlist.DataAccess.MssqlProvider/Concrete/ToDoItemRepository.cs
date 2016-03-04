@@ -43,9 +43,11 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
         #region Protected methods
         protected override void CopyEntityFields(ToDoItem source, ToDoItem target)
         {
-            target.Text = source.Text;
-            target.DateCompletion = source.DateCompletion;
-            target.Note = source.Note;
+            target.Text = source.Text ?? target.Text;
+            target.DateCompletion = source.DateCompletion ?? target.DateCompletion;
+            target.Note = source.Note ?? target.Note;
+            target.IsCompleted = source.IsCompleted;
+            target.List = source.List ?? target.List;
         }
         #endregion
     }

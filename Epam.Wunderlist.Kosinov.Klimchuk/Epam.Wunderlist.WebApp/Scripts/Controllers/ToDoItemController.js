@@ -30,6 +30,16 @@
         $scope.todoText = '';
     };
 
+    $scope.setDoneToDoItem = function (index) {
+        var elem = $scope.toDoItems[index];
+        console.log(item);
+
+        ItemsRest.update({ listId: listIdSharing.getProperty() },
+            { Id: elem.Id, IsCompleted: elem.IsCompleted },
+            function (data) {
+                console.log(data);
+            });
+    };
 
     $scope.showDescription = function (todo) {
         main = document.getElementById('main');

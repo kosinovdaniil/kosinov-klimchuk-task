@@ -40,7 +40,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Protected methods
         protected override void CopyEntityFields(ToDoList source, ToDoList target)
         {
-            target.Name = source.Name;
+            target.Name = source.Name ?? target.Name;
         }
         #endregion
     }

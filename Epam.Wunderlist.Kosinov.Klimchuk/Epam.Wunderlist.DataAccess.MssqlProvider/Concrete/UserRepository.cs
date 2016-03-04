@@ -23,8 +23,8 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Protected methods
         protected override void CopyEntityFields(User source, User target)
         {
-            target.Name = source.Name;
-            target.PhotoPath = source.PhotoPath;
+            target.Name = source.Name ?? target.Name;
+            target.PhotoPath = source.PhotoPath ?? target.PhotoPath;
         }
         #endregion
     }
