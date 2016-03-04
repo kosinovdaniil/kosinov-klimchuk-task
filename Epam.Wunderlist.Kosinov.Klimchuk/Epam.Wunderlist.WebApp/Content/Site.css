@@ -134,11 +134,8 @@ a img {
 }
 
 #show-done {
-    background: #79B376;
-    color: #FFF;
-    border-radius: 3px;
-    padding: 5px;
-    width: auto;
+    background: none;
+    border: none;
 }
 
 .done-true {
@@ -152,11 +149,12 @@ a img {
 
 ul {
     padding-left: 0;
-    margin-top: 2em;
+    /*margin-top: 1em;*/
+    margin-bottom: 2em;
 }
 
 li {
-    margin: .5em 0;
+    margin: .2em 0;
 }
 
 input[type="checkbox"] {
@@ -165,10 +163,30 @@ input[type="checkbox"] {
 
 .item {
     border-radius: 3px;
-    background: #538F7D;
+    background: #FFF;
     list-style-type: none;
     padding-left: 5px;
     height: 3em;
+}
+
+.item-done {
+    border-radius: 3px;
+    background: #E0EEEE;
+    list-style-type: none;
+    padding-left: 5px;
+    height: 3em;
+    width: calc(100% + 28px);
+    margin-left: -14px;
+}
+
+.item-text {
+    padding: .7em;
+    font-size: 1.1em;
+    vertical-align: .2em;
+}
+
+.panel-heading {
+    background: #f00; 
 }
 
 #item-info {
@@ -176,8 +194,9 @@ input[type="checkbox"] {
 }
 
 .list-item {
-    padding: 0;
-    margin: 0;
+    list-style-type: none;
+    height: 2em;
+    margin-left: -10px;
 }
 
 #icon {

@@ -261,6 +261,7 @@
     <Content Include="Content\mobile.png" />
     <Content Include="Content\plus-white.png" />
     <Content Include="Content\plus.png" />
+    <Content Include="Content\star-border-black.png" />
     <Content Include="Content\star-white.png" />
     <Content Include="Content\star.png" />
     <Content Include="Content\ui-bootstrap-csp.css" />

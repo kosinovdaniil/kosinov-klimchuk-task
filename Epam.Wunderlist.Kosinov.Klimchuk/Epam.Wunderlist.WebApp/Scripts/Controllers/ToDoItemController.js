@@ -1,6 +1,9 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'todoDescriptionSharing', function ($scope, ItemsRest, todoDescriptionSharing) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'todoDescriptionSharing', 'listIdSharing', function ($scope, ItemsRest, todoDescriptionSharing, listIdSharing) {
 
-    $scope.toDoItems = ItemsRest.query({ listId: '1' });
+    //$scope.getItems = function () {
+    //    $scope.toDoItems = ItemsRest.query({ listId: listIdSharing.getProperty() });
+    //}
+    
 
     //ItemsRest.save({ listId: '1' },
     //    { Text: 'watch film', IsCompleted: false, IsFavourited: false, DateAdded: '2/29/2016', List: { Id: '1' } },
@@ -14,21 +17,26 @@
     //        console.log(data);
     //    });
 
-    ItemsRest.delete({ itemId: '121' });
-
     $scope.addToDoItem = function () {
         if ($scope.todoText) {
-            $scope.toDoItems.push({ text: $scope.todoText, done: false });
+            $scope.toDoItems.push({ Text: $scope.todoText, IsCompleted: false });
+
+            ItemsRest.save({ listId: listIdSharing.getProperty() },
+                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: listIdSharing.getProperty() } },
+                function (data) {
+                    console.log(data);
+                });
         }
         $scope.todoText = '';
     };
+
 
     $scope.showDescription = function (todo) {
         main = document.getElementById('main');
         description = document.getElementById('item-info');
         main.className = main.className.replace('col-md-9', 'col-md-6');
         description.style.display = 'block';
-        
+
         todoDescriptionSharing.setProperty(todo);
     };
 

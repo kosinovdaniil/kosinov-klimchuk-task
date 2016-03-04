@@ -80,15 +80,15 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             return CreateResponseBuilder().WithCondition(() => item.UsersId.Contains(CurrentUserId))
                 .WithMethod(() => _itemService.Update(item));
-                }
+        }
 
         [Route("lists/")]
         [HttpPut]
         public HttpResponseMessage UpdateList(ToDoList list)
-                {
+        {
             return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
                 .WithMethod(() => _listService.Update(list));
-                }
+        }
 
         #endregion
 
@@ -97,7 +97,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [Route("lists/{id:int}")]
         [HttpDelete]
         public HttpResponseMessage DeleteList(int id)
-            {
+        {
             var list = _listService.Get(id);
             return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
                 .WithMethod(() => _listService.Delete(list));
@@ -107,7 +107,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [HttpDelete]
         public HttpResponseMessage DeleteItem(int id)
         {
-                var item = _itemService.Get(id);
+            var item = _itemService.Get(id);
             return CreateResponseBuilder().WithCondition(() => item.UsersId.Contains(CurrentUserId))
                 .WithMethod(() => _itemService.Delete(item));
         }
