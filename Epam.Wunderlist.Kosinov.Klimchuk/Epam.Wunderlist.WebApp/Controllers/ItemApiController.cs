@@ -79,8 +79,8 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage UpdateItem(ToDoItem item)
         {
             //TODO or delete check users
-            var source_item = _itemService.Get(item.Id);
-            return CreateResponseBuilder().WithCondition(() => source_item.UsersId.Contains(CurrentUserId))
+            var sourceItem = _itemService.Get(item.Id);
+            return CreateResponseBuilder().WithCondition(() => sourceItem.UsersId.Contains(CurrentUserId))
                 .WithMethod(() => _itemService.Update(item));
         }
 

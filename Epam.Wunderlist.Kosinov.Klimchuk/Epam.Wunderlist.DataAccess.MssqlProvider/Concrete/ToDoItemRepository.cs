@@ -24,7 +24,7 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 
         public override ToDoItem Create(ToDoItem entity)
         {
-            entity.List = context.Set<ToDoList>()
+            entity.List = _context.Set<ToDoList>()
                         .FirstOrDefault(x => x.Id == entity.List.Id);
             return base.Create(entity);
         }
@@ -32,10 +32,10 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
         public override void Delete(ToDoItem item)
         {
             //TODO probably not necessary db access
-            item = context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
+            item = _context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
             if (item != null)
             {
-                context.Set<ToDoItem>().Remove(item);
+                _context.Set<ToDoItem>().Remove(item);
             }
         }
         #endregion

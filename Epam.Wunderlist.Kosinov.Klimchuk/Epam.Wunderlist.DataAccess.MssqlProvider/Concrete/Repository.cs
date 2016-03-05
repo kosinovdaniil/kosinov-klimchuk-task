@@ -13,7 +13,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
     {
         #region Fields
 
-        protected readonly DbContext context;
+        protected readonly DbContext _context;
 
         #endregion
 
@@ -21,30 +21,30 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 
         protected Repository(DbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         #endregion
 
         #region Methods
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return context.Set<TEntity>();
+            return _context.Set<TEntity>();
         }
 
         public virtual TEntity GetById(int id)
         {
-            var entity = context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
+            var entity = _context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
             return entity;
         }
 
         public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
         {
-            return context.Set<TEntity>().Where(f);
+            return _context.Set<TEntity>().Where(f);
         }
 
         public virtual TEntity Create(TEntity entity)
         {
-            var elem = context.Set<TEntity>().Add(entity);
+            var elem = _context.Set<TEntity>().Add(entity);
             return elem;
         }
 
@@ -54,8 +54,8 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             {
                 throw new ArgumentNullException("entity");
             }
-            var entities = context.Set<TEntity>();
-            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            var entities = _context.Set<TEntity>();
+            var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
             if (elem == null)
             {
                 return;
@@ -69,7 +69,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             {
                 throw new ArgumentNullException("entity");
             }
-            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
             CopyEntityFields(entity, elem);
             return elem;
         }
