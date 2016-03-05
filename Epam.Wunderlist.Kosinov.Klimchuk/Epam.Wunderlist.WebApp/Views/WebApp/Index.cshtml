@@ -22,23 +22,20 @@
 
 <body ng-app="webApp">
     <div ng-controller="ToDoListController">
+
         <script type="text/ng-template" id="createList.html">
             <div class="modal-header">
-                <h3 class="modal-title">I'm a modal!</h3>
+                <h4 class="modal-title">Create list</h4>
             </div>
             <div class="modal-body">
-                <ul>
-                    <li ng-repeat="item in items">
-                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
-                    </li>
-                </ul>
-                Selected: <b>{{ selected.item }}</b>
+                <input type="text" ng-model="nameList" placeholder="Name" id="name-list"/>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
-                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+                <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
+                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
             </div>
         </script>
+
         <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
             <div id="search-toolbar">
                 <a href="#">
@@ -74,9 +71,9 @@
                 </ul>
             </div>
 
-            <div id="lists-sidebar">
+            <div id="lists-sidebar" class="text-center">
                 <a href="#" ng-click="openCreateList()">
-                    <img src="~/Content/plus.png" alt="Search">
+                    <img src="~/Content/plus.png" alt="Search" class="img-item">
                     <span>Create list</span>
                 </a>
             </div>
@@ -113,7 +110,6 @@
 
                 <ul>
                     <li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">
-                    @*<li ng-repeat="todo in toDoItems" ng-dblClick="showDescription(todo)" class="item">*@
                         <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                             <input type="checkbox" ng-click="toggleCompleted(todo.Id)" >
                             <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
@@ -193,17 +189,6 @@
             </div>
         </form>
     </aside>
-
-
-    <div ng-controller="UserController">
-        <div ng-repeat="user in users">
-            {{user.Email}}
-        </div>
-
-        <div>
-            {{user.Name}}
-        </div>
-    </div>
 
     @*@Scripts.Render("~/bundles/jquery")*@
 

@@ -289,6 +289,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Controllers\DescriptionController.js" />
+    <Content Include="Scripts\Controllers\ModalListController.js" />
     <Content Include="Scripts\Controllers\ToDoItemController.js" />
     <Content Include="Scripts\Controllers\ToDoListsController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />

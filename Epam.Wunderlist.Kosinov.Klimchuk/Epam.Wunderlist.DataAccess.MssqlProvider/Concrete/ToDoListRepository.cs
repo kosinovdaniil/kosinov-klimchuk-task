@@ -15,6 +15,14 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #endregion
 
         #region Methods
+        public override ToDoList Create(ToDoList entity)
+        {
+            var ids = entity.Users.Select(x => x.Id);
+            var users = context.Set<User>().Where(user => ids.Contains(user.Id));
+            entity.Users = users.ToList();
+            return base.Create(entity);
+        }
+
         public IEnumerable<ToDoList> GetByUser(int id)
         {
             var lists = GetByPredicate(list => list.Users.Select(x => x.Id).Contains(id));

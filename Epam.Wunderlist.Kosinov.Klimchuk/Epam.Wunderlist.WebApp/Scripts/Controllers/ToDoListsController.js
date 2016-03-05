@@ -1,8 +1,6 @@
 ﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listIdSharing', '$uibModal', function ($scope, ListsRest, listIdSharing, $uibModal) {
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-        //listIdSharing.setProperty(data[0].Id);
-
         generationItemsLoad(data[0].Id);
     });
 
@@ -22,14 +20,20 @@
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'createList.html',
-            controller: 'ToDoListController',
-            size: 'lg',
-            resolve: {
-                items: function () {
-                    return $scope.items;
-                }
+            controller: 'ModalListController',
+            size: 'sm'
+        });
+
+        modalInstance.result.then(function (nameList) {
+            if (nameList) {
+                ListsRest.save({}, { Name: nameList, Users: [{ Id: userId }]},
+                    function (data) {
+                        console.log(data);
+                        $scope.toDoLists.push(data);
+                    });
             }
-        })
+        });
     };
+
 
 }]);

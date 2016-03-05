@@ -19,7 +19,7 @@ namespace Epam.Wunderlist.DomainModel
         [JsonIgnore]
         public virtual IList<ToDoItem> Items { get; set; }
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual IList<User> Users { get; set; }
     }
 }
