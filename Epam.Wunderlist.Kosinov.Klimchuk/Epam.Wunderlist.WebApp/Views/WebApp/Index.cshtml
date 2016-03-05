@@ -22,6 +22,23 @@
 
 <body ng-app="webApp">
     <div ng-controller="ToDoListController">
+        <script type="text/ng-template" id="createList.html">
+            <div class="modal-header">
+                <h3 class="modal-title">I'm a modal!</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li ng-repeat="item in items">
+                        <a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}</a>
+                    </li>
+                </ul>
+                Selected: <b>{{ selected.item }}</b>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
         <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
             <div id="search-toolbar">
                 <a href="#">
@@ -58,7 +75,7 @@
             </div>
 
             <div id="lists-sidebar">
-                <a href="#">
+                <a href="#" ng-click="openCreateList()">
                     <img src="~/Content/plus.png" alt="Search">
                     <span>Create list</span>
                 </a>
@@ -95,10 +112,10 @@
                 <br>
 
                 <ul>
-                    @*<li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">*@
-                    <li ng-repeat="todo in toDoItems" ng-dblClick="showDescription(todo)" class="item">
+                    <li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">
+                    @*<li ng-repeat="todo in toDoItems" ng-dblClick="showDescription(todo)" class="item">*@
                         <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                            <input type="checkbox" ng-model="todo.IsCompleted" ng-click="setDoneToDoItem($index)">
+                            <input type="checkbox" ng-click="toggleCompleted(todo.Id)" >
                             <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
                         </div>
 
@@ -114,9 +131,9 @@
                 <uib-accordion close-others="true">
                     <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
                         <ul>
-                            <li ng-repeat="todo in toDoItems | filter: !todo.IsCompleted" ng-dblClick="showDescription(todo)" class="item-done">
+                            <li ng-repeat="todo in toDoItems | filter: {IsCompleted: 'true'}" ng-dblClick="showDescription(todo)" class="item-done">
                                 <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                                    <img src="~/Content/check.png" alt="Check" class="item-icons">
+                                    <img src="~/Content/check.png" alt="Check" class="item-icons" ng-click="toggleCompleted(todo.Id)">
                                     <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
                                 </div>
 

@@ -1,4 +1,4 @@
-﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listIdSharing', function ($scope, ListsRest, listIdSharing) {
+﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listIdSharing', '$uibModal', function ($scope, ListsRest, listIdSharing, $uibModal) {
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
         //listIdSharing.setProperty(data[0].Id);
@@ -18,17 +18,18 @@
         listIdSharing.setProperty(listId);
     };
 
-    //$scope.openCreateList = function () {
-    //    var modalInstance = $uibModal.open({
-    //        animation: true,
-    //        templateUrl: 'createList.html',
-    //        controller: 'ModalInstanceCtrl',
-    //        size: size,
-    //        resolve: {
-    //            items: function () {
-    //                return $scope.items;
-    //            }
-    //        }
-    //};
+    $scope.openCreateList = function () {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            templateUrl: 'createList.html',
+            controller: 'ToDoListController',
+            size: 'lg',
+            resolve: {
+                items: function () {
+                    return $scope.items;
+                }
+            }
+        })
+    };
 
 }]);
