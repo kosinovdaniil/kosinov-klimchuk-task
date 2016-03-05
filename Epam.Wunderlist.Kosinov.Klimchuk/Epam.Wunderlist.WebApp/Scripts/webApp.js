@@ -41,15 +41,15 @@ webApp.service('todoDescriptionSharing', function () {
     };
 });
 
-webApp.service('listIdSharing', function () {
-    var listId;
+webApp.service('listSharing', function () {
+    var list;
 
     return {
         getProperty: function () {
-            return listId;
+            return list;
         },
         setProperty: function (value) {
-            listId = value;
+            list = value;
         }
     };
 });

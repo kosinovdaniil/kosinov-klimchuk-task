@@ -33,6 +33,7 @@
 #lists-scroll {
     overflow-y: auto;
     overflow-x: hidden;
+    height: calc(100% - 140px);
 }
 
 #lists-sidebar {
@@ -93,7 +94,11 @@ h4 {
 #main {
     background-image: url(main.jpg);
     height: 100vh;
-    overflow: auto;
+}
+
+#task-roll{
+    overflow-y: auto;
+    height: calc(100% - 45px);
 }
 
 #add-task {

@@ -1,9 +1,9 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'todoDescriptionSharing', 'listIdSharing', function ($scope, ItemsRest, todoDescriptionSharing, listIdSharing) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'todoDescriptionSharing', 'listSharing', function ($scope, ItemsRest, todoDescriptionSharing, listSharing) {
 
     $scope.addToDoItem = function () {
         if ($scope.todoText) {
-            ItemsRest.save({ listId: listIdSharing.getProperty() },
-                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: listIdSharing.getProperty() } },
+            ItemsRest.save({ listId: listSharing.getProperty().Id },
+                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: listSharing.getProperty().Id } },
                 function (data) {
                     console.log(data);
                     $scope.toDoItems.push(data);
@@ -15,7 +15,7 @@
     $scope.toggleCompleted = function (item) {
         var index = $scope.toDoItems.indexOf(item)
         item.IsCompleted = !item.IsCompleted;
-        ItemsRest.update({ listId: listIdSharing.getProperty() },
+        ItemsRest.update({ listId: listSharing.getProperty().Id },
             { Id: item.Id, IsCompleted: item.IsCompleted },
             function (data) {
                 console.log(data);

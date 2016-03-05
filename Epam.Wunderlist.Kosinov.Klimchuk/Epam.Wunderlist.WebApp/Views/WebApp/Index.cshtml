@@ -25,10 +25,10 @@
 
         <script type="text/ng-template" id="createList.html">
             <div class="modal-header">
-                <h4 class="modal-title">Create list</h4>
+                <h4 class="modal-title" ng-model="modalHeader">{{modalHeader}}</h4>
             </div>
             <div class="modal-body">
-                <input type="text" ng-model="nameList" placeholder="Name" id="name-list"/>
+                <input type="text" ng-model="list.Name" placeholder="Name" id="name-list" />
             </div>
             <div class="modal-footer">
                 <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
@@ -41,7 +41,7 @@
                 <a href="#">
                     <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
                 </a>
-                <input type="text" placeholder="Search..." ng-model="search.text" id="search" />
+                <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
                 <img src="~/Content/magnify.png" alt="Search">
             </div>
 
@@ -58,14 +58,17 @@
 
             <div id="lists-scroll">
                 <ul>
-                    <li ng-repeat="list in toDoLists" class="list-item" ng-click="showItems(list.Id)">
-                        <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <li ng-repeat="list in toDoLists | filter : searchText" class="list-item" ng-click="showItems(list)">
+                        <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
                             <img src="~/Content/list.png" alt="List-icon">
                             <span>{{list.Name}}</span>
                         </div>
 
-                        <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
-                            <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
+                        <div class="col-md-4 col-sm-3 col-xs-3 pull-right">
+                            <div class="pull-right">
+                                <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
+                                <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openCreateList(list)">
+                            </div>
                         </div>
                     </li>
                 </ul>
@@ -82,13 +85,13 @@
         <main class="col-md-9" id="main">
 
             <div id="list-toolbar">
-                <h2 class="title">text</h2>
+                <h2 class="title" ng-model="listTitle">{{listTitle}}</h2>
             </div>
             <div id="action-bar"></div>
 
             <br>
 
-            <div ng-controller="ToDoItemController">
+            <div ng-controller="ToDoItemController" id="task-roll">
                 <div id="tasks-scroll">
                     <div id="add-task">
                         <form class="icon-container">
@@ -111,7 +114,7 @@
                 <ul>
                     <li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">
                         <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                            <input type="checkbox" ng-click="toggleCompleted(todo)" >
+                            <input type="checkbox" ng-click="toggleCompleted(todo)">
                             <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
                         </div>
 
@@ -123,7 +126,7 @@
                         </div>
                     </li>
                 </ul>
-                
+
                 <br>
                 <uib-accordion close-others="true">
                     <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
@@ -153,7 +156,7 @@
             <div class="update-elem">
                 <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                     <input type="checkbox">
-                    <input type="text" value="{{getTodo().Text}}" class="text-update"/>
+                    <input type="text" value="{{getTodo().Text}}" class="text-update" />
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-3">
                     <div class="pull-right">

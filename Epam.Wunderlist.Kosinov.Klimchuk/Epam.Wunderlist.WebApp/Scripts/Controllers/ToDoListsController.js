@@ -1,46 +1,61 @@
-﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listIdSharing', '$uibModal', function ($scope, ListsRest, listIdSharing, $uibModal) {
+﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listSharing', '$uibModal', function ($scope, ListsRest, listSharing, $uibModal) {
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-        generationItemsLoad(data[0].Id);
+        generationItemsLoad(data[0]);
     });
 
     //ListsRest.save();
 
-    $scope.showItems = function (listId) {
-        generationItemsLoad(listId);
+    $scope.showItems = function (list) {
+        generationItemsLoad(list);
     };
 
-    function generationItemsLoad(listId) {
-        $scope.$broadcast('listClicked', listId);
+    function generationItemsLoad(list) {
+        $scope.$broadcast('listClicked', list.Id);
 
-        listIdSharing.setProperty(listId);
+        listSharing.setProperty(list);
+        $scope.listTitle = list.Name;
     };
 
-    $scope.openCreateList = function () {
+    $scope.openCreateList = function (list) {
+
         var modalInstance = $uibModal.open({
             animation: true,
             templateUrl: 'createList.html',
             controller: 'ModalListController',
-            size: 'sm'
+            size: 'sm',
+            resolve: {
+                list: function () {
+                    return list;
+                }
+            }
         });
 
-        modalInstance.result.then(function (nameList) {
-            if (nameList) {
-                ListsRest.save({}, { Name: nameList, Users: [{ Id: userId }]},
-                    function (data) {
-                        console.log(data);
-                        $scope.toDoLists.push(data);
-                        listIdSharing.setProperty(data.Id);
-                    });
+        modalInstance.result.then(function (list) {
+            if (list) {
+                if (list.Id) {
+                    ListsRest.update({}, list,
+                       function (data) {
+                           console.log(data);
+                           generationItemsLoad(list);
+                       });
+                }
+                else {
+                    ListsRest.save({}, { Name: list.Name, Users: [{ Id: userId }] },
+                        function (data) {
+                            console.log(data);
+                            $scope.toDoLists.push(data);
+                            listSharing.setProperty(data);
+                        });
+                }
             }
         });
     };
 
     $scope.deleteList = function (list) {
-        alert(listIdSharing.getProperty());
-        if (listIdSharing.getProperty() == list.Id) {
+        if (listSharing.getProperty() == list) {
             $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-                generationItemsLoad(data[0].Id);
+                generationItemsLoad(data[0]);
             });
         }
         ListsRest.delete({ listId: list.Id }, function () {
