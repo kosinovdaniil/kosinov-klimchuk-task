@@ -76,6 +76,12 @@ namespace Epam.Wunderlist.WebApp
             if (!string.IsNullOrWhiteSpace(record.Operator))
                 message.Append(" ").Append(record.Operator).Append(" ").Append(record.Operation);
 
+            if (record.Exception != null && !string.IsNullOrWhiteSpace(record.Exception.GetBaseException().Message))
+            {
+                var exceptionType = record.Exception.GetType();
+                message.Append(Environment.NewLine);
+                message.Append("").Append("Error: " + record.Exception.GetBaseException().Message + Environment.NewLine);
+            }
 
             Logger[record.Level](Convert.ToString(message) + Environment.NewLine);
         }
