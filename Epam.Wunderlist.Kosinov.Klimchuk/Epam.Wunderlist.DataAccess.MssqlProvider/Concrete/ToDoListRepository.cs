@@ -24,10 +24,10 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         public override void Delete(ToDoList list)
         {
             //TODO probably not necessary db access
-            list = context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
+            list = _context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
             if (list != null)
             {
-                context.Set<ToDoList>().Remove(list);
+                _context.Set<ToDoList>().Remove(list);
             }
             foreach (var item in list.ItemsId)
             {

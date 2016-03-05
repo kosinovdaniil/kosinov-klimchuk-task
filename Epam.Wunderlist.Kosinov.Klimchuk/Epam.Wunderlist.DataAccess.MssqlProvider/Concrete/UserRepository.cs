@@ -15,7 +15,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Methods
         public User GetByMail(string mail)
         {
-            var user = context.Set<User>().FirstOrDefault(item => item.Email == mail);
+            var user = _context.Set<User>().FirstOrDefault(item => item.Email == mail);
             return user;
         }
         #endregion
