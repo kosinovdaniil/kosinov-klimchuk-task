@@ -88,7 +88,8 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [HttpPut]
         public HttpResponseMessage UpdateList(ToDoList list)
         {
-            return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
+            var sourceList = _listService.Get(list.Id);
+            return CreateResponseBuilder().WithCondition(() => sourceList.Users.Select(x => x.Id).Contains(CurrentUserId))
                 .WithMethod(() => _listService.Update(list));
         }
 

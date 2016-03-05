@@ -54,13 +54,12 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             {
                 throw new ArgumentNullException("entity");
             }
-            var entities = _context.Set<TEntity>();
-            var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
-            if (elem == null)
-            {
-                return;
-            }
-            entities.Remove(elem);
+            //var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            //if (elem == null)
+            //{
+            //    return;
+            //}
+            _context.Set<TEntity>().Remove(entity);
         }
 
         public virtual TEntity Update(TEntity entity)

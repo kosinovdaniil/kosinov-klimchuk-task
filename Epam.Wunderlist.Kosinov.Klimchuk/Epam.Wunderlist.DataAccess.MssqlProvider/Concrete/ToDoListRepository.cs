@@ -18,7 +18,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         public override ToDoList Create(ToDoList entity)
         {
             var ids = entity.Users.Select(x => x.Id);
-            var users = context.Set<User>().Where(user => ids.Contains(user.Id));
+            var users = _context.Set<User>().Where(user => ids.Contains(user.Id));
             entity.Users = users.ToList();
             return base.Create(entity);
         }
@@ -29,20 +29,15 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             return lists;
         }
 
-        public override void Delete(ToDoList list)
-        {
-            //TODO probably not necessary db access
-            list = _context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
-            if (list != null)
-            {
-                _context.Set<ToDoList>().Remove(list);
-            }
-            foreach (var item in list.ItemsId)
-            {
-                //context.Set<ToDoItem>().Remove(item);
-                //cascade
-            }
-        }
+        //public override void Delete(ToDoList list)
+        //{
+        //    //TODO probably not necessary db access
+        //    list = _context.Set<ToDoList>().FirstOrDefault(x => x.Id == list.Id);
+        //    if (list != null)
+        //    {
+        //        _context.Set<ToDoList>().Remove(list);
+        //    }
+        //}
         #endregion
 
         #region Protected methods

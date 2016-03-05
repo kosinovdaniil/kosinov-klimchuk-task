@@ -12,27 +12,22 @@
         $scope.todoText = '';
     };
 
-    $scope.toggleCompleted = function (id) {
-
-        var find = function (arr, condition) {
-            var i, x;
-            for (i in arr) {
-                x = arr[i];
-                if (condition(x)) return x;
-            }
-        };
-
-        var elem = find($scope.toDoItems, function (x) { return x.Id == id });
-
-        elem.IsCompleted = !elem.IsCompleted;
+    $scope.toggleCompleted = function (item) {
+        var index = $scope.toDoItems.indexOf(item)
+        item.IsCompleted = !item.IsCompleted;
         ItemsRest.update({ listId: listIdSharing.getProperty() },
-            { Id: elem.Id, IsCompleted: elem.IsCompleted },
+            { Id: item.Id, IsCompleted: item.IsCompleted },
             function (data) {
                 console.log(data);
             });
     };
 
-
+    $scope.deleteItem = function (item) {
+        ItemsRest.delete({ itemId: item.Id }, function (data) {
+            console.log(item.Id + 'deleted');
+            $scope.toDoItems.splice($scope.toDoItems.indexOf(item), 1);
+        });
+    };
 
 
     $scope.showDescription = function (todo) {
