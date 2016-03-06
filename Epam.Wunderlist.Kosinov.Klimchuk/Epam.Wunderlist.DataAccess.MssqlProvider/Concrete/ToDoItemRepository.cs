@@ -47,7 +47,10 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
             target.DateCompletion = source.DateCompletion ?? target.DateCompletion;
             target.Note = source.Note ?? target.Note;
             target.IsCompleted = source.IsCompleted;
-            target.List = source.List ?? target.List;
+            if (source.List != null)
+            {
+                target.List = _context.Set<ToDoList>().FirstOrDefault(list => list.Id == source.List.Id);
+            }
         }
         #endregion
     }

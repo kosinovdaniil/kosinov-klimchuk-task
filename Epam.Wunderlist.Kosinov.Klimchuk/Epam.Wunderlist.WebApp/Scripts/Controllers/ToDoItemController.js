@@ -1,9 +1,9 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'todoDescriptionSharing', 'listSharing', function ($scope, ItemsRest, todoDescriptionSharing, listSharing) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', function ($scope, ItemsRest, descriptionService, currentListService) {
 
     $scope.addToDoItem = function () {
         if ($scope.todoText) {
-            ItemsRest.save({ listId: listSharing.getProperty().Id },
-                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: listSharing.getProperty().Id } },
+            ItemsRest.save({ listId: currentListService.getProperty().Id },
+                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: currentListService.getProperty().Id } },
                 function (data) {
                     console.log(data);
                     $scope.toDoItems.push(data);
@@ -15,7 +15,7 @@
     $scope.toggleCompleted = function (item) {
         var index = $scope.toDoItems.indexOf(item)
         item.IsCompleted = !item.IsCompleted;
-        ItemsRest.update({ listId: listSharing.getProperty().Id },
+        ItemsRest.update({},
             { Id: item.Id, IsCompleted: item.IsCompleted },
             function (data) {
                 console.log(data);
@@ -31,16 +31,30 @@
 
 
     $scope.showDescription = function (todo) {
-        main = document.getElementById('main');
-        description = document.getElementById('item-info');
-        main.className = main.className.replace('col-md-9', 'col-md-6');
-        description.style.display = 'block';
 
-        todoDescriptionSharing.setProperty(todo);
+        if (descriptionService.isChanged()) {
+            $scope.$emit('itemChanged', descriptionService.getProperty());
+        }
+        $scope.tempDate = todo.DateCompletion ? new Date(todo.DateCompletion) : null;
+
+        descriptionService.showDescription(todo);
     };
 
     $scope.$on('listClicked', function (event, data) {
+        if (descriptionService.isOpen()) {
+            descriptionService.closeDescription();
+        }
         $scope.toDoItems = ItemsRest.query({ listId: data });
     });
+
+    $scope.$on('itemChanged', function (event, data) {
+        console.log(data);
+
+        ItemsRest.update({}, data, function (data) {
+            console.log(data);
+        });
+    });
+
+
 
 }]);

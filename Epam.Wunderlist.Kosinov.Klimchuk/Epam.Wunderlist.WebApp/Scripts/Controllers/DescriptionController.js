@@ -1,12 +1,23 @@
-﻿webApp.controller('DescriptionController', ['$scope', 'todoDescriptionSharing', function ($scope, todoDescriptionSharing) {
+﻿webApp.controller('DescriptionController', ['$scope', 'descriptionService', function ($scope, descriptionService) {
 
     $scope.getTodo = function () {
-        return todoDescriptionSharing.getProperty();
+        return descriptionService.getProperty();
     }
+
     $scope.closeDescription = function () {
-        main = document.getElementById('main');
-        description = document.getElementById('item-info');
-        main.className = main.className.replace('col-md-6', 'col-md-9');
-        description.style.display = 'none';
+        descriptionService.getProperty().DateCompletion = $scope.tempDate;
+        if (descriptionService.isChanged()) {
+            $scope.$emit('itemChanged', descriptionService.getProperty());
+        }
+        descriptionService.closeDescription();
+                
+    };
+
+    $scope.openCalendar = function () {
+        $scope.popup.opened = true;
+    };
+
+    $scope.popup = {
+        opened: false
     };
 }]);

@@ -6,7 +6,7 @@ webApp.factory('ListsRest', ['$resource', function ($resource) {
         get: { method: 'GET', url: 'api/lists/listId' },
         save: { method: 'POST', params: {} },
         update: { method: 'PUT', params: {} },
-        delete: { method: 'DELETE', url: 'api/lists/:listId'}
+        delete: { method: 'DELETE', url: 'api/lists/:listId' }
     });
 }]);
 
@@ -16,7 +16,7 @@ webApp.factory('ItemsRest', ['$resource', function ($resource) {
         get: { method: 'GET', url: 'api/items/:itemId' },
         save: { method: 'POST', url: 'api/lists/:listId/items' },
         update: { method: 'PUT', params: {} },
-        delete: { method: 'DELETE', url: 'api/items/:itemId'}
+        delete: { method: 'DELETE', url: 'api/items/:itemId' }
     });
 }]);
 
@@ -28,7 +28,7 @@ webApp.factory('UsersRest', ['$resource', function ($resource) {
     });
 }]);
 
-webApp.service('todoDescriptionSharing', function () {
+webApp.service('descriptionService', function () {
     var todo;
 
     return {
@@ -37,11 +37,38 @@ webApp.service('todoDescriptionSharing', function () {
         },
         setProperty: function (value) {
             todo = value;
+        },
+        initialProperty: null,
+        isOpen: function () {
+            return todo != null;
+        },
+        isChanged: function () {
+            return this.initialProperty && JSON.stringify(this.initialProperty) != JSON.stringify(todo);
+        },
+        closeDescription: function () {
+            this.initialProperty = null;
+            main = document.getElementById('main');
+            description = document.getElementById('item-info');
+            main.className = main.className.replace('col-md-6', 'col-md-9');
+            description.style.display = 'none';
+
+            this.setProperty(null);
+        },
+        showDescription: function (value) {
+            this.initialProperty = jQuery.extend({}, value);
+
+            main = document.getElementById('main');
+            description = document.getElementById('item-info');
+            main.className = main.className.replace('col-md-9', 'col-md-6');
+            description.style.display = 'block';
+            
+            this.setProperty(value);
         }
+
     };
 });
 
-webApp.service('listSharing', function () {
+webApp.service('currentListService', function () {
     var list;
 
     return {

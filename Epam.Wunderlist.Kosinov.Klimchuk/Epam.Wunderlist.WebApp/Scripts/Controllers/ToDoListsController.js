@@ -1,23 +1,26 @@
-﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'listSharing', '$uibModal', function ($scope, ListsRest, listSharing, $uibModal) {
+﻿webApp.controller('ToDoListController', ['$scope', 'ListsRest', 'currentListService', '$uibModal', 'descriptionService', function ($scope, ListsRest, currentListService, $uibModal, descriptionService) {
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-        generationItemsLoad(data[0]);
+        switchList(data[0]);
     });
 
     //ListsRest.save();
 
     $scope.showItems = function (list) {
-        generationItemsLoad(list);
+        switchList(list);
     };
 
-    function generationItemsLoad(list) {
+    function switchList(list) {
+        if (descriptionService.isChanged()) {
+            $scope.$broadcast('itemChanged', descriptionService.getProperty());
+        }
         $scope.$broadcast('listClicked', list.Id);
-
-        listSharing.setProperty(list);
+           
+        currentListService.setProperty(list);
         $scope.listTitle = list.Name;
     };
 
-    $scope.openCreateList = function (list) {
+    $scope.openListModal = function (list) {
 
         var modalInstance = $uibModal.open({
             animation: true,
@@ -37,7 +40,7 @@
                     ListsRest.update({}, list,
                        function (data) {
                            console.log(data);
-                           generationItemsLoad(list);
+                           switchList(list);
                        });
                 }
                 else {
@@ -45,7 +48,7 @@
                         function (data) {
                             console.log(data);
                             $scope.toDoLists.push(data);
-                            listSharing.setProperty(data);
+                            currentListService.setProperty(data);
                         });
                 }
             }
@@ -53,9 +56,9 @@
     };
 
     $scope.deleteList = function (list) {
-        if (listSharing.getProperty() == list) {
+        if (currentListService.getProperty() == list) {
             $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-                generationItemsLoad(data[0]);
+                switchList(data[0]);
             });
         }
         ListsRest.delete({ listId: list.Id }, function () {
@@ -64,4 +67,6 @@
             
         })
     };
+
+    
 }]);

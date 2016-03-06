@@ -4,6 +4,9 @@
     font-family: Cambria, Georgia, "Times New Roman";
 }
 
+#test{
+    display: inline-block;
+}
 
 .plus {
     width: 2em;
@@ -133,12 +136,17 @@ h4 {
 .img-item {
     padding: 0 0 0 1.4em;
 }
-
 .update-elem {
     border-bottom: 1px solid #DCDCDC;
     height: 45px;
     width: calc(100% + 28px);
+    padding: 0;
     margin-left: -14px;
+}
+
+#description-scroll .update-elem {
+
+    margin-left: 0;
 }
 
 #plus {
@@ -354,6 +362,25 @@ nav {
     background: #CD5C5C;
 }
 
+.note {
+    overflow-y: hidden;
+    resize: none;
+    padding-top: 1.1em;
+}
+
+#close-icon {
+    padding-left: 0;
+    margin-left: -9px;
+}
+
+#description-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: calc(100vh - 45px);
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
 h3 {
     font-size: 48px;
     line-height: 58px;
@@ -390,9 +417,9 @@ p.subline {
     padding: .8em;
 }
 
-textarea {
+/*textarea {
     min-height: 75px;
-}
+}*/
 
 .editor-label {
     margin: 1em 0 0 0;
