@@ -1,3 +1,4 @@
+using Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration;
 using Epam.Wunderlist.DomainModel;
 using System.Data.Entity;
 
@@ -8,21 +9,18 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider
         public ApplicationDbContext()
             : base("name=GoalsDatabase")
         {
+            //Database.SetInitializer(new DropCreateDatabaseAlways<ApplicationDbContext>());
         }
         
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<ToDoItem> Items { get; set; }
         public virtual DbSet<ToDoList> Lists { get; set; }
-
+        
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>()
-                .HasMany(e => e.Lists)
-                .WithMany(e => e.Users);
-
-            modelBuilder.Entity<ToDoList>()
-                .HasMany(e => e.Items)
-                .WithRequired(e => e.List);
+            modelBuilder.Configurations.Add(new UserConfiguration());
+            modelBuilder.Configurations.Add(new ToDoListConfiguration());
+            modelBuilder.Configurations.Add(new ToDoItemConfiguration());
         }
 
         public void Dispose()

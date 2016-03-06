@@ -1,0 +1,219 @@
+﻿@using System.Security.Claims;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Wunderlist</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/angular")
+
+    <script>
+        userId = @(((ClaimsIdentity)User.Identity).Claims
+            .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+    </script>
+
+
+
+    @Scripts.Render("~/bundles/webApp")
+</head>
+
+<body ng-app="webApp">
+    <div ng-controller="ToDoListController">
+
+        <script type="text/ng-template" id="createList.html">
+            <div class="modal-header">
+                <h4 class="modal-title" ng-model="modalHeader">{{modalHeader}}</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" ng-model="list.Name" placeholder="Name" id="name-list" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
+                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+        <script type="text/ng-template" id="updateUser.html">
+            <div class="modal-header">
+                <h4 class="modal-title">Update your profile</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" />
+            </div>
+            <div class="modal-footer">
+                <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
+                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
+
+
+        <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
+            <div id="search-toolbar">
+                <a href="#">
+                    <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
+                </a>
+                <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
+                <img src="~/Content/magnify.png" alt="Search">
+            </div>
+
+            <div id="user-toolbar" ng-controller="UserController">
+                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <img src="~/Content/list.png" alt="List-icon">
+                    <span>{{user.Name}}</span>
+                </div>
+
+                <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                    <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openUserModal()">
+                </div>
+            </div>
+
+            <div id="lists-scroll">
+                <ul>
+                    <li ng-repeat="list in toDoLists | filter : searchText" class="list-item" ng-click="showItems(list)">
+                        <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
+                            <img src="~/Content/list.png" alt="List-icon">
+                            <span>{{list.Name}}</span>
+                        </div>
+
+                        <div class="col-md-4 col-sm-3 col-xs-3 pull-right">
+                            <div class="pull-right">
+                                <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
+                                <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openListModal(list)">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="lists-sidebar" class="text-center">
+                <a href="#" ng-click="openListModal()">
+                    <img src="~/Content/plus.png" alt="Search" class="img-item">
+                    <span>Create list</span>
+                </a>
+            </div>
+        </aside>
+
+        <div ng-controller="ToDoItemController">
+            <main class="col-md-9" id="main">
+
+                <div id="list-toolbar">
+                    <h2 class="title" ng-model="listTitle">{{listTitle}}</h2>
+                </div>
+                <div id="action-bar"></div>
+
+                <br>
+
+                <div id="task-roll">
+                    <div id="tasks-scroll">
+                        <div id="add-task">
+                            <form class="icon-container">
+                                <div class="col-md-10 col-sm-9 col-xs-8 pull-left">
+                                    <img src="~/Content/plus-white.png" class="item-icons">
+                                    <input type="text" placeholder="Add a to-do..." id="new-task" ng-model="todoText" ng-keydown="$event.keyCode == 13 && addToDoItem()">
+                                </div>
+                                <div class="col-md-2 col-sm-3 col-xs-4">
+                                    <div class="pull-right">
+                                        <img src="~/Content/calendar.png" alt="Calendar" class="item-icons">
+                                        <img src="~/Content/border-star.png" alt="Star" class="item-icons">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <br>
+
+                    <ul>
+                        <li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">
+                            <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                                <input type="checkbox" ng-click="toggleCompleted(todo)">
+                                <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
+                            </div>
+
+                            <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                                <div class="pull-right">
+                                    <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteItem(todo)">
+                                    <img src="~/Content/star-border-black.png" alt="Star" class="item-icons">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <br>
+                    <uib-accordion close-others="true">
+                        <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
+                            <ul>
+                                <li ng-repeat="todo in toDoItems | filter: {IsCompleted: 'true'}" ng-dblClick="showDescription(todo)" class="item-done">
+                                    <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                                        <img src="~/Content/check.png" alt="Check" class="item-icons" ng-click="toggleCompleted(todo)">
+                                        <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
+                                    </div>
+
+                                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                                        <div class="pull-right">
+                                            <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteItem(todo)">
+                                            <img src="~/Content/star-border-black.png" alt="Star" class="item-icons">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </uib-accordion-group>
+                    </uib-accordion>
+                </div>
+            </main>
+
+
+            <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
+                <div class="update-elem">
+                    <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                        <input type="checkbox">
+                        <input type="text" ng-model="getTodo().Text" value="{{getTodo().Text}}" class="text-update" />
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-3">
+                        <img src="~/Content/star-border-black.png" alt="Star" class="item-icons">
+                    </div>
+                </div>
+                <div id="description-scroll">
+                    <div class="update-elem">
+                        <div class="col-md-10 col-sm-9 col-xs-9 pull-left"  >
+                            <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons" ng-click="openCalendar()">
+                            <input ng-model="tempDate" ng-readonly="true" placeholder="Set a due date" value="{{tempDate}}" class="text-update" uib-datepicker-popup is-open="popup.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close"/>
+                        </div>
+                    </div>
+
+                    <div class="update-elem" id="textarea-container">
+                        <div class="col-md-10 col-sm-9 col-xs-9 pull-left" >
+                            <img src="~/Content/pen-black.png" alt="Note" class="item-icons">
+                            <div id="test">
+                                <textarea ng-model="getTodo().Note" placeholder="Add a note" class="text-update note"></textarea>
+                            </div>
+                        </div>
+                        @*<div class="col-md-2 col-sm-3 col-xs-3" id="close-icon">
+                            <img src="~/Content/clear.png" alt="Star" class="item-icons">
+                        </div>*@
+                    </div>
+
+                    <div>
+                        <img src="~/Content/close.png" alt="Close" class="item-icons" ng-click="closeDescription()">
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script>
+        $('#textarea-container').on('keydown', 'textarea', function(e) {
+            $(this).height(0);
+            $(this).height(this.scrollHeight);
+        });
+        $('#textarea-container').find('textarea').keyup();
+    </script>
+    @*@Scripts.Render("~/bundles/jquery")*@
+
+    @*<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>*@
+</body>
+</html>

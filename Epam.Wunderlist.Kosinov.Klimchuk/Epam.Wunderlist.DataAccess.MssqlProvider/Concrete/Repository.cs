@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Data.Entity;
-using System.Linq.Expressions;
+﻿using Epam.Wunderlist.DataAccess.Interfaces.Repository;
 using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.DataAccess.Interfaces.Repository;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 {
@@ -13,7 +13,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
     {
         #region Fields
 
-        protected readonly DbContext context;
+        protected readonly DbContext _context;
 
         #endregion
 
@@ -21,34 +21,30 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
 
         protected Repository(DbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
         #endregion
 
         #region Methods
         public virtual IEnumerable<TEntity> GetAll()
         {
-            return context.Set<TEntity>();
+            return _context.Set<TEntity>();
         }
 
         public virtual TEntity GetById(int id)
         {
-            var entity = context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
-            if (entity == null)
-            {
-                throw new ArgumentException("There is no item with such id", "id");
-            }
+            var entity = _context.Set<TEntity>().FirstOrDefault(item => item.Id == id);
             return entity;
         }
 
         public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
         {
-            throw new NotImplementedException();
+            return _context.Set<TEntity>().Where(f);
         }
 
         public virtual TEntity Create(TEntity entity)
         {
-            var elem = context.Set<TEntity>().Add(entity);
+            var elem = _context.Set<TEntity>().Add(entity);
             return elem;
         }
 
@@ -58,28 +54,28 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
             {
                 throw new ArgumentNullException("entity");
             }
-            var entities = context.Set<TEntity>();
-            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
-            if (elem == null)
-            {
-                return;
-            }
-            entities.Remove(elem);
+            //var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            //if (elem == null)
+            //{
+            //    return;
+            //}
+            _context.Set<TEntity>().Remove(entity);
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual TEntity Update(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
-            var elem = context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
-            if (elem == null)
-            {
-                throw new ArgumentException("There is no element with such id", "entity");
-            }
-            //CopyEntityFields(entity, elem);
+            var elem = _context.Set<TEntity>().FirstOrDefault(item => item.Id == entity.Id);
+            CopyEntityFields(entity, elem);
+            return elem;
         }
+        #endregion
+
+        #region Protected methods
+        protected abstract void CopyEntityFields(TEntity source, TEntity target);
         #endregion
     }
 }

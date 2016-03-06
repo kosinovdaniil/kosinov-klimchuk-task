@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Epam.Wunderlist.WebApp.Infrastructure.ActionFilters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -19,6 +20,10 @@ namespace Epam.Wunderlist.WebApp
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+
+            config.Filters.Add(new LoggingFilterAttribute());
+            config.Filters.Add(new GlobalExceptionAttribute());
         }
     }
 }

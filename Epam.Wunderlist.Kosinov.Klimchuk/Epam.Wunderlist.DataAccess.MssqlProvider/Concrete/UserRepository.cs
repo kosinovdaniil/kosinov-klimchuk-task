@@ -15,16 +15,16 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Concrete
         #region Methods
         public User GetByMail(string mail)
         {
-            var user = context.Set<User>().FirstOrDefault(item => item.Email == mail);
+            var user = _context.Set<User>().FirstOrDefault(item => item.Email == mail);
             return user;
         }
         #endregion
 
-        #region Override methods
-        public override void Delete(User e)
+        #region Protected methods
+        protected override void CopyEntityFields(User source, User target)
         {
-            base.Delete(e);
-            //TODO delete all plans for this user
+            target.Name = source.Name ?? target.Name;
+            target.PhotoPath = source.PhotoPath ?? target.PhotoPath;
         }
         #endregion
     }

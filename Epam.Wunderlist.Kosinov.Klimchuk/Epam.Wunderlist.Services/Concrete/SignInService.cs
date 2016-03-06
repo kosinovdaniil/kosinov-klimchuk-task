@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.Services.Interfaces;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+using System;
 using System.Collections.Generic;
 using System.Security.Claims;
-using Epam.Wunderlist.Services.Interfaces;
-using Epam.Wunderlist.DomainModel;
-using Microsoft.Owin.Security;
-using Microsoft.AspNet.Identity;
 using System.Web;
 
 namespace Epam.Wunderlist.Services.Services
@@ -13,6 +13,10 @@ namespace Epam.Wunderlist.Services.Services
     {
         public void IdentitySignin(User user, bool isPersistent = false)
         {
+            if (user == null)
+            {
+                throw new ArgumentNullException("user");
+            }
             var claims = new List<Claim>();
 
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));

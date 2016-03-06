@@ -3,6 +3,7 @@ using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace Epam.Wunderlist.Services.Services
 {
@@ -10,20 +11,20 @@ namespace Epam.Wunderlist.Services.Services
         where TEntity : Entity
     {
         #region Fields
-        protected readonly IUnitOfWork _uow;
+        protected readonly IDbSession _dbSession;
         protected readonly IRepository<TEntity> _repository;
         #endregion
 
         #region Constructor
-        protected Service(IUnitOfWork uow, IRepository<TEntity> repository)
+        protected Service(IDbSession dbSession, IRepository<TEntity> repository)
         {
-            this._uow = uow;
+            this._dbSession = dbSession;
             this._repository = repository;
         }
         #endregion
 
         #region Methods
-        public virtual TEntity Create(TEntity entity)
+        public TEntity Create(TEntity entity)
         {
             if (entity == null)                            
             {
@@ -31,12 +32,12 @@ namespace Epam.Wunderlist.Services.Services
             }
             var result = _repository.Create(entity);
             if (result != null)
-                _uow.Commit();
+                _dbSession.Commit();
 
             return result;
         }
 
-        public virtual void Delete(TEntity entity)
+        public void Delete(TEntity entity)
         {
             if (entity == null)
             {
@@ -44,28 +45,34 @@ namespace Epam.Wunderlist.Services.Services
             }
 
             _repository.Delete(entity);
-            _uow.Commit();
+            _dbSession.Commit();
         }
 
-        public virtual TEntity Get(int id)
+        public TEntity Get(int id)
         {
             return _repository.GetById(id);
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
 
-        public virtual void Update(TEntity entity)
+        public TEntity Update(TEntity entity)
         {
             if (entity == null)
             {
                 throw new ArgumentNullException("entity");
             }
 
-            _repository.Update(entity);
-            _uow.Commit();
+            var temp = _repository.Update(entity);
+            _dbSession.Commit();
+            return temp;
+        }
+
+        public virtual IEnumerable<TEntity> GetByPredicate(Expression<Func<TEntity, bool>> f)
+        {
+            return _repository.GetByPredicate(f);
         }
         #endregion
     }

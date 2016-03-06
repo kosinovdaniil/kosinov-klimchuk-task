@@ -1,40 +1,43 @@
-﻿using Epam.Wunderlist.DomainModel;
-using Epam.Wunderlist.Services.Interfaces;
+﻿using Newtonsoft.Json;
 using System;
 using System.Net;
 using System.Net.Http;
 using System.Security.Principal;
+using System.Text;
 using System.Web.Script.Serialization;
 
 namespace Epam.Wunderlist.WebApp
 {
-    public class HttpPostResponseBuilder<TEntity> where TEntity : Entity
+    public class HttpResponseBuilder
     {
         private IIdentity _user;
-        private HttpRequestMessage _request;
-        private ICrudService<TEntity> _service;
-        private TEntity _entity;
 
-        public HttpPostResponseBuilder(IIdentity user, HttpRequestMessage request, ICrudService<TEntity> service)
+        private HttpRequestMessage _request;
+
+        public HttpResponseBuilder(IIdentity user, HttpRequestMessage request)
         {
             _user = user;
             _request = request;
-            _service = service;
         }
 
         private Func<bool> _condition = () => true;
 
+        private Func<object> _action;
+
 
         private static string Serialize(object obj)
         {
-            return new JavaScriptSerializer().Serialize(obj);
+            return JsonConvert.SerializeObject(obj, new JsonSerializerSettings()
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            });
         }
 
         private HttpResponseMessage Execute()
         {
-            if (_entity == null)
+            if (_action == null)
             {
-                throw new ArgumentNullException("_entity");
+                throw new ArgumentNullException("_action");
             }
             HttpResponseMessage response;
             if (_user.IsAuthenticated)
@@ -42,7 +45,7 @@ namespace Epam.Wunderlist.WebApp
                 if (_condition())
                 {
                     response = _request.CreateResponse(HttpStatusCode.OK, "");
-                    _service.Create(_entity);
+                    response.Content = new StringContent(Serialize(_action()), Encoding.Unicode);
                 }
                 else
                 {
@@ -56,21 +59,32 @@ namespace Epam.Wunderlist.WebApp
             return response;
         }
 
-        public HttpPostResponseBuilder<TEntity> WithEntity(TEntity entity)
+        public HttpResponseBuilder WithMethod(Func<object> action)
         {
-            _entity = entity;
+            _action = action;
             return this;
         }
 
-        public HttpPostResponseBuilder<TEntity> WithCondition(Func<bool> condition)
+        public HttpResponseBuilder WithMethod(Action action)
+        {
+            _action = () =>
+            {
+                action();
+                return null;
+            };
+            return this;
+        }
+
+        public HttpResponseBuilder WithCondition(Func<bool> condition)
         {
             _condition = condition;
             return this;
         }
 
-        public static implicit operator HttpResponseMessage(HttpPostResponseBuilder<TEntity> self)
+        public static implicit operator HttpResponseMessage(HttpResponseBuilder self)
         {
             return self.Execute();
         }
+
     }
 }

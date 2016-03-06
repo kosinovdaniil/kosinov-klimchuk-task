@@ -9,9 +9,11 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/webApp")
 </head>
-<body>
-    <aside id="lists" class="col-sm-3">
+<body ng-app="webApp">
+    <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
         <div id="search-toolbar">
             <a href="#">
                 <img src="~/Content/menu.png" alt="Toggle Sidebar">
@@ -20,7 +22,7 @@
             <img src="~/Content/magnify.png" alt="Search">
         </div>
         <div id="user-toolbar">Profile</div>
-        <div id="lists-scroll">Tsaks</div>
+        <div id="lists-scroll">Tasks</div>
         <div id="lists-sidebar">
             <a href="#">
                 <img src="~/Content/plus.png" alt="Search">
@@ -29,7 +31,7 @@
         </div>
     </aside>
 
-    <main class="col-sm-5" id="main">
+    <main class="col-md-9" id="main">
 
         <div id="list-toolbar">
             <h2 class="title">text</h2>
@@ -38,33 +40,56 @@
 
         <br>
 
-        <div id="tasks-scroll">
-            <div id="add-task">
-                <form ng-submit="addTodo()">
-                    <img src="~/Content/plus-white.png" id="plus">
-                    <input type="text" ng-model="todoText" placeholder="Добавить задачу..." id="new-task">
-                    <img src="~/Content/calendar.png" alt="Calendar" id="calendar">
-                    <span class="star">&#9734</span>
-                </form>
+        <div ng-controller="ToDoItemController">
+            <div id="tasks-scroll">
+                <div id="add-task">
+                    <form class="icon-container">
+                        <div class="col-md-1 col-sm-2 col-xs-2">
+                            <div class="plus">
+                                <img src="~/Content/plus-white.png" class="item-icons">
+                            </div>
+                        </div>
+                        <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
+                            <input type="text" placeholder="Добавить задачу..." id="new-task" ng-model="todoText" ng-keydown="$event.keyCode == 13 && addToDoItem()">
+                        </div>
+                        <div class="col-md-2 col-sm-3 col-xs-3">
+                            <div class="pull-right">
+                                <img src="~/Content/calendar.png" alt="Calendar" class="item-icons">
+                                <img src="~/Content/border-star.png" alt="Star" class="item-icons">
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
+
+            <br>
+            <a href="#" id="show-done">ПОКАЗАТЬ ЗАВЕРШЕННЫЕ ЗАДАЧИ</a>
+            <br>
+
+            <ul>
+                <li ng-repeat="todo in toDoItems" ng-dblClick="showDescription()" class="item">
+                    <div class="col-md-1 col-sm-2 col-xs-2">
+                        <input type="checkbox" ng-model="todo.done">
+                    </div>
+                    <div class="col-md-9 col-sm-7 col-xs-7 pull-left">
+                        <div class="item-icons">
+                            <span class="done-{{todo.done}}">{{todo.text}}</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2 col-sm-3 col-xs-3">
+                        <div class="pull-right">
+                            <img src="~/Content/border-star.png" alt="Star" class="item-icons">
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </div>
 
-        <br>
 
-        <ul class="unstyled">
-            <li ng-repeat="todo in todos" class="item">
-                <input type="checkbox" ng-model="todo.done">
-                <span class="done-{{todo.done}}">{{todo.text}}</span>
-                <span class="star">&#9734</span>
-            </li>
-        </ul>
 
-        <br>
 
-        <a href="#" id="show-done">ПОКАЗАТЬ ЗАВЕРШЕННЫЕ ЗАДАЧИ</a>
     </main>
 
-    <aside class="col-sm-4" id="item-info">wesdrftghjk</aside>
 
     @RenderBody()
 

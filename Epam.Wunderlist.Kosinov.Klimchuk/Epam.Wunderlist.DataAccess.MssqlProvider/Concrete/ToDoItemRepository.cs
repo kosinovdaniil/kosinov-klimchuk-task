@@ -11,25 +11,47 @@ namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
     {
         #region Constructor
         public ToDoItemRepository(DbContext context)
-            : base(context) { }
+            : base(context)
+        { }
         #endregion
 
         #region Methods
         public IEnumerable<ToDoItem> GetByList(int id)
         {
-            var items = context.Set<ToDoItem>().Where(item => item.List.Id == id);
+            var items = GetByPredicate(item => item.List.Id == id);
             return items;
         }
-        #endregion
+
+        public override ToDoItem Create(ToDoItem entity)
+        {
+            entity.List = _context.Set<ToDoList>()
+                        .FirstOrDefault(x => x.Id == entity.List.Id);
+            return base.Create(entity);
+        }
 
         public override void Delete(ToDoItem item)
         {
             //TODO probably not necessary db access
-            item = context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
+            item = _context.Set<ToDoItem>().FirstOrDefault(x => x.Id == item.Id);
             if (item != null)
             {
-                context.Set<ToDoItem>().Remove(item);
+                _context.Set<ToDoItem>().Remove(item);
             }
         }
+        #endregion
+
+        #region Protected methods
+        protected override void CopyEntityFields(ToDoItem source, ToDoItem target)
+        {
+            target.Text = source.Text ?? target.Text;
+            target.DateCompletion = source.DateCompletion ?? target.DateCompletion;
+            target.Note = source.Note ?? target.Note;
+            target.IsCompleted = source.IsCompleted;
+            if (source.List != null)
+            {
+                target.List = _context.Set<ToDoList>().FirstOrDefault(list => list.Id == source.List.Id);
+            }
+        }
+        #endregion
     }
 }

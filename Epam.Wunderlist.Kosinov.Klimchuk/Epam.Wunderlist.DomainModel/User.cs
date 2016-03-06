@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Epam.Wunderlist.DomainModel
 {
-    public partial class User : Entity
+    public class User : Entity
     {
         public string Email { get; set; }
 
@@ -13,7 +13,16 @@ namespace Epam.Wunderlist.DomainModel
         public string PhotoPath { get; set; }
 
         public string Name { get; set; }
+         
+        public IEnumerable<int> ListsId
+        {
+            get
+            {
+                return Lists?.Select(x => x.Id);
+            }
+        }
 
+        [JsonIgnore]
         public virtual IList<ToDoList> Lists { get; set; }
     }
 }

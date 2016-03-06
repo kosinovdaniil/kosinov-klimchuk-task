@@ -2,14 +2,15 @@
 using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.Services.Services;
+using System;
 
 namespace Epam.Wunderlist.Services.Concrete
 {
     public class UserService : Service<User>, IUserService
     {
         #region Constructor
-        public UserService(IUnitOfWork uow, IUserRepository repository)
-            : base(uow, repository)
+        public UserService(IDbSession dbSession, IUserRepository repository)
+            : base(dbSession, repository)
         { }
         #endregion
 
@@ -24,6 +25,10 @@ namespace Epam.Wunderlist.Services.Concrete
 
         public User Get(string mail)
         {
+            if (mail == null)
+            {
+                throw new ArgumentNullException("mail");
+            }
             return ((IUserRepository)_repository).GetByMail(mail);
         }
         #endregion
