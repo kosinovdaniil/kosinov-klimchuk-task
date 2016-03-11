@@ -20,6 +20,10 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult Register()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "WebApp", null);
+            }
             return View();
         }
 
@@ -60,6 +64,10 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [AcceptVerbs(HttpVerbs.Get)]
         public ActionResult LogOn()
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "WebApp", null);
+            }
             return View();
         }
 

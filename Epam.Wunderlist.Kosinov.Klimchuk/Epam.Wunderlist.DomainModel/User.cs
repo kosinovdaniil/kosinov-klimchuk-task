@@ -12,6 +12,8 @@ namespace Epam.Wunderlist.DomainModel
 
         public string PhotoPath { get; set; }
 
+        public string MimeTypeImage { get; set; }
+
         public string Name { get; set; }
          
         public IEnumerable<int> ListsId

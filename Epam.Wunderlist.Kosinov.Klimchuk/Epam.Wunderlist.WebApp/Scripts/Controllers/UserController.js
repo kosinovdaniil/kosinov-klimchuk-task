@@ -1,4 +1,4 @@
-﻿webApp.controller('UserController', ['$scope', 'UsersRest', '$uibModal', function ($scope, UsersRest, $uibModal) {
+﻿webApp.controller('UserController', ['$scope', 'UsersRest', '$uibModal', '$http', function ($scope, UsersRest, $uibModal, $http) {
 
     //$scope.users = UsersRest.query();
 
@@ -20,6 +20,7 @@
 
 
         modalInstance.result.then(function (user) {
+            console.log(user);
             if (user.Name) {
                 UsersRest.update({}, user,
                    function (data) {

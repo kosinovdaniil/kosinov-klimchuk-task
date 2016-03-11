@@ -4,7 +4,7 @@
     font-family: Cambria, Georgia, "Times New Roman";
 }
 
-#test{
+#test {
     display: inline-block;
 }
 
@@ -12,12 +12,17 @@
     width: 2em;
 }
 
-
 #lists {
     transition: width 100ms ease;
     background: #f7f7f7;
     height: 100vh;
     padding: 0;
+}
+
+.text-overflow {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 #search-toolbar {
@@ -99,7 +104,7 @@ h4 {
     height: 100vh;
 }
 
-#task-roll{
+#task-roll {
     overflow-y: auto;
     height: calc(100% - 45px);
 }
@@ -136,6 +141,7 @@ h4 {
 .img-item {
     padding: 0 0 0 1.4em;
 }
+
 .update-elem {
     border-bottom: 1px solid #DCDCDC;
     height: 45px;
@@ -145,7 +151,6 @@ h4 {
 }
 
 #description-scroll .update-elem {
-
     margin-left: 0;
 }
 
@@ -221,7 +226,7 @@ input[type="checkbox"] {
 }
 
 .panel-heading {
-    background: #f00; 
+    background: #f00;
 }
 
 #item-info {

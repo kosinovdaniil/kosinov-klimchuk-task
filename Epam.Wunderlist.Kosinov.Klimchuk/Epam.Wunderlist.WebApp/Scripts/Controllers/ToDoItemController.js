@@ -55,6 +55,15 @@
         });
     });
 
+    $scope.length = 35;
+    $scope.$watch('todoText', function (newValue) {
+        if (newValue && newValue.length > 35) {
+            $scope.todoText = newValue.substring(0, 35);
+        }
 
+        if (newValue != undefined) {
+            $scope.length = 35 - newValue.length;
+        }
+    });
 
 }]);

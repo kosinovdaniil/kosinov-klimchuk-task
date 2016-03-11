@@ -15,7 +15,7 @@
             $scope.$broadcast('itemChanged', descriptionService.getProperty());
         }
         $scope.$broadcast('listClicked', list.Id);
-           
+
         currentListService.setProperty(list);
         $scope.listTitle = list.Name;
     };
@@ -42,6 +42,9 @@
                            console.log(data);
                            switchList(list);
                        });
+                    var x = $scope.toDoLists.findIndex(function (temp) { return temp.Id == list.Id; });
+                    $scope.toDoLists[x] = list;
+                    //console.log(y);
                 }
                 else {
                     ListsRest.save({}, { Name: list.Name, Users: [{ Id: userId }] },
@@ -64,9 +67,10 @@
         ListsRest.delete({ listId: list.Id }, function () {
             console.log(list.Id + 'deleted');
             console.log($scope.toDoLists.splice($scope.toDoLists.indexOf(list), 1));
-            
+
         })
     };
 
-    
+
+
 }]);
