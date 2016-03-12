@@ -1,4 +1,4 @@
-﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap', 'dndLists']);
+﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap', 'dndLists', 'ngFileUpload']);
 
 webApp.factory('ListsRest', ['$resource', function ($resource) {
     return $resource('api/lists/', {}, {
@@ -84,9 +84,10 @@ webApp.service('currentListService', function () {
 webApp.filter('isCompleted', function () {
     return function (arr) {
         for (var i = 0; i < arr.length; i++) {
-            arr[i] = arr[i].IsCompleted ? null : arr[i];
+            if (!arr[i].IsCompleted) {
+                arr.splice(i);
+            }
         }
-
         return arr;
     }
 });

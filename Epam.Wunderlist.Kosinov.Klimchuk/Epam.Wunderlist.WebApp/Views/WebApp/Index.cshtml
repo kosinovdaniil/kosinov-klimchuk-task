@@ -43,7 +43,20 @@
                 <h4 class="modal-title">Update your profile</h4>
             </div>
 
-            <div id="uploadForm" enctype="multipart/form-data" @*ng-model="photo = user.PhotoPath ? user.PhotoPath : 'default.png'"*@>
+            <form name="form">
+                <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" autofocus />
+                <br />
+                <img ng-src="@Url.Content("~/Files/"){{user.PhotoPath}}" alt="myimage" />
+                <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+                     ngf-accept="'image/*'" ngf-max-size="20MB" 
+                     ngf-resize="{width: 100, height: 100}">Select</div>
+                <br />
+               
+                <button type="submit" class="btn modal-btn" ng-click="ok()">Ok</button>
+                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
+            </form>
+
+            @*<div id="uploadForm" enctype="multipart/form-data" @*ng-model="photo = user.PhotoPath ? user.PhotoPath : 'default.png'>
                 <div class="modal-body">
                     <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" autofocus />
 
@@ -55,58 +68,60 @@
                     <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
                     <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
                 </div>
-            </div>
+            </div>*@
 
         </script>
 
-
-        <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
-            <div id="search-toolbar">
-                <a href="#">
-                    <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
-                </a>
-                <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
-                <img src="~/Content/magnify.png" alt="Search">
-            </div>
-
-            <div id="user-toolbar" ng-controller="UserController">
-                <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                    <img src="~/Content/list.png" alt="List-icon">
-                    <span>{{user.Name}}</span>
-                </div>
-
-                <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
-                    <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openUserModal()">
-                </div>
-            </div>
-
-            <div id="lists-scroll">
-                <ul>
-                    <li ng-repeat="list in toDoLists | filter : searchText" class="list-item" ng-click="showItems(list)">
-                        <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
-                            <img src="~/Content/list.png" alt="List-icon">
-                            <span>{{list.Name}}</span>
-                        </div>
-
-                        <div class="col-md-4 col-sm-3 col-xs-3 pull-right">
-                            <div class="pull-right">
-                                <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
-                                <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openListModal(list)">
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="lists-sidebar" class="text-center">
-                <a href="#" ng-click="openListModal()">
-                    <img src="~/Content/plus.png" alt="Search" class="img-item">
-                    <span>Create list</span>
-                </a>
-            </div>
-        </aside>
-
         <div ng-controller="ToDoItemController">
+            <aside id="lists" class="col-md-3 hidden-xs hidden-sm">
+                <div id="search-toolbar">
+                    <a href="#">
+                        <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
+                    </a>
+                    <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
+                    <img src="~/Content/magnify.png" alt="Search">
+                </div>
+
+                <div id="user-toolbar" ng-controller="UserController">
+                    <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                        <img src="~/Content/list.png" alt="List-icon">
+                        <span>{{user.Name}}</span>
+                    </div>
+
+                    <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
+                        <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openUserModal()">
+                    </div>
+                </div>
+
+                <div id="lists-scroll">
+                    <ul dnd-list="toDoLists"
+                        dnd-external-sources="true"
+                        dnd-drop="itemDropped(item, index)">
+                        <li ng-repeat="list in toDoLists | filter : searchText" class="list-item" ng-click="showItems(list)">
+                            <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
+                                <img src="~/Content/list.png" alt="List-icon">
+                                <span>{{list.Name}}</span>
+                            </div>
+
+                            <div class="col-md-4 col-sm-3 col-xs-3 pull-right">
+                                <div class="pull-right">
+                                    <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
+                                    <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openListModal(list)">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="lists-sidebar" class="text-center">
+                    <a href="#" ng-click="openListModal()">
+                        <img src="~/Content/plus.png" alt="Search" class="img-item">
+                        <span>Create list</span>
+                    </a>
+                </div>
+            </aside>
+
+
             <main class="col-md-9" id="main">
 
                 <div id="list-toolbar">
@@ -130,11 +145,11 @@
 
                     <br>
 
-                    <ul dnd-list="toDoItems">
-                        <li ng-repeat="todo in (toDoItems | filter: {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)"
+                    <ul dnd-list="notCompletedItems">
+                        <li ng-repeat="todo in notCompletedItems" ng-dblClick="showDescription(todo)"
                             dnd-draggable="todo"
                             dnd-selected="models.selected = todo"
-                            dnd-moved="onMoved(todo)"
+                            dnd-moved="onMoved(todo, event)"
                             dnd-effect-allowed="move"
                             ng-class="{'selected': models.selected === todo}" class="item">
                             <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
@@ -157,7 +172,7 @@
                     <uib-accordion close-others="true">
                         <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
                             <ul>
-                                <li ng-repeat="todo in (toDoItems | filter: {IsCompleted: 'true'})" ng-dblClick="showDescription(todo)" class="item-done">
+                                <li ng-repeat="todo in completedItems" ng-dblClick="showDescription(todo)" class="item-done">
                                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                                         <div class="text-overflow">
                                             <input type="checkbox" class="item-icons" checked ng-click="toggleCompleted(todo)">
@@ -182,7 +197,7 @@
             <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
                 <div class="update-elem">
                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                        <input type="checkbox" ng-model="getTodo().IsCompleted">
+                        <input type="checkbox" ng-model="getTodo().IsCompleted" disabled>
                         <input type="text" ng-model="getTodo().Text" value="{{getTodo().Text}}" class="text-update text-overflow" />
                     </div>
                     <div class="col-md-2 col-sm-3 col-xs-3">

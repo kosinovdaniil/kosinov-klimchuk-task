@@ -20,7 +20,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             string message = string.Empty, mimeType = string.Empty;
 
-            var image = HttpContext.Request.Files.Get("image");
+            var image = HttpContext.Request.Files[0];
 
             try
             {

@@ -70,6 +70,8 @@
 
 #item-info {
     display: block;
+    -webkit-transition: width 200ms ease;
+    transition: 500ms width ease;
 }
 
 
