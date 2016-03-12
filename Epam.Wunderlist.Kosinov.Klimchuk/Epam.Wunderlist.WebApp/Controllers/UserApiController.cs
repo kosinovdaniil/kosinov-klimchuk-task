@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Claims;
-using System.Security.Principal;
-using System.Text;
+﻿using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Results;
-using System.Web.Script.Serialization;
-using Epam.Wunderlist.WebApp.ViewModels;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
 
