@@ -1,4 +1,4 @@
-﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap']);
+﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap', 'dndLists']);
 
 webApp.factory('ListsRest', ['$resource', function ($resource) {
     return $resource('api/lists/', {}, {
@@ -61,7 +61,7 @@ webApp.service('descriptionService', function () {
             description = document.getElementById('item-info');
             main.className = main.className.replace('col-md-9', 'col-md-6');
             description.style.display = 'block';
-            
+
             this.setProperty(value);
         }
 
@@ -79,6 +79,16 @@ webApp.service('currentListService', function () {
             list = value;
         }
     };
+});
+
+webApp.filter('isCompleted', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; i++) {
+            arr[i] = arr[i].IsCompleted ? null : arr[i];
+        }
+
+        return arr;
+    }
 });
 
 

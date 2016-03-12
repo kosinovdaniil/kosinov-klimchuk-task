@@ -130,8 +130,13 @@
 
                     <br>
 
-                    <ul>
-                        <li ng-repeat="todo in (toDoItems | filter : {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)" class="item">
+                    <ul dnd-list="toDoItems">
+                        <li ng-repeat="todo in (toDoItems | filter: {IsCompleted: 'false'})" ng-dblClick="showDescription(todo)"
+                            dnd-draggable="todo"
+                            dnd-selected="models.selected = todo"
+                            dnd-moved="onMoved(todo)"
+                            dnd-effect-allowed="move"
+                            ng-class="{'selected': models.selected === todo}" class="item">
                             <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                                 <div class="text-overflow">
                                     <input type="checkbox" ng-click="toggleCompleted(todo)">
@@ -152,11 +157,10 @@
                     <uib-accordion close-others="true">
                         <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
                             <ul>
-                                <li ng-repeat="todo in toDoItems | filter: {IsCompleted: 'true'}" ng-dblClick="showDescription(todo)" class="item-done">
+                                <li ng-repeat="todo in (toDoItems | filter: {IsCompleted: 'true'})" ng-dblClick="showDescription(todo)" class="item-done">
                                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                                         <div class="text-overflow">
-                                            <input type="checkbox" class="item-icons" ng-click="toggleCompleted(todo)" ng-model="todo.IsCompleted">
-
+                                            <input type="checkbox" class="item-icons" checked ng-click="toggleCompleted(todo)">
                                             <span class="done-{{todo.IsCompleted}} item-text">{{todo.Text}}</span>
                                         </div>
                                     </div>

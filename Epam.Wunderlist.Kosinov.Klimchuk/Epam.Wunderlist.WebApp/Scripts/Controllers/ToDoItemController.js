@@ -1,4 +1,4 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', function ($scope, ItemsRest, descriptionService, currentListService) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$filter', 'isCompletedFilter', function ($scope, ItemsRest, descriptionService, currentListService, $filter, isCompletedFilter) {
 
     $scope.addToDoItem = function () {
         if ($scope.todoText) {
@@ -65,5 +65,19 @@
             $scope.length = 35 - newValue.length;
         }
     });
+
+    $scope.models = {
+        selected: null
+    };
+    $scope.onMoved = function (value) {
+        //console.log('model');
+        //for (i = 0; i < $scope.models.lists.length; i++) {
+        //    console.log($scope.models.lists[i]);
+        //}
+        var index = $scope.toDoItems.indexOf(value);
+        $scope.toDoItems.splice(index, 1);
+        console.log($scope.toDoItems);
+        //$scope.models.lists.splice($index, 1)
+    };
 
 }]);
