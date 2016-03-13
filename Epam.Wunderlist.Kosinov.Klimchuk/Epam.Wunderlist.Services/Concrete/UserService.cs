@@ -3,6 +3,7 @@ using Epam.Wunderlist.DomainModel;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.Services.Services;
 using System;
+using CryptSharp;
 
 namespace Epam.Wunderlist.Services.Concrete
 {
@@ -18,7 +19,9 @@ namespace Epam.Wunderlist.Services.Concrete
         public User ValidateUser(string email, string password)
         {
             var user = ((IUserRepository)_repository).GetByMail(email);
-            if (user?.Password == password)
+            if (user == null)
+                return null;
+            if (BlowfishCrypter.CheckPassword(password, user.Password))
                 return user;
             return null;
         }

@@ -4,6 +4,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
     using System;
     using System.Collections.Generic;
     using System.Data.Entity.Migrations;
+    using CryptSharp;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
@@ -20,7 +21,7 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider.Migrations
                 {
                     Email = "mail" + i.ToString() + "@gmail.com",
                     Name = "user" + i.ToString(),
-                    Password = "password" + i.ToString()
+                    Password = BlowfishCrypter.Blowfish.Crypt("password" + i.ToString())
                 };
                 context.Users.Add(user);
                 for (var j = 0; j < i; j++)
