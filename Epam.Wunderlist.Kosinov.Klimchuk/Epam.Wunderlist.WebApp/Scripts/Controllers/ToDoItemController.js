@@ -147,4 +147,17 @@
     };
 
     $scope.lists = []
+    $scope.listHidden = true;
+
+    $scope.toggleHiddenList = function (id) {
+
+        if ($scope.listHidden) {
+            $('#list-buttons-' + id).fadeIn('fast');
+            $scope.listHidden = false;
+        }
+        else {
+            $('#list-buttons-' + id).fadeOut('fast');
+            $scope.listHidden = true;
+        }
+    };
 }]);

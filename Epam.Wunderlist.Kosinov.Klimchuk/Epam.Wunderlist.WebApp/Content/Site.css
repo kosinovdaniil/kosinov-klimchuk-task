@@ -4,6 +4,10 @@
     font-family: Cambria, Georgia, "Times New Roman";
 }
 
+[id^='list-buttons-'], #user {
+    display: none;
+}
+
 #note {
     display: inline-block;
     margin-left: 2em;
@@ -13,8 +17,8 @@
     width: 2em;
 }
 
-.avatar{
-    border-radius : 20px;
+.avatar {
+    border-radius: 20px;
 }
 
 #lists {
@@ -176,14 +180,14 @@ h4 {
     margin-top: .5em;
 }
 
-.item-icons.update {
-    margin-right: .5em;
-}
+    .item-icons.update {
+        margin-right: .5em;
+    }
 
-.item-icons.update-note-icon {
-    position: absolute;
-    top: .5em;
-}
+    .item-icons.update-note-icon {
+        position: absolute;
+        top: .5em;
+    }
 
 #calendar-icon {
     width: 4em;

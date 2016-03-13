@@ -82,14 +82,14 @@
                     <img src="~/Content/magnify.png" alt="Search">
                 </div>
 
-                <div id="user-toolbar" ng-controller="UserController">
+                <div id="user-toolbar" ng-controller="UserController" ng-mouseenter="toggleHiddenUser()" ng-mouseleave="toggleHiddenUser()">
                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                        <img width="40px" height="40px" class="avatar" ng-src="{{'Files/'+user.PhotoPath}}" alt="icon">
+                        <img width="40px" height="40px" class="avatar" ng-src="{{'Files/'+(user.PhotoPath ? user.PhotoPath : 'default.png')}}" alt="icon">
                         <span>{{user.Name}}</span>
                     </div>
 
                     <div class="col-md-2 col-sm-3 col-xs-3 pull-right">
-                        <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openUserModal()">
+                        <img id="user"  src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openUserModal()">
                     </div>
                 </div>
 
@@ -97,14 +97,14 @@
                     <ul dnd-list="toDoLists"
                         dnd-external-sources="true"
                         dnd-drop="itemDropped(item, index)">
-                        <li ng-repeat="list in toDoLists | filter : searchText" id="list-{{list.Id}}" class="list-item" ng-click="showItems(list)">
+                        <li  ng-repeat="list in toDoLists | filter : searchText" id="list-{{list.Id}}" ng-mouseenter="toggleHiddenList(list.Id)" ng-mouseleave="toggleHiddenList(list.Id)" class="list-item" ng-click="showItems(list)">
                             <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
                                 <img src="~/Content/list.png" alt="List-icon">
                                 <span>{{list.Name}}</span>
                             </div>
 
                             <div class="col-md-4 col-sm-3 col-xs-3 pull-right">
-                                <div class="pull-right">
+                                <div id="list-buttons-{{list.Id}}" class="pull-right">
                                     <img src="~/Content/clear.png" alt="Clear" class="item-icons" ng-click="deleteList(list)">
                                     <img src="~/Content/pen-black.png" alt="Update" class="item-icons" ng-click="openListModal(list)">
                                 </div>
