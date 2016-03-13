@@ -194,46 +194,40 @@
             </main>
 
 
-            <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
+            <aside class="col-md-3 item-info" ng-controller="DescriptionController">
                 <div class="update-elem">
-                    <div class="col-md-9 col-sm-9 col-xs-9 pull-left">
+                    <div class="col-md-12 col-sm-9 col-xs-9 pull-left">
                         <input type="checkbox" ng-model="getTodo().IsCompleted" disabled>
                         <input type="text" ng-model="getTodo().Text" value="{{getTodo().Text}}" class="text-update text-overflow" />
                     </div>
                 </div>
                 <div id="description-scroll">
                     <div class="update-elem">
-                        <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                            <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons" ng-click="openCalendar()">
+                        <div class="col-md-12 col-sm-9 col-xs-9 pull-left">
+                            <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons update" ng-click="openCalendar()">
                             <input ng-model="tempDate" ng-readonly="true" placeholder="Set a due date" value="{{tempDate}}" class="text-update" uib-datepicker-popup is-open="popup.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" />
                         </div>
                     </div>
 
-                    <div class="update-elem" id="textarea-container">
-                        <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                            <img src="~/Content/pen-black.png" alt="Note" class="item-icons">
-                            <div id="test">
-                                <textarea ng-model="getTodo().Note" placeholder="Add a note" class="text-update note"></textarea>
-                            </div>
+                    <div class="update-note">
+                        <div class="col-md-12 pull-left">
+                            <img src="~/Content/pen-black.png" alt="Note" class="item-icons update-note-icon">
+                            <textarea id="note" ng-model="getTodo().Note" placeholder="Add a note" class="text-update note"></textarea>
                         </div>
-                        @*<div class="col-md-2 col-sm-3 col-xs-3" id="close-icon">
-                                <img src="~/Content/clear.png" alt="Star" class="item-icons">
-                            </div>*@
                     </div>
-
-                    <div>
-                        <img src="~/Content/close.png" alt="Close" class="item-icons" ng-click="closeDescription()">
-                    </div>
+                </div>
+                <div>
+                    <img src="~/Content/forward.png" alt="Close" class="close-icon item-info" ng-click="closeDescription()">
                 </div>
             </aside>
         </div>
     </div>
     <script>
-        $('#textarea-container').on('keydown', 'textarea', function(e) {
+        $('.update-note').on('keydown', 'textarea', function(e) {
             $(this).height(0);
             $(this).height(this.scrollHeight);
         });
-        $('#textarea-container').find('textarea').keyup();
+        $('.update-note').find('textarea').keyup();
     </script>
     @*@Scripts.Render("~/bundles/jquery")*@
 

@@ -47,17 +47,19 @@ webApp.service('descriptionService', function () {
         },
         closeDescription: function () {
             this.initialProperty = null;
-            $('#item-info').css('display', 'none');
-            $("#main").animate({ width: '75%' }, 300);
+            $('.item-info').css('display', 'none');
             
+            $("#main").animate({ width: '75%' }, 300);
+
             this.setProperty(null);
         },
         showDescription: function (value) {
             this.initialProperty = jQuery.extend({}, value);
-            $('#item-info').css('display', 'block');
+            $('.item-info').css('display', 'block');
 
             if (!this.isOpen()) {
-                $("#main").animate({ width: '50%' }, 300);
+                $('.close-icon').css('display', 'none');
+                $("#main").animate({ width: '50%' }, 300, '', function () { $(".close-icon").fadeIn('1000ms'); });
             }
 
             this.setProperty(value);

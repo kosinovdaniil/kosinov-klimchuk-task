@@ -260,6 +260,7 @@
     <Content Include="Content\email.png" />
     <Content Include="Content\favicon.png" />
     <Content Include="Content\favicon1.png" />
+    <Content Include="Content\forward.png" />
     <Content Include="Content\list.png" />
     <Content Include="Content\lock.png" />
     <Content Include="Content\magnify.png" />
