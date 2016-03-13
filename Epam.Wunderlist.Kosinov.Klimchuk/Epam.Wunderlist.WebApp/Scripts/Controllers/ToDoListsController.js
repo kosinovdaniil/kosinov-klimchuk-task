@@ -59,16 +59,17 @@
     };
 
     $scope.deleteList = function (list) {
-        if (currentListService.getProperty() == list) {
-            $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
-                switchList(data[0]);
-            });
-        }
         ListsRest.delete({ listId: list.Id }, function () {
             console.log(list.Id + 'deleted');
             console.log($scope.toDoLists.splice($scope.toDoLists.indexOf(list), 1));
+            if (currentListService.getProperty() == list) {
+                $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
+                    switchList(data[0]);
+                });
+            }
 
-        })
+        });
+        
     };
 
 

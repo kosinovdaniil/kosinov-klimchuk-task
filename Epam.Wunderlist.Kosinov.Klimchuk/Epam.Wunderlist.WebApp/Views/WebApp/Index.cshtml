@@ -84,7 +84,7 @@
 
                 <div id="user-toolbar" ng-controller="UserController">
                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                        <img src="~/Content/list.png" alt="List-icon">
+                        <img width="40px" height="40px" class="avatar" ng-src="{{'Files/'+user.PhotoPath}}" alt="icon">
                         <span>{{user.Name}}</span>
                     </div>
 
@@ -97,7 +97,7 @@
                     <ul dnd-list="toDoLists"
                         dnd-external-sources="true"
                         dnd-drop="itemDropped(item, index)">
-                        <li ng-repeat="list in toDoLists | filter : searchText" class="list-item" ng-click="showItems(list)">
+                        <li ng-repeat="list in toDoLists | filter : searchText" id="list-{{list.Id}}" class="list-item" ng-click="showItems(list)">
                             <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
                                 <img src="~/Content/list.png" alt="List-icon">
                                 <span>{{list.Name}}</span>
@@ -146,7 +146,7 @@
                     <br>
 
                     <ul dnd-list="notCompletedItems">
-                        <li ng-repeat="todo in notCompletedItems" ng-dblClick="showDescription(todo)"
+                        <li id="item-{{todo.Id}}" ng-repeat="todo in notCompletedItems" ng-dblClick="showDescription(todo)"
                             dnd-draggable="todo"
                             dnd-selected="models.selected = todo"
                             dnd-moved="onMoved(todo, event)"
@@ -172,7 +172,7 @@
                     <uib-accordion close-others="true">
                         <uib-accordion-group heading="SHOW COMPLETED TO DOS" id="show-done">
                             <ul>
-                                <li ng-repeat="todo in completedItems" ng-dblClick="showDescription(todo)" class="item-done">
+                                <li id="item-{{todo.Id}}" ng-repeat="todo in completedItems" ng-dblClick="showDescription(todo)" class="item-done">
                                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
                                         <div class="text-overflow">
                                             <input type="checkbox" class="item-icons" checked ng-click="toggleCompleted(todo)">

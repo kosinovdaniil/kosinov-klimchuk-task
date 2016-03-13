@@ -12,6 +12,10 @@
     width: 2em;
 }
 
+.avatar{
+    border-radius : 20px;
+}
+
 #lists {
     transition: width 100ms ease;
     background: #f7f7f7;

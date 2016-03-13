@@ -1,5 +1,7 @@
 ﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$filter', 'isCompletedFilter', function ($scope, ItemsRest, descriptionService, currentListService, $filter, isCompletedFilter) {
 
+    $scope.animating = false;
+
     $scope.addToDoItem = function () {
         if ($scope.todoText) {
             ItemsRest.save({ listId: currentListService.getProperty().Id },
@@ -8,55 +10,73 @@
                     console.log(data);
                     //$scope.toDoItems.push(data);
                     $scope.notCompletedItems.push(data);
+                    $('#item-' + data.Id).fadeIn('300ms');
                 });
         }
         $scope.todoText = '';
+
+
     };
 
     $scope.toggleCompleted = function (item) {
-        if (item.IsCompleted) {
-            var index = $scope.completedItems.indexOf(item);
-            item.IsCompleted = !item.IsCompleted;
-            $scope.notCompletedItems.push(item);
-            $scope.completedItems.splice(index, 1)
-        } else {
-            var index = $scope.notCompletedItems.indexOf(item);
-            item.IsCompleted = !item.IsCompleted;
-            $scope.completedItems.push(item);
-            $scope.notCompletedItems.splice(index, 1)
+
+        var update = function () {
+            if (item.IsCompleted) {
+                var index = $scope.completedItems.indexOf(item);
+                item.IsCompleted = !item.IsCompleted;
+                $scope.notCompletedItems.push(item);
+                $scope.completedItems.splice(index, 1)
+            } else {
+                var index = $scope.notCompletedItems.indexOf(item);
+                item.IsCompleted = !item.IsCompleted;
+                $scope.completedItems.push(item);
+                $scope.notCompletedItems.splice(index, 1)
+            }
+
+            ItemsRest.update({},
+                { Id: item.Id, IsCompleted: item.IsCompleted },
+                function (data) {
+                    console.log(data);
+                });
         }
-        
-        ItemsRest.update({},
-            { Id: item.Id, IsCompleted: item.IsCompleted },
-            function (data) {
-                console.log(data);
-            });
+        $scope.animating = true;
+        $('#item-' + item.Id).fadeOut('100ms', update);
+        $scope.animating = false;
     };
 
     $scope.deleteItem = function (item) {
-        ItemsRest.delete({ itemId: item.Id }, function (data) {
-            console.log(item.Id + 'deleted');
-            if (item.IsCompleted) {
-                $scope.completedItems.splice($scope.completedItems.indexOf(item), 1);
+        if (!$scope.animating) {
+            var del = function () {
+                ItemsRest.delete({ itemId: item.Id }, function (data) {
+                    console.log(item.Id + 'deleted');
+                    if (item.IsCompleted) {
+                        $scope.completedItems.splice($scope.completedItems.indexOf(item), 1);
+                    }
+                    else {
+                        $scope.notCompletedItems.splice($scope.notCompletedItems.indexOf(item), 1);
+                    }
+                    if (item == descriptionService.getProperty()) {
+                        descriptionService.closeDescription();
+                    }
+                    $scope.animating = false;
+                });
             }
-            else {
-                $scope.notCompletedItems.splice($scope.notCompletedItems.indexOf(item), 1);
-            }
-            if (item.Id == descriptionService.getProperty().Id) {
-                descriptionService.closeDescription();
-            }
-        });
+            $scope.animating = true;
+            $('#item-' + item.Id).fadeOut('100ms', del);
+        }
+
     };
 
 
     $scope.showDescription = function (todo) {
+        if (!$scope.animating) {
+            if (descriptionService.isChanged()) {
+                $scope.$emit('itemChanged', descriptionService.getProperty());
+            }
+            $scope.tempDate = todo.DateCompletion ? new Date(todo.DateCompletion) : null;
 
-        if (descriptionService.isChanged()) {
-            $scope.$emit('itemChanged', descriptionService.getProperty());
+            descriptionService.showDescription(todo);
         }
-        $scope.tempDate = todo.DateCompletion ? new Date(todo.DateCompletion) : null;
-
-        descriptionService.showDescription(todo);
     };
 
     $scope.$on('listClicked', function (event, data) {
@@ -110,7 +130,7 @@
         console.log($scope.notCompletedItems);
         var index = $scope.notCompletedItems.indexOf(value);
         $scope.notCompletedItems.splice(index, 1);
-        
+
         //$scope.models.lists.splice($index, 1)
     };
 
