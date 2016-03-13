@@ -280,7 +280,7 @@ input[type="checkbox"] {
 
 #name-list {
     height: 3em;
-    width: 100%;
+    width: 90%;
     border: none;
 }
 
@@ -424,9 +424,21 @@ p.subline {
     padding: .8em;
 }
 
-/*textarea {
-    min-height: 75px;
-}*/
+.btn-create-account {
+    display: block;
+    height: 2.2em;
+    border-radius: 5px;
+    background: #2b88d9;
+    color: #FFF;
+    font-size: 14px;
+    font-weight: bold;
+    border: 0 none;
+    padding: .4em .8em;
+}
+
+#user-email {
+    border: none;
+}
 
 .editor-label {
     margin: 1em 0 0 0;

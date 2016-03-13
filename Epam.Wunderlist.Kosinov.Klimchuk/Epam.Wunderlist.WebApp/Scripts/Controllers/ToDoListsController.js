@@ -35,7 +35,7 @@
         });
 
         modalInstance.result.then(function (list) {
-            if (list) {
+            if (list.Name) {
                 if (list.Id) {
                     ListsRest.update({}, list,
                        function (data) {

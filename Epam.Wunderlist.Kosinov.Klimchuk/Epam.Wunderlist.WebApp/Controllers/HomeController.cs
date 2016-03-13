@@ -1,6 +1,8 @@
 ﻿using Epam.Wunderlist.DomainModel;
 using System;
 using System.IO;
+using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,22 +20,23 @@ namespace Epam.Wunderlist.WebApp.Controllers
         [HttpPost]
         public JsonResult UploadFile()
         {
-            string message = string.Empty, mimeType = string.Empty;
+            var fileName = string.Empty;
 
             var image = HttpContext.Request.Files[0];
 
             try
             {
-                var path = Path.Combine(Server.MapPath("~/Files"), image.FileName);
+                var imageType = image.FileName.Split('.').Last();
+                fileName = (((ClaimsIdentity)User.Identity).Claims
+                    .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value) + "." + imageType;
+                var path = Path.Combine(Server.MapPath("~/Files"), fileName);
                 image.SaveAs(path);
-                mimeType = image.ContentType;
-                message = "File uploaded";
             }
             catch (Exception)
             {
-                message = "File upload failed! Please try again";
+                fileName = string.Empty;
             }
-            return new JsonResult { Data = new { Message = message, MimeType = mimeType } };
+            return new JsonResult { Data = new { FileName = fileName} };
         }
     }
 }

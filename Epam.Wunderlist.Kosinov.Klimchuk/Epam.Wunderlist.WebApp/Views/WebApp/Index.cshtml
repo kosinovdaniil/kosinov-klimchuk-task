@@ -44,31 +44,31 @@
             </div>
 
             <form name="form">
-                <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" autofocus />
-                <br />
-                <img ng-src="@Url.Content("~/Files/"){{user.PhotoPath}}" alt="myimage" />
-                <div class="button" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
-                     ngf-accept="'image/*'" ngf-max-size="20MB" 
-                     ngf-resize="{width: 100, height: 100}">Select</div>
-                <br />
-               
-                <button type="submit" class="btn modal-btn" ng-click="ok()">Ok</button>
-                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
+                <div class="col-md-3">
+                    <img width="200px" height="200px" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
+                </div>
+
+                <div class="col-md-9">
+                    <br />
+                    <label>Email: </label>
+                    <input type="text" readonly value="{{user.Email}}" id="user-email" />
+                    <br />
+                    <label>Name: </label>
+                    <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" autofocus />
+                    <br /><br />
+
+                    <span class="btn modal-btn" ng-model="file" name="file" ngf-pattern="'image/*'"
+                          ngf-accept="'image/*'" ngf-max-size="20MB" id=""
+                          ngf-resize="{width: 200, height: 200}" ngf-select="upload($file)">Upload profile picture</span>
+                    @Html.ActionLink("LogOut", "LogOut", "Account", null, new { @class = "btn modal-btn" })
+                </div>
             </form>
 
-            @*<div id="uploadForm" enctype="multipart/form-data" @*ng-model="photo = user.PhotoPath ? user.PhotoPath : 'default.png'>
-                <div class="modal-body">
-                    <input type="text" ng-model="user.Name" placeholder="Name" id="name-list" autofocus />
+            <div class="modal-footer">
+                <button type="button" class="btn modal-btn" ng-click="ok()">Ok</button>
+                <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
+            </div>
 
-                    <img ng-src="@Url.Content("~/Files/"){{user.PhotoPath}}" alt="myimage" />
-                    <input type="file" name="file" value="Upload profile image" accept="image/*" id="file">
-                    <span class="error">{{FileInvalidMessage}}</span>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
-                    <button class="btn modal-btn" type="button" ng-click="cancel()">Cancel</button>
-                </div>
-            </div>*@
 
         </script>
 
