@@ -1,5 +1,6 @@
 ﻿webApp.controller('ModalListController', ['$scope', '$uibModalInstance', 'list', function ($scope, $uibModalInstance, list) {
     $scope.list = jQuery.extend({}, list);
+
     $scope.modalHeader = list ? 'Update list' : 'Create list';
     $scope.ok = function () {
         $uibModalInstance.close($scope.list);

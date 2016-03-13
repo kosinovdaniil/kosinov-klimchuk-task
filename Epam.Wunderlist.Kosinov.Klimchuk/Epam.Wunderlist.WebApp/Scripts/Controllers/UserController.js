@@ -25,6 +25,7 @@
                 UsersRest.update({}, user,
                    function (data) {
                        console.log(data);
+                       $scope.user = user;
                    }
                 );
             }

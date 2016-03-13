@@ -1,5 +1,5 @@
 ﻿webApp.controller('ModalUserController', ['$scope', 'user', '$uibModalInstance', 'Upload', function ($scope, user, $uibModalInstance, Upload) {
-    $scope.user = user;
+    $scope.user = jQuery.extend({}, user);
 
     $scope.ok = function () {
         if ($scope.form.file.$valid && $scope.file) {

@@ -42,6 +42,9 @@
             else {
                 $scope.notCompletedItems.splice($scope.notCompletedItems.indexOf(item), 1);
             }
+            if (item.Id == descriptionService.getProperty().Id) {
+                descriptionService.closeDescription();
+            }
         });
     };
 
