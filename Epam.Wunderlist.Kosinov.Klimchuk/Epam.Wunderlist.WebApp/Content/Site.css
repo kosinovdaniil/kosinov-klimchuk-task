@@ -70,8 +70,8 @@
 
 #item-info {
     display: block;
-    -webkit-transition: width 200ms ease;
-    transition: 500ms width ease;
+    /*-webkit-transition: width 200ms ease;
+    transition: 500ms width ease;*/
 }
 
 
@@ -386,6 +386,7 @@ nav {
     height: calc(100vh - 45px);
     margin-left: -15px;
     margin-right: -15px;
+    transition: 500ms width ease;
 }
 
 h3 {

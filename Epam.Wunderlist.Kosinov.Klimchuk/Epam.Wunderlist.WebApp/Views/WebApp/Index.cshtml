@@ -196,12 +196,9 @@
 
             <aside class="col-md-3" id="item-info" ng-controller="DescriptionController">
                 <div class="update-elem">
-                    <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
+                    <div class="col-md-9 col-sm-9 col-xs-9 pull-left">
                         <input type="checkbox" ng-model="getTodo().IsCompleted" disabled>
                         <input type="text" ng-model="getTodo().Text" value="{{getTodo().Text}}" class="text-update text-overflow" />
-                    </div>
-                    <div class="col-md-2 col-sm-3 col-xs-3">
-                        <img src="~/Content/star-border-black.png" alt="Star" class="item-icons">
                     </div>
                 </div>
                 <div id="description-scroll">

@@ -47,24 +47,21 @@ webApp.service('descriptionService', function () {
         },
         closeDescription: function () {
             this.initialProperty = null;
-            main = document.getElementById('main');
-            description = document.getElementById('item-info');
-            main.className = main.className.replace('col-md-6', 'col-md-9');
-            description.style.display = 'none';
-
+            $('#item-info').css('display', 'none');
+            $("#main").animate({ width: '75%' }, 300);
+            
             this.setProperty(null);
         },
         showDescription: function (value) {
             this.initialProperty = jQuery.extend({}, value);
+            $('#item-info').css('display', 'block');
 
-            main = document.getElementById('main');
-            description = document.getElementById('item-info');
-            main.className = main.className.replace('col-md-9', 'col-md-6');
-            description.style.display = 'block';
+            if (!this.isOpen()) {
+                $("#main").animate({ width: '50%' }, 300);
+            }
 
             this.setProperty(value);
         }
-
     };
 });
 
