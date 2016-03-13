@@ -4,6 +4,7 @@ using Epam.Wunderlist.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using CryptSharp;
 
 namespace Epam.Wunderlist.Services.Services
 {
@@ -29,6 +30,11 @@ namespace Epam.Wunderlist.Services.Services
             if (entity == null)                            
             {
                 throw new ArgumentNullException("entity");
+            }
+            var user = entity as User;
+            if (user != null)
+            {
+                user.Password = BlowfishCrypter.Blowfish.Crypt(user.Password);
             }
             var result = _repository.Create(entity);
             if (result != null)

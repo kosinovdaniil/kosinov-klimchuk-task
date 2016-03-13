@@ -15,7 +15,10 @@ namespace Epam.Wunderlist.WebApp
                         "~/Scripts/angular.js",
                         "~/Scripts/angular-ui/ui-bootstrap.js",
                         "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
-                        "~/Scripts/angular-resource.js"));
+                        "~/Scripts/angular-resource.js",
+                        "~/Scripts/angular-drag-and-drop-lists.min.js",
+                        "~/Scripts/ng-file-upload-all.min.js",
+                        "~/Scripts/ng-file-upload.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/webApp").Include(
                         "~/Scripts/webApp.js",

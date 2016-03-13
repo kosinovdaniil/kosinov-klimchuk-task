@@ -1,4 +1,4 @@
-﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap']);
+﻿var webApp = angular.module('webApp', ['ngResource', 'ui.bootstrap', 'dndLists', 'ngFileUpload']);
 
 webApp.factory('ListsRest', ['$resource', function ($resource) {
     return $resource('api/lists/', {}, {
@@ -47,24 +47,23 @@ webApp.service('descriptionService', function () {
         },
         closeDescription: function () {
             this.initialProperty = null;
-            main = document.getElementById('main');
-            description = document.getElementById('item-info');
-            main.className = main.className.replace('col-md-6', 'col-md-9');
-            description.style.display = 'none';
+            $('.item-info').css('display', 'none');
+            
+            $("#main").animate({ width: '75%' }, 300);
 
             this.setProperty(null);
         },
         showDescription: function (value) {
             this.initialProperty = jQuery.extend({}, value);
+            $('.item-info').css('display', 'block');
 
-            main = document.getElementById('main');
-            description = document.getElementById('item-info');
-            main.className = main.className.replace('col-md-9', 'col-md-6');
-            description.style.display = 'block';
-            
+            if (!this.isOpen()) {
+                $('.close-icon').css('display', 'none');
+                $("#main").animate({ width: '50%' }, 300, '', function () { $(".close-icon").fadeIn('1000ms'); });
+            }
+
             this.setProperty(value);
         }
-
     };
 });
 
@@ -79,6 +78,17 @@ webApp.service('currentListService', function () {
             list = value;
         }
     };
+});
+
+webApp.filter('isCompleted', function () {
+    return function (arr) {
+        for (var i = 0; i < arr.length; i++) {
+            if (!arr[i].IsCompleted) {
+                arr.splice(i);
+            }
+        }
+        return arr;
+    }
 });
 
 
