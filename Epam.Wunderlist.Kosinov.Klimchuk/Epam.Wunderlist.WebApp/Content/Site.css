@@ -4,16 +4,21 @@
     font-family: Cambria, Georgia, "Times New Roman";
 }
 
-#test {
+[id^='list-buttons-'], #user {
+    display: none;
+}
+
+#note {
     display: inline-block;
+    margin-left: 2em;
 }
 
 .plus {
     width: 2em;
 }
 
-.avatar{
-    border-radius : 20px;
+.avatar {
+    border-radius: 20px;
 }
 
 #lists {
@@ -58,6 +63,12 @@
     padding-top: 1%;
 }
 
+.close-icon {
+    position: fixed;
+    bottom: .5em;
+    right: 15em;
+}
+
 #list-toolbar {
     background: #698F67;
     width: auto;
@@ -71,13 +82,6 @@
     padding: 3px 4px;
     margin-left: 10px;
 }
-
-#item-info {
-    display: block;
-    /*-webkit-transition: width 200ms ease;
-    transition: 500ms width ease;*/
-}
-
 
 a:hover {
     text-decoration: none;
@@ -135,7 +139,7 @@ h4 {
 .text-update {
     font-size: 1.1em;
     border: none;
-    padding-left: .5em;
+    padding-top: .7em;
     width: 80%;
     vertical-align: 3px;
 }
@@ -156,6 +160,12 @@ h4 {
     margin-left: -14px;
 }
 
+.update-note {
+    width: calc(100% + 28px);
+    padding: 0;
+    /*margin-left: -14px;*/
+}
+
 #description-scroll .update-elem {
     margin-left: 0;
 }
@@ -169,6 +179,15 @@ h4 {
     margin-bottom: 0.9em;
     margin-top: .5em;
 }
+
+    .item-icons.update {
+        margin-right: .5em;
+    }
+
+    .item-icons.update-note-icon {
+        position: absolute;
+        top: .5em;
+    }
 
 #calendar-icon {
     width: 4em;
@@ -235,7 +254,7 @@ input[type="checkbox"] {
     background: #f00;
 }
 
-#item-info {
+.item-info {
     display: none;
 }
 
@@ -387,7 +406,7 @@ nav {
 #description-scroll {
     overflow-y: auto;
     overflow-x: hidden;
-    height: calc(100vh - 45px);
+    height: calc(100vh - 150px);
     margin-left: -15px;
     margin-right: -15px;
     transition: 500ms width ease;

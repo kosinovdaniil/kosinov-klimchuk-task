@@ -31,4 +31,18 @@
             }
         })
     };
+
+    $scope.userHidden = true;
+
+    $scope.toggleHiddenUser = function () {
+
+        if ($scope.userHidden) {
+            $('#user').fadeIn('fast');
+            $scope.userHidden = false;
+        }
+        else {
+            $('#user').fadeOut('fast');
+            $scope.userHidden = true;
+        }
+    };
 }]);
