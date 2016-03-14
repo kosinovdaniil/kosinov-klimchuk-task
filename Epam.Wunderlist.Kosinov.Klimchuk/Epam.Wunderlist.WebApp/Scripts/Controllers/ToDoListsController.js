@@ -14,13 +14,14 @@
         if (descriptionService.isChanged()) {
             $scope.$broadcast('itemChanged', descriptionService.getProperty());
         }
-        $scope.$broadcast('listClicked', list.Id);
+        $scope.$broadcast('listClicked', list);
         if (currentListService.getProperty()) {
             $('#list-' + currentListService.getProperty().Id).css('background', 'white');
         }
-        $('#list-' + list.Id).css('background', '#ccc');
+        
         currentListService.setProperty(list);
         $scope.tempList = list;
+        
     };
 
     $scope.openListModal = function (list) {
@@ -54,7 +55,6 @@
                         function (data) {
                             console.log(data);
                             $scope.toDoLists.push(data);
-                            currentListService.setProperty(data);
                             switchList(data);
                         });
 

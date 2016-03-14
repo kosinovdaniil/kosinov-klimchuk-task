@@ -56,7 +56,6 @@ webApp.service('descriptionService', function () {
         showDescription: function (value) {
             this.initialProperty = jQuery.extend({}, value);
             $('.item-info').css('display', 'block');
-
             if (!this.isOpen()) {
                 $('.close-icon').css('display', 'none');
                 $("#main").animate({ width: '50%' }, 300, '', function () { $(".close-icon").fadeIn('1000ms'); });
