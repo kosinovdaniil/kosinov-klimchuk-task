@@ -78,7 +78,7 @@
                     <a href="#">
                         <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
                     </a>
-                    <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
+                    <input type="text" placeholder="Search..." ng-model="search.Name" id="search" />
                     <img src="~/Content/magnify.png" alt="Search">
                 </div>
 
@@ -97,7 +97,7 @@
                     <ul dnd-list="toDoLists"
                         dnd-external-sources="true"
                         dnd-drop="itemDropped(item, index)">
-                        <li  ng-repeat="list in toDoLists | filter : searchText" id="list-{{list.Id}}" ng-mouseenter="toggleHiddenList(list.Id)" ng-mouseleave="toggleHiddenList(list.Id)" class="list-item" ng-click="showItems(list)">
+                        <li  ng-repeat="list in toDoLists | filter : search " id="list-{{list.Id}}" ng-mouseenter="toggleHiddenList(list.Id)" ng-mouseleave="toggleHiddenList(list.Id)" class="list-item" ng-click="showItems(list)">
                             <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
                                 <img src="~/Content/list.png" alt="List-icon">
                                 <span>{{list.Name}}</span>
@@ -125,7 +125,7 @@
             <main class="col-md-9" id="main">
 
                 <div id="list-toolbar">
-                    <h2 class="title" ng-model="listTitle">{{listTitle}}</h2>
+                    <h2 class="title" ng-model="tempList.Name">{{tempList.Name}}</h2>
                 </div>
                 <div id="action-bar"></div>
 

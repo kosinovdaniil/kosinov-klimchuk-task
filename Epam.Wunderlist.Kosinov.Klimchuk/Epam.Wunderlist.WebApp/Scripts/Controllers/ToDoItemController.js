@@ -135,29 +135,19 @@
     };
 
     $scope.itemDropped = function (item, index) {
-        var list = $scope.toDoLists[index];
-        console.log(list);
+        
+        item.list = $scope.toDoLists[index];
+        console.log(item.list);
         ItemsRest.update({},
-           { Id: item.Id, IsCompleted: item.IsCompleted, List: list },
+           { Id: item.Id, IsCompleted: item.IsCompleted, List: item.list },
            function (data) {
                console.log(data);
+               
            });
-        var indexItem = $scope.notCompletedItems.indexOf(item);
+        var indexItem = $scope.notCompletedItems.map(function(e) { return e.Id; }).indexOf(item.Id);
         $scope.notCompletedItems.splice(indexItem, 1);
     };
 
     $scope.lists = []
-    $scope.listHidden = true;
-
-    $scope.toggleHiddenList = function (id) {
-
-        if ($scope.listHidden) {
-            $('#list-buttons-' + id).fadeIn('fast');
-            $scope.listHidden = false;
-        }
-        else {
-            $('#list-buttons-' + id).fadeOut('fast');
-            $scope.listHidden = true;
-        }
-    };
+    
 }]);

@@ -2,8 +2,8 @@
 
     $scope.toDoLists = ListsRest.query({ userId: userId }, function (data) {
         switchList(data[0]);
-    });
 
+    });
     //ListsRest.save();
 
     $scope.showItems = function (list) {
@@ -15,9 +15,12 @@
             $scope.$broadcast('itemChanged', descriptionService.getProperty());
         }
         $scope.$broadcast('listClicked', list.Id);
-
+        if (currentListService.getProperty()) {
+            $('#list-' + currentListService.getProperty().Id).css('background', 'white');
+        }
+        $('#list-' + list.Id).css('background', '#ccc');
         currentListService.setProperty(list);
-        $scope.listTitle = list.Name;
+        $scope.tempList = list;
     };
 
     $scope.openListModal = function (list) {
@@ -52,7 +55,9 @@
                             console.log(data);
                             $scope.toDoLists.push(data);
                             currentListService.setProperty(data);
+                            switchList(data);
                         });
+
                 }
             }
         });
@@ -67,11 +72,22 @@
                     switchList(data[0]);
                 });
             }
-
+            $scope.listHidden = true;
         });
-        
-    };
 
+    };
+    $scope.listHidden = true;
+
+    $scope.toggleHiddenList = function (id) {
+        if ($scope.listHidden) {
+            $('#list-buttons-' + id).fadeIn(100);
+            $scope.listHidden = false;
+        }
+        else {
+            $('#list-buttons-' + id).fadeOut(100);
+            $scope.listHidden = true;
+        }
+    };
 
 
 }]);
