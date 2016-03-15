@@ -6791,7 +6791,7 @@ angular.module("uib/template/datepicker/month.html", []).run(["$templateCache", 
 angular.module("uib/template/datepicker/popup.html", []).run(["$templateCache", function($templateCache) {
   $templateCache.put("uib/template/datepicker/popup.html",
     "<div>\n" +
-    "  <ul class=\"uib-datepicker-popup dropdown-menu\" dropdown-nested ng-if=\"isOpen\" ng-style=\"{top: position.top+'px', left: '15px'}\" ng-keydown=\"keydown($event)\" ng-click=\"$event.stopPropagation()\">\n" +
+    "  <ul class=\"uib-datepicker-popup dropdown-menu\" dropdown-nested ng-if=\"isOpen\" ng-style=\"{top: position.top+'px', left: '15px'}\" ng-keydown=\"keydown($event)\" ng-click=\"$event.stopPropagation() && alert('lol')\">\n" +
     "    <li ng-transclude></li>\n" +
     "    <li ng-if=\"showButtonBar\" class=\"uib-button-bar\">\n" +
     "    <span class=\"btn-group pull-left\">\n" +

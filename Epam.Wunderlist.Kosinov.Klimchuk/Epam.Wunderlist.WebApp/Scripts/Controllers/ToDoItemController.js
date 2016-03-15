@@ -1,20 +1,28 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$filter', 'isCompletedFilter', function ($scope, ItemsRest, descriptionService, currentListService, $filter, isCompletedFilter) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$filter', 'isCompletedFilter', '$timeout', function ($scope, ItemsRest, descriptionService, currentListService, $filter, isCompletedFilter, $timeout) {
 
     $scope.animating = false;
 
     $scope.addToDoItem = function () {
-        if ($scope.todoText) {
-            ItemsRest.save({ listId: currentListService.getProperty().Id },
-                { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: currentListService.getProperty().Id } },
-                function (data) {
-                    console.log(data);
-                    //$scope.toDoItems.push(data);
-                    $scope.notCompletedItems.push(data);
-                    $('#item-' + data.Id).fadeIn('300ms');
-                });
-        }
-        $scope.todoText = '';
+        if (currentListService.getProperty()) {
 
+
+            if ($scope.todoText) {
+                ItemsRest.save({ listId: currentListService.getProperty().Id },
+                    { Text: $scope.todoText, IsCompleted: false, IsFavourited: false, DateAdded: new Date(), List: { Id: currentListService.getProperty().Id } },
+                    function (data) {
+                        console.log(data);
+                        //$scope.toDoItems.push(data);
+                        $scope.notCompletedItems.push(data);
+                        $('#item-' + data.Id).fadeIn('300ms');
+                    });
+            }
+            $scope.todoText = '';
+        }
+        else {
+            $timeout(function () {
+                alert('Create list first!');
+            });
+        }
 
     };
 
@@ -70,40 +78,57 @@
 
     $scope.showDescription = function (todo) {
         if (!$scope.animating) {
+
+            //here comes the fail
             if (descriptionService.isChanged()) {
                 $scope.$emit('itemChanged', descriptionService.getProperty());
             }
             $scope.tempDate = todo.DateCompletion ? new Date(todo.DateCompletion) : null;
 
             descriptionService.showDescription(todo);
+            $scope.$broadcast('changeTempDate', todo);
         }
     };
+
+    $scope.forceUpdate = function (tempDate) {
+        var todo = descriptionService.getProperty();
+        todo.DateCompletion = tempDate;
+        $scope.$emit('itemChanged', todo);
+        $scope.$broadcast('changeTempDate', todo);
+
+    }
 
     $scope.$on('listClicked', function (event, data) {
         if (descriptionService.isOpen()) {
             descriptionService.closeDescription();
         }
-        ItemsRest.query({ listId: data }, function (data) {
-            $scope.notCompletedItems = [];
-            for (var i = 0; i < data.length; i++) {
-                if (!data[i].IsCompleted) {
-                    $scope.notCompletedItems.push(data[i]);
+        var list = data;
+        if (data) {
+            ItemsRest.query({ listId: data.Id }, function (data) {
+                $scope.notCompletedItems = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (!data[i].IsCompleted) {
+                        $scope.notCompletedItems.push(data[i]);
+                    }
                 }
-            }
-            console.log($scope.notCompletedItems);
-            $scope.completedItems = data.filter(function (el) {
-                return $scope.notCompletedItems.indexOf(el) < 0;
+                console.log($scope.notCompletedItems);
+                $scope.completedItems = data.filter(function (el) {
+                    return $scope.notCompletedItems.indexOf(el) < 0;
+                });
+                console.log($scope.completedItems);
+                $('#list-' + list.Id).css('background', '#ccc');
             });
-            console.log($scope.completedItems);
-        });
+        }
+        else {
+            $scope.notCompletedItems = [];
+            $scope.completedItems = [];
+        }
 
     });
 
     $scope.$on('itemChanged', function (event, data) {
-        console.log(data);
-
         ItemsRest.update({}, data, function (data) {
-            console.log(data);
+            console.log(data.Text + ' ' + data.DateCompletion);
         });
     });
 
@@ -135,29 +160,19 @@
     };
 
     $scope.itemDropped = function (item, index) {
-        var list = $scope.toDoLists[index];
-        console.log(list);
+
+        item.list = $scope.toDoLists[index];
+        console.log(item.list);
         ItemsRest.update({},
-           { Id: item.Id, IsCompleted: item.IsCompleted, List: list },
+           { Id: item.Id, IsCompleted: item.IsCompleted, List: item.list },
            function (data) {
                console.log(data);
+
            });
-        var indexItem = $scope.notCompletedItems.indexOf(item);
+        var indexItem = $scope.notCompletedItems.map(function (e) { return e.Id; }).indexOf(item.Id);
         $scope.notCompletedItems.splice(indexItem, 1);
     };
 
     $scope.lists = []
-    $scope.listHidden = true;
 
-    $scope.toggleHiddenList = function (id) {
-
-        if ($scope.listHidden) {
-            $('#list-buttons-' + id).fadeIn('fast');
-            $scope.listHidden = false;
-        }
-        else {
-            $('#list-buttons-' + id).fadeOut('fast');
-            $scope.listHidden = true;
-        }
-    };
 }]);

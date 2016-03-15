@@ -37,11 +37,11 @@
     $scope.toggleHiddenUser = function () {
 
         if ($scope.userHidden) {
-            $('#user').fadeIn('fast');
+            $('#user').fadeIn(100);
             $scope.userHidden = false;
         }
         else {
-            $('#user').fadeOut('fast');
+            $('#user').fadeOut(100);
             $scope.userHidden = true;
         }
     };

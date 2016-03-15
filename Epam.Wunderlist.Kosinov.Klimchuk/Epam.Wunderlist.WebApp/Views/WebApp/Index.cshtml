@@ -30,7 +30,7 @@
                 <h4 class="modal-title" ng-model="modalHeader">{{modalHeader}}</h4>
             </div>
             <div class="modal-body">
-                <input type="text" ng-model="list.Name" placeholder="Name" id="name-list" autofocus />
+                <input type="text" ng-model="list.Name" placeholder="Name" id="name-list" autofocus ng-keydown="$event.keyCode == 13 && ok()" />
             </div>
             <div class="modal-footer">
                 <button class="btn modal-btn" type="button" ng-click="ok()">OK</button>
@@ -45,7 +45,7 @@
 
             <form name="form">
                 <div class="col-md-3">
-                    <img width="200px" height="200px" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
+                    <img id="avatar-image" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
                 </div>
 
                 <div class="col-md-9">
@@ -78,13 +78,13 @@
                     <a href="#">
                         <img src="~/Content/menu.png" alt="Toggle Sidebar" class="img-item">
                     </a>
-                    <input type="text" placeholder="Search..." ng-model="searchText" id="search" />
+                    <input type="text" placeholder="Search..." ng-model="search.Name" id="search" />
                     <img src="~/Content/magnify.png" alt="Search">
                 </div>
 
                 <div id="user-toolbar" ng-controller="UserController" ng-mouseenter="toggleHiddenUser()" ng-mouseleave="toggleHiddenUser()">
                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                        <img width="40px" height="40px" class="avatar" ng-src="{{'Files/'+(user.PhotoPath ? user.PhotoPath : 'default.png')}}" alt="icon">
+                        <img id="profile-image" class="avatar" ng-src="{{'Files/'+(user.PhotoPath ? user.PhotoPath : 'default.png')}}" alt="icon">
                         <span>{{user.Name}}</span>
                     </div>
 
@@ -97,7 +97,7 @@
                     <ul dnd-list="toDoLists"
                         dnd-external-sources="true"
                         dnd-drop="itemDropped(item, index)">
-                        <li  ng-repeat="list in toDoLists | filter : searchText" id="list-{{list.Id}}" ng-mouseenter="toggleHiddenList(list.Id)" ng-mouseleave="toggleHiddenList(list.Id)" class="list-item" ng-click="showItems(list)">
+                        <li  ng-repeat="list in toDoLists | filter : search " id="list-{{list.Id}}" ng-mouseenter="toggleHiddenList(list.Id)" ng-mouseleave="toggleHiddenList(list.Id)" class="list-item" ng-click="showItems(list)">
                             <div class="col-md-8 col-sm-9 col-xs-9 pull-left">
                                 <img src="~/Content/list.png" alt="List-icon">
                                 <span>{{list.Name}}</span>
@@ -125,7 +125,7 @@
             <main class="col-md-9" id="main">
 
                 <div id="list-toolbar">
-                    <h2 class="title" ng-model="listTitle">{{listTitle}}</h2>
+                    <h2 class="title" ng-model="tempList.Name">{{tempList.Name}}</h2>
                 </div>
                 <div id="action-bar"></div>
 
@@ -202,10 +202,10 @@
                     </div>
                 </div>
                 <div id="description-scroll">
-                    <div class="update-elem">
+                    <div class="update-elem" ng-click="openCalendar()">
                         <div class="col-md-12 col-sm-9 col-xs-9 pull-left">
-                            <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons update" ng-click="openCalendar()">
-                            <input ng-model="tempDate" ng-readonly="true" placeholder="Set a due date" value="{{tempDate}}" class="text-update" uib-datepicker-popup is-open="popup.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" />
+                            <img src="~/Content/calendar-black.png" alt="Calendar" class="item-icons update" >
+                            <input ng-model="tempDate" ng-change="forceUpdate(tempDate)" ng-readonly="true" placeholder="Set a due date" value="{{tempDate}}" class="text-update" uib-datepicker-popup is-open="popup.opened" datepicker-options="dateOptions" ng-required="false" close-text="Close" />
                         </div>
                     </div>
 

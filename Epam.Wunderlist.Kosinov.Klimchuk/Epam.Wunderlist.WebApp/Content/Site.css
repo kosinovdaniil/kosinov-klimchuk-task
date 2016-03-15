@@ -21,6 +21,16 @@
     border-radius: 20px;
 }
 
+#avatar-image {
+    width: 200px;
+    height: 200px;
+}
+
+#profile-image {
+    width: 40px;
+    height: 40px;
+}
+
 #lists {
     transition: width 100ms ease;
     background: #f7f7f7;
@@ -470,6 +480,15 @@ p.subline {
 
 .editor-field {
     margin: 0.5em 0 0 0;
+}
+
+.item-icons:hover, .close-icon:hover {
+    -webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	-webkit-transition: .3s ease-in-out;
+	transition: .3s ease-in-out;
+    /*-webkit-box-shadow: 3px -3px 3px #111;
+    box-shadow: 3px -3px 3px #111;*/  
 }
 
 

@@ -274,6 +274,14 @@
     <Content Include="Content\star-border-black.png" />
     <Content Include="Content\star-white.png" />
     <Content Include="Content\star.png" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.css" />
+    <Content Include="Content\tether\tether-theme-arrows-dark.min.css" />
+    <Content Include="Content\tether\tether-theme-arrows.css" />
+    <Content Include="Content\tether\tether-theme-arrows.min.css" />
+    <Content Include="Content\tether\tether-theme-basic.css" />
+    <Content Include="Content\tether\tether-theme-basic.min.css" />
+    <Content Include="Content\tether\tether.css" />
+    <Content Include="Content\tether\tether.min.css" />
     <Content Include="Content\ui-bootstrap-csp.css" />
     <Content Include="Content\user.png" />
     <Content Include="favicon.ico" />
@@ -286,6 +294,9 @@
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="NLog.config" />
+    <Content Include="Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Fonts\glyphicons-halflings-regular.woff2" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -327,6 +338,8 @@
     <Content Include="Scripts\ng-file-upload.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\tether\tether.js" />
+    <Content Include="Scripts\tether\tether.min.js" />
     <Content Include="Scripts\webApp.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
