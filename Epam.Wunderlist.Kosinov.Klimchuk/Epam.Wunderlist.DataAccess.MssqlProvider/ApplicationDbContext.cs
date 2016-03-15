@@ -22,10 +22,5 @@ namespace Epam.Wunderlist.DataAccess.MssqlProvider
             modelBuilder.Configurations.Add(new ToDoListConfiguration());
             modelBuilder.Configurations.Add(new ToDoItemConfiguration());
         }
-
-        public void Dispose()
-        {
-            base.Dispose();
-        }
     }
 }

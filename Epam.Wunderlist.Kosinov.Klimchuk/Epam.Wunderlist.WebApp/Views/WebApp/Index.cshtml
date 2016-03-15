@@ -45,7 +45,7 @@
 
             <form name="form">
                 <div class="col-md-3">
-                    <img width="200px" height="200px" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
+                    <img id="avatar-image" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
                 </div>
 
                 <div class="col-md-9">
@@ -84,7 +84,7 @@
 
                 <div id="user-toolbar" ng-controller="UserController" ng-mouseenter="toggleHiddenUser()" ng-mouseleave="toggleHiddenUser()">
                     <div class="col-md-10 col-sm-9 col-xs-9 pull-left">
-                        <img width="40px" height="40px" class="avatar" ng-src="{{'Files/'+(user.PhotoPath ? user.PhotoPath : 'default.png')}}" alt="icon">
+                        <img id="profile-image" class="avatar" ng-src="{{'Files/'+(user.PhotoPath ? user.PhotoPath : 'default.png')}}" alt="icon">
                         <span>{{user.Name}}</span>
                     </div>
 
