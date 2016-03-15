@@ -45,7 +45,7 @@
 
             <form name="form">
                 <div class="col-md-3">
-                    <img id="avatar-image" ngf-src="file ? file : (user.PhotoPath ? '/Files/' + user.PhotoPath : '/Files/default.png')" alt="myimage" />
+                    <img id="avatar-image" ngf-src="file ? file : (user.PhotoPath ? '/WebApp/Files/' + user.PhotoPath : '/WebApp/Files/default.png')" alt="myimage" />
                 </div>
 
                 <div class="col-md-9">
@@ -229,8 +229,6 @@
         });
         $('.update-note').find('textarea').keyup();
     </script>
-    @*@Scripts.Render("~/bundles/jquery")*@
-
-    @*<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>*@
+  
 </body>
 </html>

@@ -8,7 +8,7 @@ using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
-    [RoutePrefix("api")]
+    [RoutePrefix("webapp/api")]
     public class ItemApiController : ApiController
     {
 

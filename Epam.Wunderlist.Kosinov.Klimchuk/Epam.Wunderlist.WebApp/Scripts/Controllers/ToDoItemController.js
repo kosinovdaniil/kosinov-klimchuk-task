@@ -1,4 +1,4 @@
-﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$filter', 'isCompletedFilter', '$timeout', function ($scope, ItemsRest, descriptionService, currentListService, $filter, isCompletedFilter, $timeout) {
+﻿webApp.controller('ToDoItemController', ['$scope', 'ItemsRest', 'descriptionService', 'currentListService', '$timeout', function ($scope, ItemsRest, descriptionService, currentListService, $timeout) {
 
     $scope.animating = false;
 
