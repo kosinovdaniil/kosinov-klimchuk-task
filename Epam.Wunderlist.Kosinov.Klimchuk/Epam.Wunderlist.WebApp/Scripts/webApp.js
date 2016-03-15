@@ -62,7 +62,8 @@ webApp.service('descriptionService', function () {
             }
 
             this.setProperty(value);
-        }
+        },
+        tempDate: null
     };
 });
 

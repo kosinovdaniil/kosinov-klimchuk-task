@@ -78,6 +78,7 @@
 
     $scope.showDescription = function (todo) {
         if (!$scope.animating) {
+
             //here comes the fail
             if (descriptionService.isChanged()) {
                 $scope.$emit('itemChanged', descriptionService.getProperty());
@@ -85,8 +86,17 @@
             $scope.tempDate = todo.DateCompletion ? new Date(todo.DateCompletion) : null;
 
             descriptionService.showDescription(todo);
+            $scope.$broadcast('changeTempDate', todo);
         }
     };
+
+    $scope.forceUpdate = function (tempDate) {
+        var todo = descriptionService.getProperty();
+        todo.DateCompletion = tempDate;
+        $scope.$emit('itemChanged', todo);
+        $scope.$broadcast('changeTempDate', todo);
+
+    }
 
     $scope.$on('listClicked', function (event, data) {
         if (descriptionService.isOpen()) {
@@ -109,6 +119,11 @@
                 $('#list-' + list.Id).css('background', '#ccc');
             });
         }
+        else {
+            $scope.notCompletedItems = [];
+            $scope.completedItems = [];
+        }
+
     });
 
     $scope.$on('itemChanged', function (event, data) {

@@ -72,6 +72,9 @@
                     switchList(data[0]);
                 });
             }
+            if ($scope.toDoLists == false) { //sic!
+                switchList(null);
+            }
             $scope.listHidden = true;
         });
 
