@@ -231,6 +231,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\UserApiController.cs" />
@@ -318,6 +319,9 @@
     <Content Include="Scripts\Controllers\ToDoItemController.js" />
     <Content Include="Scripts\Controllers\ToDoListsController.js" />
     <Content Include="Scripts\Controllers\UserController.js" />
+    <Content Include="Scripts\Factories\ItemsRest.js" />
+    <Content Include="Scripts\Factories\ListsRest.js" />
+    <Content Include="Scripts\Factories\UsersRest.js" />
     <Content Include="Scripts\FileAPI.flash.swf" />
     <Content Include="Scripts\FileAPI.js" />
     <Content Include="Scripts\FileAPI.min.js" />
@@ -338,6 +342,8 @@
     <Content Include="Scripts\ng-file-upload.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\Services\currentListService.js" />
+    <Content Include="Scripts\Services\descriptionService.js" />
     <Content Include="Scripts\tether\tether.js" />
     <Content Include="Scripts\tether\tether.min.js" />
     <Content Include="Scripts\webApp.js" />
@@ -352,12 +358,13 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_ControlLayout.cshtml" />
     <Content Include="Views\Account\LogOn.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\WebApp\Index.cshtml" />
+    <None Include="Views\Error\Error404.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

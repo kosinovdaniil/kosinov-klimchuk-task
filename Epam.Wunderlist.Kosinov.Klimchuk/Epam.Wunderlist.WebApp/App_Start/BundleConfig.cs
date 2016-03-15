@@ -22,7 +22,9 @@ namespace Epam.Wunderlist.WebApp
 
             bundles.Add(new ScriptBundle("~/bundles/webApp").Include(
                         "~/Scripts/webApp.js",
-                        "~/Scripts/Controllers/*.js"));
+                        "~/Scripts/Controllers/*.js"                        ,
+                        "~/Scripts/Services/*.js"                        ,
+                        "~/Scripts/Factories/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.unobtrusive*",

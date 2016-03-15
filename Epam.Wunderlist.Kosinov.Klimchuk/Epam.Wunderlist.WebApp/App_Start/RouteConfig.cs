@@ -14,6 +14,10 @@ namespace Epam.Wunderlist.WebApp
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "WebApp", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute("NotFound", "{*url}", new { controller = "Error", action = "Error" });
+
+            
         }
     }
 }
