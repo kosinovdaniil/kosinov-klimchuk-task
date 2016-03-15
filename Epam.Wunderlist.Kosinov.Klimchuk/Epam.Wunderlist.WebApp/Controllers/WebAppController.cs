@@ -9,5 +9,10 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             return View();
         }
+
+        public ActionResult RedirectIndex()
+        {
+            return RedirectToAction("Index");
+        }
     }
 }

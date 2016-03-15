@@ -12,7 +12,7 @@ namespace Epam.Wunderlist.WebApp
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "WebApp", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "WebApp", action = "RedirectIndex", id = UrlParameter.Optional }
             );
 
             routes.MapRoute("NotFound", "{*url}", new { controller = "Error", action = "Error" });

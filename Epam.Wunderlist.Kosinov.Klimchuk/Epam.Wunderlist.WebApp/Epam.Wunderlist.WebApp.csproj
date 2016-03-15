@@ -368,7 +368,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Files\" />
+    <Folder Include="WebApp\Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

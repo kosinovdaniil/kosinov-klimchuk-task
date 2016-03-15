@@ -2,6 +2,7 @@
     $scope.user = jQuery.extend({}, user);
 
     $scope.ok = function () {
+        $scope.user.PhotoPath = $scope.user.PhotoPath + '?' + new Date().getTime();
         $uibModalInstance.close($scope.user);
     };
 
@@ -17,7 +18,7 @@
         }
         else {
             if (!$scope.form.file.$valid)
-                alert('Only JPEG/PNG/GIF/SVG image can be uploaded');           
+                alert('Only JPEG/PNG/GIF/SVG image can be uploaded');
         }
     };
 
