@@ -15,6 +15,12 @@ namespace Epam.Wunderlist.WebApp
                     .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
         }
 
+        public static bool UserIsAdmin(this ApiController controller)
+        {
+            return ((ClaimsIdentity)controller.User.Identity).Claims
+                .FirstOrDefault(x => x.Type == ClaimTypes.Role).Value.ToUpper() == "TRUE";
+        }
+
         public static HttpResponseBuilder CreateResponseBuilder(this ApiController controller)
         {
             return new HttpResponseBuilder(controller.User.Identity, controller.Request);

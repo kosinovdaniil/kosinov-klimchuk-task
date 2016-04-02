@@ -53,14 +53,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Concrete\ItemRepository.cs" />
     <Compile Include="Concrete\Repository.cs" />
-    <Compile Include="Concrete\ToDoListRepository.cs" />
+    <Compile Include="Concrete\OrderRepository.cs" />
     <Compile Include="Concrete\UnitOfWork.cs" />
-    <Compile Include="Concrete\ToDoItemRepository.cs" />
     <Compile Include="Concrete\UserRepository.cs" />
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="ModelsConfiguration\ToDoListConfiguration.cs" />
-    <Compile Include="ModelsConfiguration\ToDoItemConfiguration.cs" />
+    <Compile Include="ModelsConfiguration\OrderConfiguration.cs" />
+    <Compile Include="ModelsConfiguration\ItemConfiguration.cs" />
     <Compile Include="ModelsConfiguration\UserConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

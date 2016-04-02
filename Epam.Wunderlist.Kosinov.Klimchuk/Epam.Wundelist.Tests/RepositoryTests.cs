@@ -22,7 +22,7 @@ namespace Epam.Wundelist.Tests
             {
                 Id = 1,
                 Email = "mail1",
-                Lists = new List<ToDoList>(),
+                Lists = new List<Order>(),
                 Name = "name1",
                 Password = "password1",
                 PhotoPath = "photo1",
@@ -34,7 +34,7 @@ namespace Epam.Wundelist.Tests
                 {
                     Id = 1,
                     Email = "mail1",
-                    Lists = new List<ToDoList>(),
+                    Lists = new List<Order>(),
                     Name = "name1",
                     Password = "password1",
                     PhotoPath = "photo1",
@@ -43,7 +43,7 @@ namespace Epam.Wundelist.Tests
                 {
                     Id = 3,
                     Email = "mail3",
-                    Lists = new List<ToDoList>(),
+                    Lists = new List<Order>(),
                     Name = "name3",
                     Password = "password3",
                     PhotoPath = "photo3",
@@ -54,7 +54,7 @@ namespace Epam.Wundelist.Tests
             {
                 Id = 1,
                 Email = "mail2",
-                Lists = new List<ToDoList>(),
+                Lists = new List<Order>(),
                 Name = "name2",
                 Password = "password2",
                 PhotoPath = "photo2",
@@ -78,7 +78,7 @@ namespace Epam.Wundelist.Tests
         [TestMethod]
         public void ToDoItemRepository_Update_ShouldReturnUpdatedEntity()
         {
-            var list = new ToDoList();
+            var list = new Order();
             var itemToChange = new ToDoItem()
             {
                 Id = 1,
@@ -100,7 +100,7 @@ namespace Epam.Wundelist.Tests
                     DateCompletion = default(DateTime),
                     IsCompleted = false,
                     IsFavourited = false,
-                    List = new ToDoList(),
+                    List = new Order(),
                     Note = "note",
                     Text = "text"
                 },
@@ -111,7 +111,7 @@ namespace Epam.Wundelist.Tests
                     DateCompletion = default(DateTime),
                     IsCompleted = false,
                     IsFavourited = false,
-                    List = new ToDoList(),
+                    List = new Order(),
                     Note = "note",
                     Text = "text"
                 }
@@ -148,38 +148,38 @@ namespace Epam.Wundelist.Tests
         [TestMethod]
         public void ToDoListRepository_Update_ShouldReturnUpdatedEntity()
         {
-            var listToChange = new ToDoList()
+            var listToChange = new Order()
             {
                 Id = 1,
                 Name = "name"
             };
-            var dbData = new List<ToDoList>()
+            var dbData = new List<Order>()
             {
                 listToChange,
-                new ToDoList()
+                new Order()
                 {
                     Id = 2,
                     Name ="name"
                 },
-                new ToDoList()
+                new Order()
                 {
                     Id = 3,
                     Name ="name"
                 }
             }.AsQueryable();
 
-            var newList = new ToDoList()
+            var newList = new Order()
             {
                 Id = 1,
                 Name = "nameChanged"
             };
-            var dbSetMock = new Mock<DbSet<ToDoList>>();
-            dbSetMock.As<IQueryable<ToDoList>>().Setup(x => x.Provider).Returns(dbData.Provider);
-            dbSetMock.As<IQueryable<ToDoList>>().Setup(x => x.Expression).Returns(dbData.Expression);
-            dbSetMock.As<IQueryable<ToDoList>>().Setup(x => x.ElementType).Returns(dbData.ElementType);
-            dbSetMock.As<IQueryable<ToDoList>>().Setup(x => x.GetEnumerator()).Returns(dbData.GetEnumerator());
+            var dbSetMock = new Mock<DbSet<Order>>();
+            dbSetMock.As<IQueryable<Order>>().Setup(x => x.Provider).Returns(dbData.Provider);
+            dbSetMock.As<IQueryable<Order>>().Setup(x => x.Expression).Returns(dbData.Expression);
+            dbSetMock.As<IQueryable<Order>>().Setup(x => x.ElementType).Returns(dbData.ElementType);
+            dbSetMock.As<IQueryable<Order>>().Setup(x => x.GetEnumerator()).Returns(dbData.GetEnumerator());
             var dbContextMock = new Mock<ApplicationDbContext>();
-            dbContextMock.Setup(x => x.Set<ToDoList>()).Returns(dbSetMock.Object);
+            dbContextMock.Setup(x => x.Set<Order>()).Returns(dbSetMock.Object);
             var repo = new ToDoListRepository(dbContextMock.Object);
             var result = repo.Update(newList);
 

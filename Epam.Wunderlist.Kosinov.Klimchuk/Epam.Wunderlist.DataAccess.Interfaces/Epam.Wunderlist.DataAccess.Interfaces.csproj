@@ -49,8 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Repository\IRepository.cs" />
-    <Compile Include="Repository\IToDoItemRepository.cs" />
-    <Compile Include="Repository\IToDoListRepository.cs" />
+    <Compile Include="Repository\IOrderRepository.cs" />
     <Compile Include="Repository\IUnitOfWork.cs" />
     <Compile Include="Repository\IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

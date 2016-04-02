@@ -46,10 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\Amplifier.cs" />
+    <Compile Include="Categories\Microphone.cs" />
+    <Compile Include="Categories\Cymbal.cs" />
+    <Compile Include="Categories\Drum.cs" />
+    <Compile Include="Categories\Trumpet.cs" />
+    <Compile Include="Categories\Keys.cs" />
+    <Compile Include="Categories\Strings.cs" />
+    <Compile Include="Categories\BassGuitar.cs" />
+    <Compile Include="Categories\Guitar.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToDoItem.cs" />
-    <Compile Include="ToDoList.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Order.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -10,19 +10,8 @@ namespace Epam.Wunderlist.DomainModel
 
         public string Password { get; set; }
 
-        public string PhotoPath { get; set; }
+        public bool IsAdmin { get; set; }
 
-        public string Name { get; set; }
-         
-        public IEnumerable<int> ListsId
-        {
-            get
-            {
-                return Lists?.Select(x => x.Id);
-            }
-        }
-
-        [JsonIgnore]
-        public virtual IList<ToDoList> Lists { get; set; }
+        public virtual IList<Order> Orders { get; set; }
     }
 }

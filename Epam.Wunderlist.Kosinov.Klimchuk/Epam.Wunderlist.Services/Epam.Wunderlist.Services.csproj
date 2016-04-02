@@ -93,13 +93,11 @@
   <ItemGroup>
     <Compile Include="Concrete\Service.cs" />
     <Compile Include="Concrete\SignInService.cs" />
-    <Compile Include="Concrete\ToDoItemService.cs" />
-    <Compile Include="Concrete\ToDoListService.cs" />
+    <Compile Include="Concrete\OrderService.cs" />
     <Compile Include="Concrete\UserService.cs" />
     <Compile Include="Interfaces\ICrudService.cs" />
     <Compile Include="Interfaces\ISignInService.cs" />
-    <Compile Include="Interfaces\IToDoItemService.cs" />
-    <Compile Include="Interfaces\IToDoListService.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -20,7 +20,7 @@ namespace Epam.Wunderlist.Services.Services
             var claims = new List<Claim>();
 
             claims.Add(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
-            claims.Add(new Claim(ClaimTypes.Name, user.Name));
+            claims.Add(new Claim(ClaimTypes.Role, user.IsAdmin.ToString()));
             claims.Add(new Claim(ClaimTypes.Email, user.Email));
 
             var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);

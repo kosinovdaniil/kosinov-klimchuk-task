@@ -3,11 +3,10 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Epam.Wunderlist.DataAccess.MssqlProvider.ModelsConfiguration
 {
-    public class ToDoListConfiguration : EntityTypeConfiguration<ToDoList>
+    public class ItemConfiguration : EntityTypeConfiguration<Item>
     {
-        public ToDoListConfiguration()
+        public ItemConfiguration()
         {
-            HasMany(x => x.Items).WithRequired(x => x.List);
         }
     }
 }

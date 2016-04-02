@@ -235,7 +235,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemApiController.cs" />
     <Compile Include="Controllers\UserApiController.cs" />
-    <Compile Include="Controllers\WebAppController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -246,6 +245,16 @@
     <Compile Include="NLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Categories\AmplifierViewModel.cs" />
+    <Compile Include="ViewModels\Categories\BassGuitarViewModel.cs" />
+    <Compile Include="ViewModels\Categories\CymbalViewModel.cs" />
+    <Compile Include="ViewModels\Categories\DrumViewModel.cs" />
+    <Compile Include="ViewModels\Categories\GuitarViewModel.cs" />
+    <Compile Include="ViewModels\Categories\KeysViewModel.cs" />
+    <Compile Include="ViewModels\Categories\MicrophoneViewModel.cs" />
+    <Compile Include="ViewModels\Categories\StringsViewModel.cs" />
+    <Compile Include="ViewModels\Categories\TrumpetViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\UserLoginModel.cs" />
     <Compile Include="ViewModels\UserRegisterModel.cs" />
   </ItemGroup>

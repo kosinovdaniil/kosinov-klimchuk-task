@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Epam.Wunderlist.DataAccess.Interfaces.Repository
 {
-    public interface IToDoItemRepository : IRepository<ToDoItem>
+    public interface IOrderRepository : IRepository<Order>
     {
-        IEnumerable<ToDoItem> GetByList(int id);
+        IEnumerable<Order> GetByUser(int id);
     }
 }

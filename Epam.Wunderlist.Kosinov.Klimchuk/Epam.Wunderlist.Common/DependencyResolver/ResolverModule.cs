@@ -26,16 +26,15 @@ namespace Epam.Wunderlist.Common
 
 
             kernel.Bind<IUserRepository>().To<UserRepository>();
-            kernel.Bind<IToDoItemRepository>().To<ToDoItemRepository>();
-            kernel.Bind<IToDoListRepository>().To<ToDoListRepository>();
+            kernel.Bind<IOrderRepository>().To<OrderRepository>();
+            kernel.Bind<IRepository<Item>>().To<ItemRepository>();
 
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<ISignInService>().To<SignInService>();
-            kernel.Bind<IToDoItemService>().To<ToDoItemService>();
-            kernel.Bind<IToDoListService>().To<ToDoListService>();
+            kernel.Bind<IOrderService>().To<OrderService>();
 
-            kernel.Bind<ICrudService<ToDoItem>>().To<ToDoItemService>();
-            kernel.Bind<ICrudService<ToDoList>>().To<ToDoListService>();
+            kernel.Bind<ICrudService<Item>>().To<Service<Item>>();
+            kernel.Bind<ICrudService<Order>>().To<OrderService>();
             kernel.Bind<ICrudService<User>>().To<UserService>();
         }
     }

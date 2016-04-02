@@ -3,8 +3,8 @@ using System.Collections.Generic;
 
 namespace Epam.Wunderlist.Services.Interfaces
 {
-    public interface IToDoListService : ICrudService<ToDoList>
+    public interface IOrderService : ICrudService<Order>
     {
-        IEnumerable<ToDoList> GetByUser(int id);
+        IEnumerable<Order> GetByUser(int id);
     }
 }

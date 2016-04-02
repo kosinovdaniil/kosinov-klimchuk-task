@@ -5,105 +5,99 @@ using System.Net.Http;
 using System.Web.Http;
 using Epam.Wunderlist.Services.Interfaces;
 using Epam.Wunderlist.DomainModel;
+using Epam.Wunderlist.WebApp;
 
-namespace Epam.Wunderlist.WebApp.Controllers
+namespace Epam.Wunderorder.WebApp.Controllers
 {
     [RoutePrefix("webapp/api")]
     public class ItemApiController : ApiController
     {
 
-        private readonly IToDoListService _listService;
-        private readonly IToDoItemService _itemService;
+        private readonly IOrderService _orderService;
+        private readonly ICrudService<Item> _itemService;
 
-        public ItemApiController(IToDoListService listService, IToDoItemService itemService)
+        public ItemApiController(IOrderService orderService, ICrudService<Item> itemService)
         {
-            _listService = listService;
+            _orderService = orderService;
             _itemService = itemService;
         }
 
         #region Get
 
-        [Route("users/{id:int}/lists")]
-        public HttpResponseMessage GetLists(int id)
+        [Route("users/{id:int}/orders")]
+        public HttpResponseMessage GetOrders(int id)
         {
-            return CreateResponseBuilder().WithMethod(() => _listService.GetByUser(id))
+            return CreateResponseBuilder().WithMethod(() => _orderService.GetByUser(id))
                 .WithCondition(() => CurrentUserId == id);
         }
 
-        [Route("lists/{id:int}")]
-        public HttpResponseMessage GetList(int id)
+        [Route("orders/{id:int}")]
+        public HttpResponseMessage GetOrder(int id)
         {
-            var list = _listService.Get(id);
-            return CreateResponseBuilder().WithMethod(() => list)
-               .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
+            var order = _orderService.Get(id);
+            return CreateResponseBuilder().WithMethod(() => order)
+               .WithCondition(() => order.User.Id == CurrentUserId || UserIsAdmin);
         }
 
-        [Route("lists/{id:int}/items")]
-        public HttpResponseMessage GetItems(int id)
+        [Route("items")]
+        public HttpResponseMessage GetItems()
         {
-            var list = _listService.Get(id);
-            return CreateResponseBuilder().WithMethod(() => _itemService.GetByList(id))
-                  .WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId));
+            return CreateResponseBuilder().WithMethod(() => _itemService.GetAll());
+        }
+
+        [Route("category/")]
+        public HttpResponseMessage GetItemsByCategory(string category)
+        {
+            return CreateResponseBuilder().WithMethod(() => _itemService.GetByPredicate(x => x.Category == category));
         }
 
         [Route("items/{id:int}")]
         public HttpResponseMessage GetItem(int id)
         {
             var item = _itemService.Get(id);
-            return CreateResponseBuilder().WithMethod(() => item)
-                .WithCondition(() => item.UsersId.Contains(CurrentUserId));
+            return CreateResponseBuilder().WithMethod(() => item);
         }
 
         #endregion
 
         #region Post
-
-        [Route("lists/")]
-        public HttpResponseMessage PostList(ToDoList list)
+        [Authorize]
+        [Route("orders/")]
+        public HttpResponseMessage PostOrder(Order order)
         {
-            return CreateResponseBuilder().WithMethod(() => _listService.Create(list));
+            return CreateResponseBuilder().WithMethod(() => _orderService.Create(order));
         }
-        [Route("lists/{id:int}/items/")]
-        public HttpResponseMessage PostItem(int id, ToDoItem item)
-        {
-            item.List = _listService.Get(id);
-            return CreateResponseBuilder().WithMethod(() => _itemService.Create(item))
-                .WithCondition(() => _listService.Get(id).Users.Select(x => x.Id).Contains(CurrentUserId));
-        }
-
         #endregion
 
         #region Put
+        [Authorize]
         [Route("items/")]
         [HttpPut]
-        public HttpResponseMessage UpdateItem(ToDoItem item)
+        public HttpResponseMessage UpdateItem(Item item)
         {
-            //TODO or delete check users
-            var sourceItem = _itemService.Get(item.Id);
-            return CreateResponseBuilder().WithCondition(() => sourceItem.UsersId.Contains(CurrentUserId))
+            return CreateResponseBuilder()
                 .WithMethod(() => _itemService.Update(item));
         }
 
-        [Route("lists/")]
+        [Route("orders/")]
         [HttpPut]
-        public HttpResponseMessage UpdateList(ToDoList list)
+        public HttpResponseMessage UpdateOrder(Order order)
         {
-            var sourceList = _listService.Get(list.Id);
-            return CreateResponseBuilder().WithCondition(() => sourceList.Users.Select(x => x.Id).Contains(CurrentUserId))
-                .WithMethod(() => _listService.Update(list));
+            return CreateResponseBuilder().WithCondition(() => UserIsAdmin)
+                .WithMethod(() => _orderService.Update(order));
         }
 
         #endregion
 
         #region Delete
 
-        [Route("lists/{id:int}")]
+        [Route("orders/{id:int}")]
         [HttpDelete]
-        public HttpResponseMessage DeleteList(int id)
+        public HttpResponseMessage DeleteOrder(int id)
         {
-            var list = _listService.Get(id);
-            return CreateResponseBuilder().WithCondition(() => list.Users.Select(x => x.Id).Contains(CurrentUserId))
-                .WithMethod(() => _listService.Delete(list));
+            var order = _orderService.Get(id);
+            return CreateResponseBuilder().WithCondition(() => UserIsAdmin || order.User.Id == CurrentUserId)
+                .WithMethod(() => _orderService.Delete(order));
         }
 
         [Route("items/{id:int}")]
@@ -111,7 +105,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         public HttpResponseMessage DeleteItem(int id)
         {
             var item = _itemService.Get(id);
-            return CreateResponseBuilder().WithCondition(() => item.UsersId.Contains(CurrentUserId))
+            return CreateResponseBuilder().WithCondition(() => UserIsAdmin)
                 .WithMethod(() => _itemService.Delete(item));
         }
 
@@ -124,6 +118,14 @@ namespace Epam.Wunderlist.WebApp.Controllers
             get
             {
                 return ApiControllerExtensions.GetCurrentUserId(this);
+            }
+        }
+
+        private bool UserIsAdmin
+        {
+            get
+            {
+                return ApiControllerExtensions.UserIsAdmin(this);
             }
         }
 

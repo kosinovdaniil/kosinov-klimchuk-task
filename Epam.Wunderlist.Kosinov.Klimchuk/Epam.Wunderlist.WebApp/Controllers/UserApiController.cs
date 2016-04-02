@@ -5,7 +5,7 @@ using Epam.Wunderlist.DomainModel;
 
 namespace Epam.Wunderlist.WebApp.Controllers
 {
-    [RoutePrefix("webapp/api")]
+    [RoutePrefix("api")]
     public class UserApiController : ApiController
     {
         private readonly IUserService _userService;

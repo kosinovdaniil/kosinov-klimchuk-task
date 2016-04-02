@@ -43,7 +43,6 @@ namespace Epam.Wunderlist.WebApp.Controllers
             {
                 var user = new User()
                 {
-                    Name = model.Name,
                     Password = model.Password,
                     Email = model.Email
                 };
@@ -52,7 +51,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
                 if (user != null)
                 {
                     _signService.IdentitySignin(user);
-                    return RedirectToAction("Index", "WebApp");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Registration error!");
@@ -66,7 +65,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "WebApp", null);
+                return RedirectToAction("Index", "Home", null);
             }
             return View();
         }
@@ -80,7 +79,7 @@ namespace Epam.Wunderlist.WebApp.Controllers
                 if (user != null)
                 {
                     _signService.IdentitySignin(user);
-                    return RedirectToAction("Index", "WebApp");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                     ModelState.AddModelError("", "Wrong login or password!");
